@@ -41,9 +41,16 @@ export default {
       }
     }
   },
+
   methods: {
     reLogin() {
-      console.log(this.user)
+      this.$callApi({
+        method: 'post',
+        api: 'users/login',
+        param: { username: this.user.username, password: this.user.password }
+      }).then(data => {
+        console.log(data)
+      })
     },
 
     onGuestClick() {

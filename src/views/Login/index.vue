@@ -32,6 +32,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
+  margin-top: -36px;
   transform: translate(-50%, -50%);
   text-align: center;
 }

@@ -21,8 +21,6 @@ new Vue({
 }).$mount('#app')
 
 router.beforeResolve((to, from, next) => {
-  console.log('updateUser')
-
   store.dispatch('updateUser')
   next()
 })

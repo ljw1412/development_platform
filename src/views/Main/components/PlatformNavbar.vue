@@ -1,5 +1,6 @@
 <template>
-  <el-menu class="menu"
+  <el-menu router
+    class="menu"
     :collapse="isCollapsed">
     <div class="menu__collapse el-menu-item"
       @click="isCollapsed = !isCollapsed">
@@ -8,7 +9,8 @@
     </div>
     <el-menu-item v-for="item of menuList"
       :key="item.index"
-      :index="item.index">
+      :index="item.index"
+      :route="item.route">
       <i :class="item.icon"></i>
       <span slot="title">{{item.title}}</span>
     </el-menu-item>

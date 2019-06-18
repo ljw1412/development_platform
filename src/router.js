@@ -17,7 +17,15 @@ export default new Router({
     {
       path: '/main',
       name: 'main',
-      component: () => import(/* webpackChunkName: "main" */ './views/Main')
+      component: () => import(/* webpackChunkName: "main" */ './views/Main'),
+      children: [
+        {
+          path: 'setting',
+          name: 'setting',
+          component: () =>
+            import(/* webpackChunkName: "main" */ './views/Main/Setting')
+        }
+      ]
     }
   ]
 })

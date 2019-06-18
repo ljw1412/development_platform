@@ -42,7 +42,7 @@ const callApi = ({ method = 'get', api, param, config = {} } = {}) => {
     })
     .catch(error => {
       printError({ method, api, param, config, error })
-      return Promise.reject(error)
+      return Promise.reject(error.response.data || error.message)
     })
 }
 

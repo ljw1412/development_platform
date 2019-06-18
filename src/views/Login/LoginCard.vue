@@ -31,7 +31,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState({ token: state => state.user.token })
+  },
+
   data() {
     return {
       isLoggingIn: false,
@@ -47,10 +52,21 @@ export default {
       this.$callApi({
         method: 'post',
         api: 'users/login',
-        param: { username: this.user.username, password: this.user.password }
-      }).then(data => {
-        console.log(data)
+        param: {
+          username: this.user.username,
+          password: this.user.password
+        }
       })
+        .then(data => {
+          Store.set('user', data, new Date().getTime() + 7 * 24 * 60 * 1000)
+          this.$router.replace({ name: 'main' })
+        })
+        .catch(error => {
+          this.$notify.error({
+            title: '错误',
+            message: error
+          })
+        })
     },
 
     onGuestClick() {
@@ -68,6 +84,12 @@ export default {
         .validate()
         .then(this.reLogin)
         .catch(() => {})
+    }
+  },
+
+  created() {
+    if (this.token) {
+      this.$router.replace({ name: 'main' })
     }
   }
 }

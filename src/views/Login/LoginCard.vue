@@ -7,16 +7,20 @@
       <el-form-item prop="username"
         :rules="{ required: true, message: '登录名不能为空'}">
         <el-input v-model="user.username"
+          ref="username"
           type="text"
           size="large"
-          placeholder="请输入用户名或邮箱"></el-input>
+          placeholder="请输入用户名或邮箱"
+          @keydown.native.enter="$refs.password.focus()"></el-input>
       </el-form-item>
       <el-form-item prop="password"
         :rules="{ required: true, message: '登录密码不能为空'}">
         <el-input v-model="user.password"
+          ref="password"
           size="large"
           type="password"
-          placeholder="请输入登录密码"></el-input>
+          placeholder="请输入登录密码"
+          @keydown.native.enter="onLoginClick"></el-input>
       </el-form-item>
       <div v-loading="isLoggingIn"
         class="buttons-wrapper">
@@ -56,17 +60,10 @@ export default {
           username: this.user.username,
           password: this.user.password
         }
+      }).then(data => {
+        Store.set('user', data, new Date().getTime() + 7 * 24 * 60 * 1000)
+        this.$router.replace({ name: 'main' })
       })
-        .then(data => {
-          Store.set('user', data, new Date().getTime() + 7 * 24 * 60 * 1000)
-          this.$router.replace({ name: 'main' })
-        })
-        .catch(error => {
-          this.$notify.error({
-            title: '错误',
-            message: error
-          })
-        })
     },
 
     onGuestClick() {

@@ -1,7 +1,9 @@
-import vue from '../main'
+import Vue from 'vue'
 import axios from 'axios'
 import url from 'url'
 import qs from 'qs'
+import store from '@/store'
+const vue = new Vue()
 
 const methodList = ['get', 'post', 'put', 'patch', 'options', 'head', 'delete']
 
@@ -30,7 +32,20 @@ function disposeParam(method, param) {
   return param
 }
 
-const callApi = ({ method = 'get', api, param, config = {} } = {}) => {
+function addAuthToHeaders(config = {}) {
+  if (!config.headers) config.headers = {}
+  config.headers.authorization = store.state.user.token
+  return config
+}
+
+const callApi = ({
+  method = 'get',
+  api,
+  param,
+  config = {},
+  noNotify = false
+} = {}) => {
+  addAuthToHeaders(config)
   const $ = axios.create(config)
   if (!methodList.includes(method.toLowerCase())) {
     method = methodList[0]
@@ -42,7 +57,15 @@ const callApi = ({ method = 'get', api, param, config = {} } = {}) => {
     })
     .catch(error => {
       printError({ method, api, param, config, error })
-      return Promise.reject(error.response.data || error.message)
+      error =
+        (error.response.data && error.response.data.error) || error.message
+      if (!noNotify) {
+        vue.$notify.error({
+          title: '错误',
+          message: error
+        })
+      }
+      return Promise.reject(error)
     })
 }
 

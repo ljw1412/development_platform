@@ -1,6 +1,6 @@
 <template>
-  <div class="setting">
-    <router-view />
+  <div class="das">
+    菜单设置
   </div>
 </template>
 

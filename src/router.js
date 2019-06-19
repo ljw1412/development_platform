@@ -23,7 +23,25 @@ export default new Router({
           path: 'setting',
           name: 'setting',
           component: () =>
-            import(/* webpackChunkName: "main" */ './views/Main/Setting')
+            import(/* webpackChunkName: "main" */ './views/Main/Setting'),
+          children: [
+            {
+              path: 'menu',
+              name: 'menuEdit',
+              component: () =>
+                import(
+                  /* webpackChunkName: "main" */ './views/Main/Setting/MenuEdit'
+                )
+            },
+            {
+              path: 'user',
+              name: 'userEdit',
+              component: () =>
+                import(
+                  /* webpackChunkName: "main" */ './views/Main/Setting/UserEdit'
+                )
+            }
+          ]
         }
       ]
     }

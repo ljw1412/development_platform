@@ -21,7 +21,8 @@ new Vue({
 }).$mount('#app')
 
 router.beforeResolve((to, from, next) => {
-  store.dispatch('updateUser')
+  store.dispatch('user/syncUser')
+  store.dispatch('layout/syncLayout')
   next()
 })
 

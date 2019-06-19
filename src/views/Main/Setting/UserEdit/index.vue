@@ -1,6 +1,6 @@
 <template>
-  <div class="setting">
-    <router-view />
+  <div class="asd">
+    用户设置
   </div>
 </template>
 

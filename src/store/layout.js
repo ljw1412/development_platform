@@ -44,7 +44,7 @@ export default {
     syncLayout({ commit }, routeName) {
       const layout = Store.get('layout')
       if (layout) {
-        layout.title = getTitleFromStorage(routeName)
+        if (routeName) layout.title = getTitleFromStorage(routeName)
         commit('updateLayout', layout)
       }
     }

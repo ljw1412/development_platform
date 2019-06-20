@@ -20,19 +20,15 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-router.beforeResolve((to, from, next) => {
-  setTimeout(() => {
-    store.dispatch('user/syncUser')
-    let routeName = ''
-    try {
-      routeName = router.app.$route.name
-    } catch (error) {
-      console.error(error)
-    }
-    store.dispatch('layout/syncLayout', routeName)
-  }, 0)
-
-  next()
+router.afterEach((to, from) => {
+  let routeName = ''
+  try {
+    routeName = router.app.$route.name
+  } catch (error) {
+    console.error(error)
+  }
+  store.dispatch('layout/syncLayout', routeName)
+  store.dispatch('user/syncUser')
 })
 
 Store.addPlugin(expirePlugin)

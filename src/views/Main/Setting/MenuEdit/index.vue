@@ -5,7 +5,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'MenuEdit'
+}
 </script>
 
 <style lang="scss" scoped>

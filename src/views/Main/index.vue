@@ -16,6 +16,8 @@ import PlatformHeader from './components/PlatformHeader'
 import PlatformNavbar from './components/PlatformNavbar'
 import PageHeader from './components/PageHeader'
 export default {
+  name: 'Main',
+
   components: {
     PlatformHeader,
     PlatformNavbar,

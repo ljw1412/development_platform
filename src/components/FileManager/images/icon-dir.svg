@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="54px" viewBox="0 0 60 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-dir</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0.0050209205 0.0228494453 59.9653556 0.0228494453 59.9653556 53.9145927 0.0050209205 53.9145927"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="云盘-分区详情-分块展示" transform="translate(-51.000000, -247.000000)">
+            <g id="分组-3" transform="translate(50.000000, 247.000000)">
+                <g id="wenjianjia-(2)" transform="translate(1.000000, 0.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M3.02200837,0.0228494453 L23.4211715,0.0228494453 C30.8973222,0.0228494453 30.9760669,7.74929952 30.9760669,7.74929952 L0,7.74929952 L0,3.1133439 C0,1.40648177 1.35297071,0.0228494453 3.02200837,0.0228494453 Z" id="Fill-1" fill="#EAB511" mask="url(#mask-2)"></path>
+                    <path d="M0,5.73084628 L56.9671967,5.73084628 C58.6231799,5.73084628 59.9653556,7.16933439 59.9653556,8.94311886 L59.9653556,50.7023201 C59.9653556,52.4761046 58.6231799,53.9145927 56.9671967,53.9145927 L2.998159,53.9145927 C1.34251046,53.9145927 0,52.4764469 0,50.7023201 L0,5.73084628 Z" id="Fill-3" fill="#F9C831" mask="url(#mask-2)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

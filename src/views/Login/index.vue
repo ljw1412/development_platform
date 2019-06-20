@@ -11,6 +11,8 @@
 <script>
 import LoginCard from './LoginCard'
 export default {
+  name: 'Login',
+
   components: {
     LoginCard
   },

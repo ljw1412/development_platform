@@ -1,3 +1,22 @@
+// 遍历菜单查找当前路由名称的标题
+function findMenu(list, name) {
+  for (let i = 0; i < list.length; i++) {
+    const menu = list[i]
+    let title = menu.title
+    if (menu.route.name === name) return title
+    if (menu.children && menu.children.length) {
+      return title + ' / ' + findMenu(menu.children, name)
+    }
+  }
+  return ''
+}
+
+const getTitleFromStorage = routeName => {
+  const menu = Store.get('menu')
+  if (!menu) return ''
+  return findMenu(menu, routeName)
+}
+
 export default {
   namespaced: true,
   state: {
@@ -22,9 +41,12 @@ export default {
   },
   actions: {
     // 同步界面布局
-    syncLayout({ commit }) {
+    syncLayout({ commit }, routeName) {
       const layout = Store.get('layout')
-      if (layout) commit('updateLayout', layout)
+      if (layout) {
+        layout.title = getTitleFromStorage(routeName)
+        commit('updateLayout', layout)
+      }
     }
   }
 }

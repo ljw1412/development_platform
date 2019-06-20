@@ -62,10 +62,6 @@ export default {
 
     onMenuItemClick(item, parent) {
       this.$router.push(item.route)
-      let title = ''
-      if (parent) title += parent.title + ' / '
-      title += item.title
-      this.updatePageTitle(title)
     }
   },
 

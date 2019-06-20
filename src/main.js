@@ -21,8 +21,17 @@ new Vue({
 }).$mount('#app')
 
 router.beforeResolve((to, from, next) => {
-  store.dispatch('user/syncUser')
-  store.dispatch('layout/syncLayout')
+  setTimeout(() => {
+    store.dispatch('user/syncUser')
+    let routeName = ''
+    try {
+      routeName = router.app.$route.name
+    } catch (error) {
+      console.error(error)
+    }
+    store.dispatch('layout/syncLayout', routeName)
+  }, 0)
+
   next()
 })
 

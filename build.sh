@@ -17,3 +17,4 @@ echo "发现 $publishPath 文件夹"
 fi
 echo '开始发布'
 cp -r dist/* $publishPath
+echo '====== <研发管理平台>发布完成 ====='

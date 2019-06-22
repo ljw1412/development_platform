@@ -14,6 +14,8 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {
+  name: 'PageHeader',
+
   computed: {
     ...mapState('layout', ['isDisplayPageHeader', 'title']),
     isHome() {
@@ -33,6 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-header {
+  flex-shrink: 0;
   margin-bottom: 20px;
 }
 </style>

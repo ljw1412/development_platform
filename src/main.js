@@ -26,6 +26,10 @@ router.beforeResolve((to, from, next) => {
   next()
 })
 
+router.afterEach((to, from) => {
+  if (!store.state.user.token) router.replace({ name: 'login' })
+})
+
 Store.addPlugin(expirePlugin)
 window.Cookies = Cookies
 window.Store = Store

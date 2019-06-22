@@ -1,17 +1,21 @@
 <template>
-  <div class="file-manager">
+  <div class="file-manager"
+    :class="{'file-manager--select':this.isSelect}">
     <el-breadcrumb class="file-manager__breadcrumb"
       separator="/">
       <el-breadcrumb-item v-for="(item,index) of pathList"
         :key="index"
-        :data-last="index === pathList.length-1"
-        @click.native="onNavClick(item,$event)">{{item.name}}</el-breadcrumb-item>
+        class="file-manager__breadcrumb-item"
+        :class="{'isLast':index === pathList.length-1}"
+        @click.native="onNavClick(item)">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-scrollbar class="file-manager__scrollbar">
       <ul class="file-manager__file-list">
         <li v-for="(item,index) of fileList"
           :key="index"
-          @click="onFileClick(item)">
+          :class="{'isSelected': item.isSelected}"
+          @click="onFileClick(item)"
+          @dblclick="onFileDblclick(item)">
           <el-image fit="contain"
             class="file-icon"
             :src="getFileIcon(item)"></el-image>
@@ -25,7 +29,8 @@
 <script>
 export default {
   props: {
-    path: { type: String, default: '/' }
+    path: { type: String, default: '/' },
+    isSelect: Boolean
   },
 
   computed: {
@@ -44,6 +49,7 @@ export default {
   data() {
     return {
       mPath: '/',
+      selectedPath: '',
       fileList: []
     }
   },
@@ -62,16 +68,36 @@ export default {
           path: this.mPath
         }
       }).then(data => {
+        data.forEach(item => {
+          item.isSelected = false
+        })
         this.fileList = data
       })
     },
 
-    onNavClick(item, event) {
+    onNavClick(item) {
       this.mPath = item.path
     },
 
     onFileClick(item) {
+      if (this.isSelect) {
+        this.fileList.forEach(item => {
+          item.isSelected = false
+        })
+        this.$set(item, 'isSelected', true)
+        this.selectedPath = this.mPath + item.name
+        return
+      }
+
       if (item.type === 'dir') {
+        this.mPath += this.mPath.endsWith('/') ? item.name : '/' + item.name
+      }
+    },
+
+    onFileDblclick(item) {
+      if (!this.isSelect) return
+      if (item.type === 'dir') {
+        this.selectedPath = ''
         this.mPath += this.mPath.endsWith('/') ? item.name : '/' + item.name
       }
     }
@@ -92,13 +118,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/element-variables.scss';
 .file-manager {
   display: flex;
   height: 100%;
   flex-direction: column;
-  /deep/ .el-breadcrumb__inner {
-    cursor: pointer;
+  &--select {
+    user-select: none;
   }
+  &__breadcrumb-item:not(.isLast) {
+    /deep/ .el-breadcrumb__inner {
+      cursor: pointer;
+      &:hover {
+        color: $--color-primary;
+      }
+    }
+  }
+
   &__breadcrumb {
     flex-shrink: 0;
     margin: 10px 0;
@@ -110,14 +146,29 @@ export default {
   &__file-list {
     margin-bottom: 10px;
     li {
+      position: relative;
       display: flex;
       align-items: center;
+      height: 40px;
       cursor: pointer;
+      &.isSelected {
+        background-color: rgba($color: $--color-primary, $alpha: 0.3);
+      }
+      &:not(.isSelected):hover {
+        background-color: rgba($color: $--color-primary, $alpha: 0.1);
+      }
       .file-icon {
         user-select: none;
         width: 20px;
         height: 20px;
-        margin-right: 5px;
+        margin: 0 5px;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
       }
     }
   }

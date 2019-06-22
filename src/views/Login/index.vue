@@ -2,7 +2,7 @@
   <div id="login">
     <div class="auth-wrapper">
       <img class="logo"
-        src="../../assets/logo.svg" />
+        src="@/assets/logo.svg" />
       <login-card></login-card>
     </div>
   </div>

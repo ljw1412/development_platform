@@ -5,7 +5,7 @@
       <platform-navbar></platform-navbar>
       <main>
         <page-header></page-header>
-        <router-view></router-view>
+        <router-view style="flex-grow:1;height: 0;"></router-view>
       </main>
     </section>
   </div>
@@ -47,6 +47,8 @@ export default {
   }
   main {
     padding: 20px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>

@@ -39,6 +39,8 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {
+  name: 'PlatformNavbar',
+
   computed: {
     ...mapState({ isCollapsed: state => state.layout.isMenuCollapsed })
   },

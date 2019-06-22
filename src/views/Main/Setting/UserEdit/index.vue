@@ -1,5 +1,5 @@
 <template>
-  <div class="asd">
+  <div class="user-edit">
     用户设置
     <file-manager></file-manager>
   </div>

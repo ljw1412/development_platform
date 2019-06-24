@@ -3,9 +3,12 @@ function findMenu(list, name) {
   for (let i = 0; i < list.length; i++) {
     const menu = list[i]
     let title = menu.title
+    console.log(title)
+
     if (menu.route.name === name) return title
     if (menu.children && menu.children.length) {
-      return title + ' / ' + findMenu(menu.children, name)
+      let subTitle = findMenu(menu.children, name)
+      if (subTitle) return title + ' / ' + subTitle
     }
   }
   return ''

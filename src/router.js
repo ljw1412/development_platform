@@ -42,6 +42,12 @@ export default new Router({
                 )
             }
           ]
+        },
+        {
+          path: 'file',
+          name: 'fileBrowser',
+          component: () =>
+            import(/* webpackChunkName: "main" */ './views/Main/FileBrowser')
         }
       ]
     }

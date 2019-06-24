@@ -43,5 +43,6 @@ export default {
   user-select: none;
   margin: 10px auto;
   width: 300px;
+  height: 46px;
 }
 </style>

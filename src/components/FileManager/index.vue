@@ -6,10 +6,12 @@
       <el-breadcrumb-item v-for="(item,index) of pathList"
         :key="index"
         class="file-manager__breadcrumb-item"
-        :class="{'isLast':index === pathList.length-1}"
+        :class="{'isLast':(index === pathList.length - 1)}"
         @click.native="onNavClick(item)">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-scrollbar class="file-manager__scrollbar">
+    <!-- <el-scrollbar :wrapStyle="[{'padding-bottom':'15px'}]"
+      class="file-manager__scrollbar"> -->
+    <scroll-view :innerStyle="{width:'100%'}">
       <ul class="file-manager__file-list">
         <li v-for="(item,index) of fileList"
           :key="index"
@@ -22,7 +24,8 @@
           <span>{{item.name}}</span>
         </li>
       </ul>
-    </el-scrollbar>
+    </scroll-view>
+    <!-- </el-scrollbar> -->
   </div>
 </template>
 
@@ -137,7 +140,7 @@ export default {
 
   &__breadcrumb {
     flex-shrink: 0;
-    margin: 10px 0;
+    padding: 10px 0;
   }
   &__scrollbar {
     flex-grow: 1;

@@ -8,7 +8,7 @@
         <i class="el-icon-arrow-down el-icon--right"></i>
       </div>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon="el-icon-user"
+        <el-dropdown-item icon="el-icon-user-solid"
           command="userinfo">个人中心</el-dropdown-item>
         <el-dropdown-item divided
           icon="el-icon-error"

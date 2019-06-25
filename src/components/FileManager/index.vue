@@ -9,9 +9,8 @@
         :class="{'isLast':(index === pathList.length - 1)}"
         @click.native="onNavClick(item)">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <!-- <el-scrollbar :wrapStyle="[{'padding-bottom':'15px'}]"
-      class="file-manager__scrollbar"> -->
-    <scroll-view :innerStyle="{width:'100%'}">
+
+    <scrollbar>
       <ul class="file-manager__file-list">
         <li v-for="(item,index) of fileList"
           :key="index"
@@ -24,8 +23,7 @@
           <span>{{item.name}}</span>
         </li>
       </ul>
-    </scroll-view>
-    <!-- </el-scrollbar> -->
+    </scrollbar>
   </div>
 </template>
 

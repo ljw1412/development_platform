@@ -2,11 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import VScrollView from './components/VScrollView'
+import VScrollbar from './components/VScrollbar'
 import ElementUI from 'element-ui'
 import '@/theme/element-variables.scss'
 import callApi from './utils/api'
-import Jquery from 'jquery'
 import Cookies from 'js-cookie'
 import Store from 'store'
 import expirePlugin from 'store/plugins/expire'
@@ -16,7 +15,7 @@ Vue.prototype.$callApi = callApi
 
 Vue.use(ElementUI)
 
-Vue.component('ScrollView', VScrollView)
+Vue.component('Scrollbar', VScrollbar)
 
 new Vue({
   router,
@@ -37,4 +36,3 @@ router.afterEach((to, from) => {
 Store.addPlugin(expirePlugin)
 window.Cookies = Cookies
 window.Store = Store
-window.$ = Jquery

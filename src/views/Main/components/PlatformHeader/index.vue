@@ -34,8 +34,8 @@ header {
   .header-left {
     margin-left: 10px;
     &__logo {
-      width: 200px;
-      height: 36px;
+      width: 140px;
+      height: 24px;
       background-size: 100%;
       background-repeat: no-repeat;
       background-position: center;

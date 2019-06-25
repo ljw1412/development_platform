@@ -7,22 +7,31 @@
       :style="viewStyles">
       <slot></slot>
     </div>
-    <div ref="barY"
-      class="scrollbar scrollbar--vertical">
+    <div v-if="isThumbShow.y"
+      ref="barY"
+      class="scrollbar scrollbar--vertical"
+      :class="{'scrollbar--drag':thumb.direction==='y'}"
+      :style="{right}">
       <div ref="thumbY"
         class="scrollbar__thumb"
-        :style="{right}"></div>
+        :style="thumbYStyles"
+        @mousedown.stop="handleThumbDragStart($event,'y')"></div>
     </div>
-    <div ref="barX"
-      class="scrollbar scrollbar--horizontal">
+    <div v-if="isThumbShow.x"
+      ref="barX"
+      class="scrollbar scrollbar--horizontal"
+      :class="{'scrollbar--drag':thumb.direction==='x'}"
+      :style="{bottom}">
       <div ref="thumbX"
         class="scrollbar__thumb"
-        :style="{bottom}"></div>
+        :style="thumbXStyles"
+        @mousedown.stop="handleThumbDragStart($event,'x')"></div>
     </div>
   </div>
 </template>
 
 <script>
+import { on, off } from '@/utils/dom'
 import {
   addResizeListener,
   removeResizeListener
@@ -57,20 +66,60 @@ export default {
     },
 
     scrollableArea() {
-      return {
+      const area = {
         x: this.wrapper.width - this.content.width,
         y: this.wrapper.height - this.content.height
+      }
+      Object.keys(area).forEach(key => {
+        if (area[key] > 0) area[key] = 0
+      })
+      return area
+    },
+
+    isThumbShow() {
+      return {
+        x: this.scrollableArea.x < 0,
+        y: this.scrollableArea.y < 0
+      }
+    },
+
+    //垂直(Y轴)外:内 比例
+    yScale() {
+      if (!this.content.height) return 0
+      return this.wrapper.height / this.content.height
+    },
+
+    // 水平(X轴)外:内 比例
+    xScale() {
+      if (!this.content.width) return 0
+      return this.wrapper.width / this.content.width
+    },
+
+    thumbYStyles() {
+      return {
+        height: this.yScale * 100 + '%',
+        transform: `translateY(${-this.y * this.yScale}px)`
+      }
+    },
+
+    thumbXStyles() {
+      return {
+        width: this.xScale * 100 + '%',
+        transform: `translateX(${-this.x * this.xScale}px)`
       }
     }
   },
 
   data() {
     return {
+      // 内容层位移量
       y: 0,
       x: 0,
-
+      // 外层宽高
       wrapper: { width: 0, height: 0 },
-      content: { width: 0, height: 0 }
+      content: { width: 0, height: 0 },
+      // 滚动条
+      thumb: { direction: '', x: 0, y: 0 }
     }
   },
 
@@ -80,10 +129,8 @@ export default {
       this.content.height = this.$refs.content.scrollHeight
       this.wrapper.width = this.$refs.wrapper.clientWidth
       this.wrapper.height = this.$refs.wrapper.clientHeight
-      this.$nextTick(() => {
-        if (this.x < this.scrollableArea.x) this.x = this.scrollableArea.x
-        if (this.y < this.scrollableArea.y) this.y = this.scrollableArea.y
-      })
+      this.scroll('x', 0)
+      this.scroll('y', 0)
     },
 
     /**
@@ -101,6 +148,38 @@ export default {
       } else {
         this[direction] = temp
       }
+    },
+
+    // 滚动条按下时
+    handleThumbDragStart(e, thumb) {
+      this.thumb.direction = thumb
+      this.thumb.y = e.clientY
+      this.thumb.x = e.clientX
+
+      on(window, 'mousemove', this.handleThumbDrag)
+      on(window, 'mouseup', this.handleThumbDragEnd)
+      document.onselectstart = () => false
+    },
+
+    // 滚动条移动时
+    handleThumbDrag(e) {
+      if (this.thumb.direction === 'y') {
+        const deltaY = (e.clientY - this.thumb.y) / this.yScale
+        this.scroll('y', deltaY)
+        this.thumb.y = e.clientY
+      } else {
+        const deltaX = (e.clientX - this.thumb.x) / this.xScale
+        this.scroll('x', deltaX)
+        this.thumb.x = e.clientX
+      }
+    },
+
+    // 滚动条移动结束
+    handleThumbDragEnd(e) {
+      off(window, 'mousemove', this.handleThumbDrag)
+      off(window, 'mouseup', this.handleThumbDragEnd)
+      document.onselectstart = null
+      this.thumb.direction = ''
     },
 
     // 鼠标滚轮事件
@@ -123,6 +202,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  user-select: none;
+}
 .scrollbar-view-wrapper {
   position: relative;
   height: 100%;
@@ -137,17 +219,17 @@ export default {
 
 .scrollbar {
   position: absolute;
-  right: 2px;
-  bottom: 2px;
+  right: 0px;
+  bottom: 0px;
   z-index: 99999;
   border-radius: 4px;
   opacity: 0;
   transition: opacity 0.5s ease-out;
-  background-color: rgba($color: #ccc, $alpha: 0.4);
+  background-color: rgba($color: #ccc, $alpha: 0.3);
   &--horizontal {
     height: 6px;
     left: 2px;
-    .scroll-bar__thumb {
+    .scrollbar__thumb {
       height: 100%;
     }
   }
@@ -155,7 +237,7 @@ export default {
   &--vertical {
     width: 6px;
     top: 2px;
-    .scroll-bar__thumb {
+    .scrollbar__thumb {
       width: 100%;
     }
   }
@@ -167,8 +249,12 @@ export default {
     height: 0;
     cursor: pointer;
     border-radius: inherit;
-    background-color: hsla(223, 3%, 50%, 0.3);
+    background-color: hsla(223, 3%, 50%, 0.4);
     transition: background-color 0.3s;
+  }
+
+  &--drag {
+    opacity: 1;
   }
 }
 </style>

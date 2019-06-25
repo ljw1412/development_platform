@@ -11,7 +11,7 @@ publishPath="/home/www/platform"
 
 if [ ! -d $publishPath ];then
 echo "$publishPath 文件夹不存在，开始创建"
-mkdir $publishPath
+mkdir -p $publishPath
 else
 echo "发现 $publishPath 文件夹"
 fi

@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/theme/element-variables.scss';
+@import '@/theme/index.scss';
 .file-manager {
   display: flex;
   height: 100%;

@@ -3,8 +3,6 @@ function findMenu(list, name) {
   for (let i = 0; i < list.length; i++) {
     const menu = list[i]
     let title = menu.title
-    console.log(title)
-
     if (menu.route.name === name) return title
     if (menu.children && menu.children.length) {
       let subTitle = findMenu(menu.children, name)
@@ -20,36 +18,45 @@ const getTitleFromStorage = routeName => {
   return findMenu(menu, routeName)
 }
 
-export default {
-  namespaced: true,
-  state: {
+const defaultState = () => {
+  return {
     isMenuCollapsed: true,
     isDisplayPageHeader: true,
     title: ''
-  },
+  }
+}
+
+export default {
+  namespaced: true,
+  state: defaultState(),
   getters: {},
   mutations: {
-    updatePageTitle(state, title) {
-      state.title = title
-      Store.set('layout', state)
+    clearLayout(state) {
+      Object.assign(state, defaultState())
     },
     updateLayout(state, layout) {
       Object.assign(state, layout)
-    },
-    // 更新菜单栏折叠状态
-    updateMenuCollapsed(state, isCollapsed) {
-      state.isMenuCollapsed = isCollapsed
       Store.set('layout', state)
     }
   },
   actions: {
     // 同步界面布局
     syncLayout({ commit }, routeName) {
-      const layout = Store.get('layout')
+      let layout = Store.get('layout')
       if (layout) {
         if (routeName) layout.title = getTitleFromStorage(routeName)
         commit('updateLayout', layout)
+      } else {
+        commit('clearLayout')
       }
+    },
+    // 更新界面标题
+    updateTitle({ commit }, routeName) {
+      commit('updateLayout', { title: getTitleFromStorage(routeName) })
+    },
+    // 更新菜单栏折叠状态
+    updateMenuCollapsed({ commit }, isCollapsed) {
+      commit('updateLayout', { isMenuCollapsed: isCollapsed })
     }
   }
 }

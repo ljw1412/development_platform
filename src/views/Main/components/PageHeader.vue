@@ -24,10 +24,8 @@ export default {
   },
 
   methods: {
-    ...mapMutations('layout', ['updatePageTitle']),
     onBack() {
       this.$router.replace({ name: 'main' })
-      this.updatePageTitle('首页')
     }
   }
 }

@@ -11,6 +11,7 @@
           type="text"
           size="large"
           placeholder="请输入用户名或邮箱"
+          prefix-icon="el-icon-user"
           @keydown.native.enter="$refs.password.focus()"></el-input>
       </el-form-item>
       <el-form-item prop="password"
@@ -19,6 +20,7 @@
           ref="password"
           size="large"
           type="password"
+          prefix-icon="el-icon-key"
           placeholder="请输入登录密码"
           @keydown.native.enter="onLoginClick"></el-input>
       </el-form-item>
@@ -35,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapState({ token: state => state.user.token })
@@ -52,6 +54,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('layout', ['updateLayout']),
     reLogin() {
       this.$callApi({
         method: 'post',

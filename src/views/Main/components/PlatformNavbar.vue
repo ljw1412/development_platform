@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'PlatformNavbar',
 
@@ -53,12 +53,13 @@ export default {
   },
 
   methods: {
-    ...mapMutations('layout', ['updateMenuCollapsed', 'updatePageTitle']),
+    ...mapActions('layout', ['updateMenuCollapsed', 'updateTitle']),
 
     reFindMenuList() {
       this.$callApi({ api: 'api/list_all_menu' }).then(data => {
         this.menuList = data
         Store.set('menu', data)
+        this.updateTitle(this.$route.name)
       })
     },
 

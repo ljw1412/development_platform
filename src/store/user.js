@@ -1,11 +1,16 @@
-export default {
-  namespaced: true,
-  state: {
+// 默认 State
+const defaultState = () => {
+  return {
     id: '',
     username: '',
     nickname: '',
     token: ''
-  },
+  }
+}
+
+export default {
+  namespaced: true,
+  state: defaultState(),
   getters: {},
   mutations: {
     // 更新用户信息
@@ -15,9 +20,7 @@ export default {
 
     //清除用户信息
     clearUser(state) {
-      Object.keys(state).forEach(key => {
-        state[key] = ''
-      })
+      Object.assign(state, defaultState())
     }
   },
   actions: {

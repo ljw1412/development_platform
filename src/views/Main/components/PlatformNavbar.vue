@@ -6,14 +6,14 @@
     :collapse="isCollapsed">
     <template v-for="item of menuList">
       <el-submenu v-if="item.children && item.children.length"
-        :key="item._id"
-        :index="item._id">
+        :key="item.id"
+        :index="item.id">
         <template slot="title">
           <i :class="item.icon"></i>
           <span>{{item.title}}</span>
         </template>
         <el-menu-item v-for="el of item.children"
-          :key="el._id"
+          :key="el.id"
           :index="el.route.name"
           @click="onMenuItemClick(el,item)">
           <i :class="el.icon"></i>
@@ -21,7 +21,7 @@
         </el-menu-item>
       </el-submenu>
       <el-menu-item v-else
-        :key="item._id"
+        :key="item.id"
         :index="item.route.name"
         @click="onMenuItemClick(item)">
         <i :class="item.icon"></i>

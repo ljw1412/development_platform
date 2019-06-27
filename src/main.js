@@ -13,7 +13,7 @@ import expirePlugin from 'store/plugins/expire'
 Vue.config.productionTip = false
 Vue.prototype.$callApi = callApi
 
-Vue.use(ElementUI)
+Vue.use(ElementUI, { size: 'small' })
 
 Vue.component('Scrollbar', VScrollbar)
 

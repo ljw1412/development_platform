@@ -50,9 +50,13 @@ export default {
         commit('clearLayout')
       }
     },
-    // 更新界面标题
-    updateTitle({ commit }, routeName) {
+    // 根据路由同步界面标题
+    syncTitle({ commit }, routeName) {
       commit('updateLayout', { title: getTitleFromStorage(routeName) })
+    },
+    // 修改标题
+    updateTitle({ commit }, title) {
+      commit('updateLayout', { title })
     },
     // 更新菜单栏折叠状态
     updateMenuCollapsed({ commit }, isCollapsed) {

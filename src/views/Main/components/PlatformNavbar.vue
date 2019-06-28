@@ -53,13 +53,13 @@ export default {
   },
 
   methods: {
-    ...mapActions('layout', ['updateMenuCollapsed', 'updateTitle']),
+    ...mapActions('layout', ['updateMenuCollapsed', 'syncTitle']),
 
     reFindMenuList() {
       this.$callApi({ api: 'api/list_all_menu' }).then(data => {
         this.menuList = data
         Store.set('menu', data)
-        this.updateTitle(this.$route.name)
+        this.syncTitle(this.$route.name)
       })
     },
 

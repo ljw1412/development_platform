@@ -27,9 +27,11 @@
       <div v-loading="isLoggingIn"
         class="buttons-wrapper">
         <el-button class="btn-login"
+          size="large"
           @click="onGuestClick">游客登录</el-button>
         <el-button class="btn-login"
           type="primary"
+          size="large"
           @click="onLoginClick">用户登录</el-button>
       </div>
     </el-form>
@@ -74,6 +76,12 @@ export default {
       this.$refs.form.clearValidate()
       this.user.username = 'Welcome To Chaos World'
       this.user.password = '全てはシュタインズゲートの选択だ'
+      Store.set('user', {
+        id: '0',
+        username: '游客',
+        nickname: '',
+        token: 'guest'
+      })
       setTimeout(() => {
         this.$router.replace({ name: 'main' })
       }, 1000)

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-dropdown :show-timeout="100"
+    <el-dropdown size="medium"
+      :show-timeout="100"
       @command="onCommand">
       <div class="profile-info">
         <div class="profile-info__avatar"></div>
@@ -9,7 +10,7 @@
       </div>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item icon="el-icon-user-solid"
-          command="userinfo">个人中心</el-dropdown-item>
+          command="personal">个人中心</el-dropdown-item>
         <el-dropdown-item divided
           icon="el-icon-error"
           command="logout">退出</el-dropdown-item>
@@ -34,6 +35,9 @@ export default {
   methods: {
     onCommand(command) {
       switch (command) {
+        case 'personal':
+          this.$router.push({ name: 'personal' })
+          break
         case 'logout':
           Store.clearAll()
           this.$router.replace({ name: 'login' })

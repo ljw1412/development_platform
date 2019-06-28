@@ -167,9 +167,6 @@ export default {
 
 <style lang="scss" scoped>
 .form-user {
-  /deep/ .el-form-item__label {
-    // text-align-last: justify;
-  }
   padding: 0 10px;
 }
 </style>

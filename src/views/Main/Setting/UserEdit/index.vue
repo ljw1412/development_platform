@@ -15,8 +15,10 @@
     <el-table :data="userList">
       <el-table-column label="用户名"
         prop="username"></el-table-column>
-      <el-table-column label="身份"
-        prop="roleName"></el-table-column>
+      <el-table-column label="身份">
+        <el-tag slot-scope="scope"
+          :type="scope.row.isSuperAdmin?'success':''">{{scope.row.roleName}}</el-tag>
+      </el-table-column>
       <el-table-column label="昵称"
         prop="nickname"></el-table-column>
       <el-table-column label="邮箱"

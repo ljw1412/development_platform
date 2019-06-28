@@ -3,7 +3,7 @@
     <div class="action">
       <el-input class="action__search"
         v-model="keyword"
-        placeholder="请输入筛选的关键词">
+        placeholder="请输入关键词(支持正则)">
         <i slot="suffix"
           class="el-icon-search el-input__icon"
           @click="onSearchClick"></i>
@@ -12,12 +12,11 @@
         type="primary"
         @click="onAddUserClick">新增</el-button>
     </div>
-    <el-table border
-      :data="userList">
+    <el-table :data="userList">
       <el-table-column label="用户名"
         prop="username"></el-table-column>
       <el-table-column label="身份"
-        prop="role"></el-table-column>
+        prop="roleName"></el-table-column>
       <el-table-column label="昵称"
         prop="nickname"></el-table-column>
       <el-table-column label="邮箱"
@@ -26,10 +25,25 @@
         prop="createDateTime"></el-table-column>
       <el-table-column label="最后登录时间"
         prop="lastLoginDateTime"></el-table-column>
+      <el-table-column label="操作"
+        width="100">
+        <div v-if="!scope.row.isSuperAdmin"
+          slot-scope="scope">
+          <el-button circle
+            icon="el-icon-edit"
+            @click="onEditClick(scope.row)"></el-button>
+          <el-button circle
+            type="danger"
+            icon="el-icon-delete"
+            @click="onDeleteClick(scope.row)"></el-button>
+        </div>
+      </el-table-column>
     </el-table>
-    <user-edit-dialog v-model="isDisplayUserEditDialog"
-      :title="userEditDialogTitle"
-      ref="userEditDialog"></user-edit-dialog>
+    <user-edit-dialog ref="userEditDialog"
+      v-model="isDisplayUserEditDialog"
+      :isAdd="isAddUser"
+      :roleList="roleList"
+      @change="onUserChange"></user-edit-dialog>
   </div>
 </template>
 
@@ -42,16 +56,11 @@ export default {
     UserEditDialog
   },
 
-  computed: {
-    userEditDialogTitle() {
-      return (this.isAddUser ? '添加' : '修改') + '用户'
-    }
-  },
-
   data() {
     return {
       keyword: '',
       userList: [],
+      roleList: [],
       page: { size: 20, index: 1, count: 0 },
       isDisplayUserEditDialog: false,
       isAddUser: false
@@ -59,14 +68,27 @@ export default {
   },
 
   methods: {
+    reFindRoleList() {
+      this.$callApi({
+        api: 'roles/list'
+      }).then(data => {
+        this.roleList = data
+      })
+    },
+
     reFindUserList() {
       this.$callApi({
-        method: 'get',
         api: 'users/list',
         param: { ...this.page, keyword: this.keyword }
       }).then(data => {
         this.userList = data
       })
+    },
+
+    reDelUser(id) {
+      this.$callApi({ method: 'delete', api: `users/${id}` }).then(
+        this.reFindUserList
+      )
     },
 
     onSearchClick() {
@@ -77,11 +99,32 @@ export default {
       this.$refs.userEditDialog.clearUser()
       this.isAddUser = true
       this.isDisplayUserEditDialog = true
+    },
+
+    onUserChange() {
+      this.reFindUserList()
+    },
+
+    onEditClick(user) {
+      this.isAddUser = false
+      this.$refs.userEditDialog.initUser(user)
+      this.isDisplayUserEditDialog = true
+    },
+
+    onDeleteClick(user) {
+      this.$confirm(`确认删除用户"${user.username}"吗？`, '提示', {
+        type: 'warning'
+      })
+        .then(() => {
+          this.reDelUser(user.id)
+        })
+        .catch(() => {})
     }
   },
 
   mounted() {
     this.reFindUserList()
+    this.reFindRoleList()
   }
 }
 </script>

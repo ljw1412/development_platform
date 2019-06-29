@@ -22,9 +22,8 @@ export default new Router({
         {
           path: 'personal',
           name: 'personal',
-          component: import(
-            /* webpackChunkName: "main" */ './views/Main/Personal'
-          )
+          component: () =>
+            import(/* webpackChunkName: "main" */ './views/Main/Personal')
         },
         {
           path: 'setting',

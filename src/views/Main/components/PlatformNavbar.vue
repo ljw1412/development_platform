@@ -59,7 +59,7 @@ export default {
       this.$callApi({ api: 'api/list_all_menu' }).then(data => {
         this.menuList = data
         Store.set('menu', data)
-        this.syncTitle(this.$route.name)
+        if (this.$route.name === 'main') this.syncTitle(this.$route.name)
       })
     },
 

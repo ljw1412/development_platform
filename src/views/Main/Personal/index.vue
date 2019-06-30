@@ -1,37 +1,22 @@
 <template>
   <scrollbar class="personal">
-    <title-card title="账号信息">
-      <div class="personal__info">
-        <span class="personal__info-item"
-          v-for="item of baseInfo"
-          :key="item.prop">{{item.label}}{{user[item.prop]}}</span>
-      </div>
-    </title-card>
+    <id-card :user="user"></id-card>
     <title-card title="头像修改"></title-card>
     <title-card title="密码修改"></title-card>
   </scrollbar>
 </template>
 
 <script>
+import IdCard from './IdCard'
 import TitleCard from './TitleCard'
 import { mapActions } from 'vuex'
 export default {
   name: 'Personal',
 
-  components: {
-    TitleCard
-  },
+  components: { IdCard, TitleCard },
 
   data() {
     return {
-      baseInfo: [
-        { prop: 'username', label: '用户名：' },
-        { prop: 'nickname', label: '昵称：' },
-        { prop: 'email', label: '邮箱：' },
-        { prop: 'createDateTime', label: '创建日期：' },
-        { prop: 'updateDateTime', label: '修改日期：' },
-        { prop: 'lastLoginDateTime', label: '最近登陆：' }
-      ],
       user: { createDateTime: '', updateDateTime: '', lastLoginDateTime: '' }
     }
   },
@@ -57,7 +42,6 @@ export default {
 .personal {
   /deep/ .title-card {
     margin-bottom: 20px;
-    width: 10000px;
   }
   &__info {
     display: flex;

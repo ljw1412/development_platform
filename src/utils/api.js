@@ -58,7 +58,11 @@ const callApi = ({
     .catch(error => {
       printError({ method, api, param, config, error })
       error =
-        (error.response.data && error.response.data.error) || error.message
+        (error.response && error.response.data && error.response.data.error) ||
+        error.message
+      if (error.includes('Network Error')) {
+        error = '服务器异常! /(ㄒoㄒ)/~~'
+      }
       if (!noNotify) {
         vue.$notify.error({
           title: '错误',

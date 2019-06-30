@@ -7,7 +7,6 @@
       title="首页"
       :content="title"
       @back="onBack"></el-page-header>
-
   </div>
 </template>
 

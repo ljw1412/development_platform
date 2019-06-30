@@ -2,10 +2,10 @@
   <div class="platform">
     <platform-header></platform-header>
     <section class="platform__container">
-      <platform-navbar></platform-navbar>
+      <platform-navbar style="flex-shrink:0;"></platform-navbar>
       <main>
         <page-header></page-header>
-        <router-view style="flex-grow:1;height: 0;"></router-view>
+        <router-view style="height: calc(100% - 44px);"></router-view>
       </main>
     </section>
   </div>
@@ -43,12 +43,9 @@ export default {
     display: flex;
     main {
       flex-grow: 1;
+      width: 0;
+      padding: 20px 20px 0 20px;
     }
-  }
-  main {
-    padding: 20px 20px 0 20px;
-    display: flex;
-    flex-direction: column;
   }
 }
 </style>

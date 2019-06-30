@@ -57,6 +57,7 @@ export default {
 .personal {
   /deep/ .title-card {
     margin-bottom: 20px;
+    width: 10000px;
   }
   &__info {
     display: flex;

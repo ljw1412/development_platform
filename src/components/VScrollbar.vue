@@ -10,8 +10,9 @@
     <div v-if="isThumbShow.y"
       ref="barY"
       class="scrollbar scrollbar--vertical"
-      :class="{'scrollbar--drag':thumb.direction==='y'}"
-      :style="{right}">
+      :class="{'scrollbar--drag':thumb.direction==='y',
+        'scrollbar--round':round}"
+      :style="scrollbarYStyles">
       <div ref="thumbY"
         class="scrollbar__thumb"
         :style="thumbYStyles"
@@ -20,8 +21,9 @@
     <div v-if="isThumbShow.x"
       ref="barX"
       class="scrollbar scrollbar--horizontal"
-      :class="{'scrollbar--drag':thumb.direction==='x'}"
-      :style="{bottom}">
+      :class="{'scrollbar--drag':thumb.direction==='x',
+        'scrollbar--round':round}"
+      :style="scrollbarXStyles">
       <div ref="thumbX"
         class="scrollbar__thumb"
         :style="thumbXStyles"
@@ -45,10 +47,18 @@ export default {
     showMode: { type: String, default: () => 'hover' },
     // 内容的样式
     contentStyle: { type: [Object, String], default: () => ({}) },
+    // 滚动条轨道颜色
+    barColor: String,
+    // 滚动条滑块颜色
+    thumbColor: String,
     // 垂直导航栏距离右边的距离
     right: String,
     // 水平导航栏距离底部的距离
-    bottom: String
+    bottom: String,
+    // 滚动条宽度
+    barWidth: { type: Number, default: 6 },
+    // 圆边模式
+    round: Boolean
   },
 
   computed: {
@@ -95,17 +105,35 @@ export default {
       return this.wrapper.width / this.content.width
     },
 
+    scrollbarYStyles() {
+      return {
+        right: this.right,
+        width: this.barWidth + 'px',
+        'background-color': this.barColor
+      }
+    },
+
     thumbYStyles() {
       return {
         height: this.yScale * 100 + '%',
-        transform: `translateY(${-this.y * this.yScale}px)`
+        transform: `translateY(${-this.y * this.yScale}px)`,
+        'background-color': this.thumbColor
+      }
+    },
+
+    scrollbarXStyles() {
+      return {
+        bottom: this.bottom,
+        height: this.barWidth + 'px',
+        'background-color': this.barColor
       }
     },
 
     thumbXStyles() {
       return {
         width: this.xScale * 100 + '%',
-        transform: `translateX(${-this.x * this.xScale}px)`
+        transform: `translateX(${-this.x * this.xScale}px)`,
+        'background-color': this.thumbColor
       }
     }
   },
@@ -219,16 +247,18 @@ export default {
 
 .scrollbar {
   position: absolute;
-  right: 0px;
-  bottom: 0px;
+  right: 0;
+  bottom: 0;
   z-index: 99999;
-  border-radius: 4px;
   opacity: 0;
   transition: opacity 0.5s ease-out;
   background-color: rgba($color: #ccc, $alpha: 0.3);
+  &--round {
+    border-radius: 4px;
+  }
   &--horizontal {
     height: 6px;
-    left: 2px;
+    left: 0;
     .scrollbar__thumb {
       height: 100%;
     }
@@ -236,7 +266,7 @@ export default {
 
   &--vertical {
     width: 6px;
-    top: 2px;
+    top: 0;
     .scrollbar__thumb {
       width: 100%;
     }

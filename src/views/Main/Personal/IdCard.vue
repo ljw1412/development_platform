@@ -101,8 +101,8 @@ export default {
     position: absolute;
     right: 20px;
     bottom: 20px;
-    font-size: 48px;
-    line-height: 48px;
+    font-size: 40px;
+    line-height: 40px;
     color: rgba($color: #ffdd4e, $alpha: 0.9);
   }
 

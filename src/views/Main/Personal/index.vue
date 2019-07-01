@@ -2,18 +2,19 @@
   <scrollbar class="personal">
     <id-card :user="user"></id-card>
     <title-card title="头像修改"></title-card>
-    <title-card title="密码修改"></title-card>
+    <password-card></password-card>
   </scrollbar>
 </template>
 
 <script>
 import IdCard from './IdCard'
+import PasswordCard from './PasswordCard'
 import TitleCard from './TitleCard'
 import { mapActions } from 'vuex'
 export default {
   name: 'Personal',
 
-  components: { IdCard, TitleCard },
+  components: { IdCard, PasswordCard, TitleCard },
 
   data() {
     return {

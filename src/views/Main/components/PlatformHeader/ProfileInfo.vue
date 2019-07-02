@@ -4,7 +4,8 @@
       :show-timeout="100"
       @command="onCommand">
       <div class="profile-info">
-        <div class="profile-info__avatar"></div>
+        <el-avatar class="profile-info__avatar"
+          :size="32"></el-avatar>
         <div class="profile-info__username">{{username}}</div>
         <i class="el-icon-arrow-down el-icon--right"></i>
       </div>
@@ -63,10 +64,6 @@ export default {
     background-color: rgba(255, 255, 255, 0.2);
   }
   &__avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #ffffff;
     margin-right: 10px;
   }
   &__username {

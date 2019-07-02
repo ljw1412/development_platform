@@ -18,10 +18,8 @@
         <div>最近登陆：{{ user.lastLoginDateTime }}</div>
       </div>
       <div class="id-card__role">{{ user.roleName || '无身份'}}</div>
-      <div class="id-card__edit"
-        @click="$emit('editClick')">
-        <i class="el-icon-edit"></i>
-      </div>
+      <i class="el-icon-edit id-card__edit"
+        @click="$emit('editClick')"></i>
     </div>
   </el-card>
 </template>
@@ -108,24 +106,13 @@ export default {
 
   &__edit {
     position: absolute;
-    top: -70px;
-    right: -70px;
-    width: 141px;
-    height: 141px;
-    background-color: rgba($color: #000, $alpha: 0.25);
-    transform: rotate(135deg);
-
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    transition-duration: 0.4s;
     &:hover {
-      background-color: rgba($color: #ffdd4e, $alpha: 0.6);
-    }
-
-    .el-icon-edit {
-      position: absolute;
-      top: 54px;
-      right: 16px;
-      color: #fff;
-      font-size: 28px;
-      transform: rotate(-135deg);
+      color: #ffdd4e;
     }
   }
 }

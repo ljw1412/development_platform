@@ -1,5 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+const Login = () => import(/* webpackChunkName: "login" */ './views/Login')
+const Main = () => import(/* webpackChunkName: "main" */ './views/Main')
+const Personal = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Personal')
+const Setting = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Setting')
+const MenuEdit = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Setting/MenuEdit')
+const UserEdit = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Setting/UserEdit')
+const FileBrowser = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/FileBrowser')
 
 Vue.use(Router)
 
@@ -12,48 +24,39 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ './views/Login')
+      component: Login
     },
     {
       path: '/main',
       name: 'main',
-      component: () => import(/* webpackChunkName: "main" */ './views/Main'),
+      component: Main,
       children: [
         {
           path: 'personal',
           name: 'personal',
-          component: () =>
-            import(/* webpackChunkName: "main" */ './views/Main/Personal')
+          component: Personal
         },
         {
           path: 'setting',
           name: 'setting',
-          component: () =>
-            import(/* webpackChunkName: "main" */ './views/Main/Setting'),
+          component: Setting,
           children: [
             {
               path: 'menu',
               name: 'menuEdit',
-              component: () =>
-                import(
-                  /* webpackChunkName: "main" */ './views/Main/Setting/MenuEdit'
-                )
+              component: MenuEdit
             },
             {
               path: 'user',
               name: 'userEdit',
-              component: () =>
-                import(
-                  /* webpackChunkName: "main" */ './views/Main/Setting/UserEdit'
-                )
+              component: UserEdit
             }
           ]
         },
         {
           path: 'file',
           name: 'fileBrowser',
-          component: () =>
-            import(/* webpackChunkName: "main" */ './views/Main/FileBrowser')
+          component: FileBrowser
         }
       ]
     }

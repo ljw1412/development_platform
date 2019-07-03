@@ -1,9 +1,15 @@
 <template>
-  <el-card class="password-card-wrapper"
-    shadow="hover"
-    :body-style="{padding:0, height:'100%'}">
-    <span @click="$emit('back')">密码修改</span>
-    <el-form :model="user"
+  <base-card>
+    <template #header>
+      <div style="display:flex;align-items:center;">
+        <i class="card-header-icon el-icon-arrow-left"
+          @click="$emit('back')"></i>
+        <span>密码修改</span>
+      </div>
+    </template>
+
+    <el-form class="form"
+      :model="user"
       label-width="80px">
       <el-form-item label="当前密码">
         <el-input v-model="user.password"
@@ -17,13 +23,24 @@
         <el-input v-model="user.confirmPassword"
           placeholder="请再次输入修改密码"></el-input>
       </el-form-item>
+      <div class="form__footer">
+        <span class="form__error">{{error}}</span>
+        <el-button type="primary"
+          icon="el-icon-refresh">修改</el-button>
+      </div>
     </el-form>
-  </el-card>
+  </base-card>
 </template>
 
 <script>
+import BaseCard from './BaseCard'
+
 export default {
   name: 'PasswordCard',
+
+  components: {
+    BaseCard
+  },
 
   data() {
     return {
@@ -31,11 +48,36 @@ export default {
         password: '',
         modifyPassword: '',
         confirmPassword: ''
-      }
+      },
+      error: ''
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.card-header-icon {
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+  &:hover {
+    color: #ffdd4e;
+  }
+}
+
+.form {
+  padding: 30px;
+  /deep/ .el-form-item__label {
+    color: #fff;
+  }
+  &__error {
+    color: #f56c6c;
+    margin-right: 10px;
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
 </style>

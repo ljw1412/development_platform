@@ -1,7 +1,5 @@
 <template>
-  <el-card class="id-card-wrapper"
-    shadow="hover"
-    :body-style="{padding:0, height:'100%'}">
+  <base-card>
     <div class="id-card">
       <div class="id-card__top">
         <div class="id-card__avatar"
@@ -23,17 +21,22 @@
       <el-collapse-transition>
         <ul v-show="isEdit"
           class="id-card__edit-menu">
-          <li @click="$emit('editClick','info')">修改信息</li>
-          <li @click="$emit('editClick','password')">修改密码</li>
+          <li @click="onEditMenuItemClick('info')">修改信息</li>
+          <li @click="onEditMenuItemClick('password')">修改密码</li>
         </ul>
       </el-collapse-transition>
     </div>
-  </el-card>
+  </base-card>
 </template>
 
 <script>
+import BaseCard from './BaseCard'
 export default {
   name: 'IdCard',
+
+  components: {
+    BaseCard
+  },
 
   props: { user: { type: Object, default: () => [{}] } },
 
@@ -43,25 +46,18 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    onEditMenuItemClick(mode) {
+      this.$emit('editClick', mode)
+      this.isEdit = false
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 * {
   box-sizing: border-box;
-}
-.id-card-wrapper {
-  flex-shrink: 0;
-  width: 500px;
-  height: 300px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  background: linear-gradient(120deg, #2c2c2c 0%, #505050 100%);
-  color: rgba($color: #fff, $alpha: 0.8);
-  &:hover {
-    animation: flashlight 0.5s linear 0.1s 1;
-  }
 }
 .id-card {
   position: relative;
@@ -147,42 +143,6 @@ export default {
         color: #ffdd4e;
       }
     }
-  }
-}
-
-@keyframes flashlight {
-  0% {
-    background: linear-gradient(120deg, #505050 0%, #2c2c2c 100%);
-  }
-  10% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 10%, #2c2c2c 100%);
-  }
-  20% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 20%, #2c2c2c 100%);
-  }
-  30% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 30%, #2c2c2c 100%);
-  }
-  40% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 40%, #2c2c2c 100%);
-  }
-  50% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 50%, #2c2c2c 100%);
-  }
-  60% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 60%, #2c2c2c 100%);
-  }
-  70% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 70%, #2c2c2c 100%);
-  }
-  80% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 80%, #2c2c2c 100%);
-  }
-  90% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 90%, #2c2c2c 100%);
-  }
-  100% {
-    background: linear-gradient(120deg, #2c2c2c 0%, #505050 100%);
   }
 }
 </style>

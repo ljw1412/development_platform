@@ -1,16 +1,19 @@
 <template>
-  <scrollbar class="personal">
-    <transition name="el-zoom-in-center">
-      <id-card v-show="isDisplayIdCard"
-        :user="user"
-        @editClick="onEditClick"></id-card>
-    </transition>
-    <transition name="el-zoom-in-center">
-      <password-card v-show="isDisplayPasswordCard"
-        id="password-card"
-        @back="mode = ''"></password-card>
-    </transition>
-
+  <scrollbar>
+    <div class="personal">
+      <transition name="el-zoom-in-center">
+        <id-card v-show="isDisplayIdCard"
+          class="personal__card"
+          :user="user"
+          @editClick="onEditClick"></id-card>
+      </transition>
+      <transition name="el-zoom-in-center">
+        <password-card v-show="isDisplayPasswordCard"
+          id="password-card"
+          class="personal__card"
+          @back="mode = ''"></password-card>
+      </transition>
+    </div>
   </scrollbar>
 </template>
 
@@ -67,8 +70,11 @@ export default {
 
 <style lang="scss" scoped>
 .personal {
-  /deep/ .title-card {
-    margin-bottom: 20px;
+  position: relative;
+  &__card {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   &__info {
     display: flex;
@@ -84,6 +90,6 @@ export default {
   }
 }
 .el-zoom-in-center-enter-active {
-  transition-delay: 0.8s;
+  transition-delay: 0.5s;
 }
 </style>

@@ -1,24 +1,46 @@
 <template>
   <scrollbar class="personal">
-    <id-card :user="user"></id-card>
-    <title-card title="头像修改"></title-card>
-    <password-card></password-card>
+    <transition name="el-zoom-in-center">
+      <id-card v-show="isDisplayIdCard"
+        :user="user"
+        @editClick="onEditClick"></id-card>
+    </transition>
+    <transition name="el-zoom-in-center">
+      <password-card v-show="isDisplayPasswordCard"
+        id="password-card"
+        @back="mode = ''"></password-card>
+    </transition>
+
   </scrollbar>
 </template>
 
 <script>
 import IdCard from './IdCard'
 import PasswordCard from './PasswordCard'
-import TitleCard from './TitleCard'
 import { mapActions } from 'vuex'
 export default {
   name: 'Personal',
 
-  components: { IdCard, PasswordCard, TitleCard },
+  components: { IdCard, PasswordCard },
+
+  computed: {
+    isDisplayPasswordCard() {
+      return this.mode === 'password'
+    },
+
+    isDisplayIdCard() {
+      return !this.mode
+    }
+  },
 
   data() {
     return {
-      user: { createDateTime: '', updateDateTime: '', lastLoginDateTime: '' }
+      user: {
+        createDateTime: '',
+        updateDateTime: '',
+        lastLoginDateTime: ''
+      },
+      mode: ''
     }
   },
 
@@ -29,6 +51,10 @@ export default {
       this.$callApi({ api: 'users/user_info' }).then(data => {
         Object.assign(this.user, data)
       })
+    },
+
+    onEditClick(mode) {
+      this.mode = mode
     }
   },
 
@@ -56,5 +82,8 @@ export default {
     padding: 5px 0;
     width: 250px;
   }
+}
+.el-zoom-in-center-enter-active {
+  transition-delay: 0.8s;
 }
 </style>

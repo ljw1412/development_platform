@@ -14,4 +14,8 @@ body,
 #app {
   height: 100%;
 }
+
+ul {
+  list-style: none;
+}
 </style>

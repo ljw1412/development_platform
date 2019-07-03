@@ -19,14 +19,31 @@
       </div>
       <div class="id-card__role">{{ user.roleName || '无身份'}}</div>
       <i class="el-icon-edit id-card__edit"
-        @click="$emit('editClick')"></i>
+        @click="isEdit = !isEdit"></i>
+      <el-collapse-transition>
+        <ul v-show="isEdit"
+          class="id-card__edit-menu">
+          <li @click="$emit('editClick','info')">修改信息</li>
+          <li @click="$emit('editClick','password')">修改密码</li>
+        </ul>
+      </el-collapse-transition>
     </div>
   </el-card>
 </template>
 
 <script>
 export default {
-  props: { user: { type: Object, default: () => [{}] } }
+  name: 'IdCard',
+
+  props: { user: { type: Object, default: () => [{}] } },
+
+  data() {
+    return {
+      isEdit: false
+    }
+  },
+
+  methods: {}
 }
 </script>
 
@@ -35,6 +52,7 @@ export default {
   box-sizing: border-box;
 }
 .id-card-wrapper {
+  flex-shrink: 0;
   width: 500px;
   height: 300px;
   margin-bottom: 20px;
@@ -113,6 +131,21 @@ export default {
     transition-duration: 0.4s;
     &:hover {
       color: #ffdd4e;
+    }
+  }
+  &__edit-menu {
+    position: absolute;
+    top: 54px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    li {
+      margin: 2px 0;
+      font-size: 14px;
+      cursor: pointer;
+      &:hover {
+        color: #ffdd4e;
+      }
     }
   }
 }

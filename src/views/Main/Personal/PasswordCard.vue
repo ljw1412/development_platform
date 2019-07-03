@@ -2,7 +2,7 @@
   <el-card class="password-card-wrapper"
     shadow="hover"
     :body-style="{padding:0, height:'100%'}">
-    <span>密码修改</span>
+    <span @click="$emit('back')">密码修改</span>
     <el-form :model="user"
       label-width="80px">
       <el-form-item label="当前密码">

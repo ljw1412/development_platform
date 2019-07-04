@@ -2,9 +2,12 @@
   <el-card class="base-card"
     shadow="hover"
     :body-style="{padding:0, height:'100%'}">
-    <div v-if="$slots.header"
+    <div v-if="title"
       class="base-card__header">
-      <slot name="header"></slot>
+      <i v-if="!noBack"
+        class="card-header-icon el-icon-arrow-left"
+        @click="$emit('back')"></i>
+      <span>{{title}}</span>
     </div>
     <slot></slot>
   </el-card>
@@ -12,7 +15,12 @@
 
 <script>
 export default {
-  name: 'BaseCard'
+  name: 'BaseCard',
+
+  props: {
+    title: String,
+    noBack: Boolean
+  }
 }
 </script>
 
@@ -31,6 +39,16 @@ export default {
   }
   &__header {
     padding: 20px;
+    display: flex;
+    align-items: center;
+  }
+}
+.card-header-icon {
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+  &:hover {
+    color: #ffdd4e;
   }
 }
 @keyframes flashlight {

@@ -8,6 +8,13 @@
           @editClick="onEditClick"></id-card>
       </transition>
       <transition name="el-zoom-in-center">
+        <info-card v-show="isDisplayInfoCard"
+          class="personal__card"
+          :user="user"
+          @back="mode = ''"
+          @change="onInfoChange"></info-card>
+      </transition>
+      <transition name="el-zoom-in-center">
         <password-card v-show="isDisplayPasswordCard"
           id="password-card"
           class="personal__card"
@@ -20,15 +27,20 @@
 <script>
 import IdCard from './IdCard'
 import PasswordCard from './PasswordCard'
+import InfoCard from './InfoCard'
 import { mapActions } from 'vuex'
 export default {
   name: 'Personal',
 
-  components: { IdCard, PasswordCard },
+  components: { IdCard, InfoCard, PasswordCard },
 
   computed: {
     isDisplayPasswordCard() {
       return this.mode === 'password'
+    },
+
+    isDisplayInfoCard() {
+      return this.mode === 'info'
     },
 
     isDisplayIdCard() {
@@ -38,11 +50,7 @@ export default {
 
   data() {
     return {
-      user: {
-        createDateTime: '',
-        updateDateTime: '',
-        lastLoginDateTime: ''
-      },
+      user: {},
       mode: ''
     }
   },
@@ -52,12 +60,16 @@ export default {
 
     reFindUserInfo() {
       this.$callApi({ api: 'users/user_info' }).then(data => {
-        Object.assign(this.user, data)
+        this.user = data
       })
     },
 
     onEditClick(mode) {
       this.mode = mode
+    },
+
+    onInfoChange() {
+      this.reFindUserInfo()
     }
   },
 

@@ -1,13 +1,6 @@
 <template>
-  <base-card>
-    <template #header>
-      <div style="display:flex;align-items:center;">
-        <i class="card-header-icon el-icon-arrow-left"
-          @click="onBack"></i>
-        <span>密码修改</span>
-      </div>
-    </template>
-
+  <base-card title="密码修改"
+    @back="onBack">
     <el-form :model="user"
       ref="form"
       class="form"
@@ -23,7 +16,7 @@
       <el-form-item label="修改密码"
         prop="modifyPassword"
         :rules="{min: 6,required: true,trigger: 'blur',
-          message: '请输入字符长度大于 6 的密码',}">
+          message: '请输入字符长度大于 6 的密码'}">
         <el-input v-model="user.modifyPassword"
           type="password"
           placeholder="请输入修改密码"></el-input>
@@ -58,6 +51,7 @@ export default {
   data() {
     return {
       user: {
+        nickname: '',
         password: '',
         modifyPassword: '',
         confirmPassword: ''
@@ -111,40 +105,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-header-icon {
-  cursor: pointer;
-  font-size: 20px;
-  margin-right: 10px;
-  &:hover {
-    color: #ffdd4e;
-  }
-}
-
-.form {
-  padding: 20px 30px;
-  /deep/ .el-form-item__label {
-    color: #fff;
-  }
-  /deep/ .el-input input {
-    padding: 0;
-    border-width: 0 0 1px 0;
-    border-radius: 0;
-    background-color: transparent;
-    height: 24px;
-    color: #ccc;
-    transition: background-color 0.4s;
-    &:focus {
-      background-color: rgba($color: #fff, $alpha: 0.2);
-    }
-  }
-  &__error {
-    color: #f56c6c;
-    margin-right: 10px;
-  }
-  &__footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-}
+@import './cardFormStyle.scss';
 </style>

@@ -29,7 +29,7 @@ export default {
     ...mapState(['user']),
 
     username() {
-      return this.user.nickName || this.user.username
+      return this.user.nickname || this.user.username
     }
   },
 

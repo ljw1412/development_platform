@@ -1,0 +1,27 @@
+.form {
+  padding: 20px 30px;
+  /deep/ .el-form-item__label {
+    color: #fff;
+  }
+  /deep/ .el-input input {
+    padding: 0;
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+    background-color: transparent;
+    height: 24px;
+    color: #ccc;
+    transition: background-color 0.4s;
+    &:focus {
+      background-color: rgba($color: #fff, $alpha: 0.2);
+    }
+  }
+  &__error {
+    color: #f56c6c;
+    margin-right: 10px;
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

@@ -22,7 +22,7 @@
       </el-form-item>
       <el-form-item label="修改密码"
         prop="modifyPassword"
-        :rules="{min: 6,required: true,trigger: 'change',
+        :rules="{min: 6,required: true,trigger: 'blur',
           message: '请输入字符长度大于 6 的密码',}">
         <el-input v-model="user.modifyPassword"
           type="password"
@@ -67,7 +67,19 @@ export default {
   },
 
   methods: {
-    reSavePassword() {},
+    reSavePassword() {
+      this.$callApi({
+        method: 'put',
+        api: 'users/update_password',
+        param: this.user
+      }).then(data => {
+        this.$notify.success({
+          title: '消息',
+          message: data.message
+        })
+        this.onBack()
+      })
+    },
 
     validatePass(rule, value) {
       if (!value) {

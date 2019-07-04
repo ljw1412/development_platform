@@ -110,6 +110,7 @@ export default {
 
     onEditClick(user) {
       this.isAddUser = false
+      user.password = ''
       this.$refs.userEditDialog.initUser(user)
       this.isDisplayUserEditDialog = true
     },

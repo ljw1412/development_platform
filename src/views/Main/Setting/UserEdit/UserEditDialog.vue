@@ -156,7 +156,9 @@ export default {
   watch: {
     value(val) {
       if (val) {
-        setTimeout(this.$refs.form.clearValidate, 0)
+        this.$nextTick(() => {
+          setTimeout(this.$refs.form.clearValidate, 0)
+        })
       }
     }
   }

@@ -18,6 +18,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-card {
+  position: relative;
   flex-shrink: 0;
   width: 500px;
   height: 300px;
@@ -29,7 +30,7 @@ export default {
     animation: flashlight 0.5s linear 0.1s 1;
   }
   &__header {
-    padding: 15px;
+    padding: 20px;
   }
 }
 @keyframes flashlight {

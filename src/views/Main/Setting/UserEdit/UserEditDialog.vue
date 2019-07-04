@@ -132,23 +132,23 @@ export default {
     },
 
     reSaveUser() {
-      this.$callApi({ method: 'put', api: 'users/update', param: this.user })
-        .then(data => {
-          this.$notify.success({
-            title: '消息',
-            message: data.message
-          })
-          this.$emit('input', false)
-          this.$emit('change')
+      this.$callApi({
+        method: 'put',
+        api: 'users/update',
+        param: this.user
+      }).then(data => {
+        this.$notify.success({
+          title: '消息',
+          message: data.message
         })
-        .catch(err => console.error(err))
+        this.$emit('input', false)
+        this.$emit('change')
+      })
     },
 
     submit() {
       this.$refs.form.validate().then(val => {
-        if (val) {
-          this.reSaveUser()
-        }
+        val && this.reSaveUser()
       })
     }
   },
@@ -156,9 +156,7 @@ export default {
   watch: {
     value(val) {
       if (val) {
-        setTimeout(() => {
-          this.$refs.form.clearValidate()
-        }, 0)
+        setTimeout(this.$refs.form.clearValidate, 0)
       }
     }
   }

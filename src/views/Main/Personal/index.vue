@@ -90,6 +90,6 @@ export default {
   }
 }
 .el-zoom-in-center-enter-active {
-  transition-delay: 0.5s;
+  transition-delay: 0.3s;
 }
 </style>

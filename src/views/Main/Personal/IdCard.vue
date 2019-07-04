@@ -85,6 +85,7 @@ export default {
     height: 96px;
     margin-right: 24px;
     border: 1px solid rgba($color: #999, $alpha: 0.1);
+    cursor: pointer;
     &:hover {
       &::after {
         content: '修改头像';

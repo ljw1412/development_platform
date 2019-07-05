@@ -11,14 +11,19 @@
         <info-card v-show="isDisplayInfoCard"
           class="personal__card"
           :user="user"
-          @back="mode = ''"
+          @back="onCardBack"
           @change="onInfoChange"></info-card>
       </transition>
       <transition name="el-zoom-in-center">
         <password-card v-show="isDisplayPasswordCard"
           id="password-card"
           class="personal__card"
-          @back="mode = ''"></password-card>
+          @back="onCardBack"></password-card>
+      </transition>
+      <transition name="el-zoom-in-center">
+        <avatar-card v-show="isDisplayAvatarCard"
+          class="personal__card"
+          @back="onCardBack"></avatar-card>
       </transition>
     </div>
   </scrollbar>
@@ -28,11 +33,12 @@
 import IdCard from './IdCard'
 import PasswordCard from './PasswordCard'
 import InfoCard from './InfoCard'
+import AvatarCard from './AvatarCard'
 import { mapActions } from 'vuex'
 export default {
   name: 'Personal',
 
-  components: { IdCard, InfoCard, PasswordCard },
+  components: { IdCard, InfoCard, PasswordCard, AvatarCard },
 
   computed: {
     isDisplayPasswordCard() {
@@ -41,6 +47,10 @@ export default {
 
     isDisplayInfoCard() {
       return this.mode === 'info'
+    },
+
+    isDisplayAvatarCard() {
+      return this.mode === 'avatar'
     },
 
     isDisplayIdCard() {
@@ -70,6 +80,10 @@ export default {
 
     onInfoChange() {
       this.reFindUserInfo()
+    },
+
+    onCardBack() {
+      this.mode = ''
     }
   },
 

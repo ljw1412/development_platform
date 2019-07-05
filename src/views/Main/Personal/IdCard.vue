@@ -3,7 +3,7 @@
     <div class="id-card">
       <div class="id-card__top">
         <div class="id-card__avatar"
-          @click="$emit('avatarClick')"></div>
+          @click="onEditMenuItemClick('avatar')"></div>
         <div class="id-card__info">
           <div class="id-card__nickname">{{ user.nickname || '无名氏'}}</div>
           <div>用户名：{{ user.username }}</div>
@@ -17,6 +17,7 @@
       </div>
       <div class="id-card__role">{{ user.roleName || '无身份'}}</div>
       <i class="el-icon-edit id-card__edit"
+        :class="{'id-card__edit--actived':isEdit}"
         @click="isEdit = !isEdit"></i>
       <el-collapse-transition>
         <ul v-show="isEdit"
@@ -116,7 +117,8 @@ export default {
     bottom: 20px;
     font-size: 40px;
     line-height: 40px;
-    color: rgba($color: #ffdd4e, $alpha: 0.9);
+    color: #ffdd4e;
+    text-shadow: 2px 2px 1px rgba($color: #000000, $alpha: 0.75);
   }
 
   &__edit {
@@ -126,7 +128,9 @@ export default {
     font-size: 28px;
     cursor: pointer;
     transition-duration: 0.4s;
-    &:hover {
+    text-shadow: 2px 2px 1px rgba($color: #000000, $alpha: 0.75);
+    &:hover,
+    &--actived {
       color: #ffdd4e;
     }
   }
@@ -140,6 +144,7 @@ export default {
       margin: 2px 0;
       font-size: 14px;
       cursor: pointer;
+      text-shadow: 2px 2px 1px rgba($color: #000000, $alpha: 0.75);
       &:hover {
         color: #ffdd4e;
       }

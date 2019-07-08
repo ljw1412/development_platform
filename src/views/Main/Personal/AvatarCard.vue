@@ -13,43 +13,36 @@
       <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
     </el-upload>
     <div v-else
-      class="">
-      <img :src="imageUrl" />
+      class="avatar-editor">
+      <image-editor :image-src="imageUrl"
+        @preview="onImagePreview"></image-editor>
+      <el-button type="primary"
+        size="mini"
+        @click="imageUrl =''">重新上传</el-button>
+      <img :src="previewUrl" />
     </div>
   </base-card>
-
 </template>
 
 <script>
 import BaseCard from './BaseCard'
+import ImageEditor from '@/components/ImageEditor'
 export default {
   name: 'AvatarCard',
 
   components: {
-    BaseCard
+    BaseCard,
+    ImageEditor
   },
 
   data() {
     return {
-      imageUrl: ''
+      imageUrl: '',
+      previewUrl: ''
     }
   },
 
   methods: {
-    fileToImage(file) {
-      return new Promise((resolve, reject) => {
-        const read = new FileReader()
-        read.readAsDataURL(file)
-        read.onload = data => {
-          resolve(data.target.result)
-        }
-        read.onerror = (...res) => {
-          console.log('文件读取失败')
-          reject(res)
-        }
-      })
-    },
-
     onBack() {
       this.imageUrl = ''
       this.$emit('back')
@@ -59,6 +52,11 @@ export default {
       console.log(file)
 
       this.imageUrl = URL.createObjectURL(file.raw)
+    },
+
+    onImagePreview(url) {
+      console.log('image', url)
+      this.previewUrl = url
     }
   }
 }
@@ -91,5 +89,8 @@ export default {
     color: #fff;
     text-shadow: 2px 2px 1px rgba($color: #000000, $alpha: 0.75);
   }
+}
+.avatar-editor {
+  padding: 0 20px;
 }
 </style>

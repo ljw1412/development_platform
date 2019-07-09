@@ -78,11 +78,21 @@ export default {
     },
 
     resetCanvas() {
-      this.canvas.width = 0
-      this.canvas.height = 0
+      this.canvas.width = this.cropWidth
+      this.canvas.height = this.cropHeight
     },
 
-    // 根据图片计算绘制的大小
+    // 加载图片
+    loadImage(force = false) {
+      if (force || !this.img) {
+        const img = new Image()
+        img.src = this.imageSrc
+        this.img = img
+        img.onload = this.corpImage
+      }
+    },
+
+    // 根据图片比例，计算绘制的大小
     computeDrawSize(img) {
       const width = img.width
       const height = img.height
@@ -98,23 +108,12 @@ export default {
       return { drawWidth, drawHeight }
     },
 
-    loadImage() {
-      if (!this.img) {
-        const img = new Image()
-        img.src = this.imageSrc
-        this.img = img
-        img.onload = this.corpImage
-      }
-    },
-
+    // 裁剪图片
     corpImage() {
       if (!this.img) return this.loadImage()
+
       this.resetCanvas()
       const { drawWidth, drawHeight } = this.computeDrawSize(this.img)
-
-      this.canvas.width = this.cropWidth
-      this.canvas.height = this.cropHeight
-
       this.canvasContext.drawImage(
         this.img,
         (this.x - this.left) * this.scale,
@@ -126,12 +125,6 @@ export default {
       this.canvas.toBlob(blob => {
         this.$emit('preview', URL.createObjectURL(blob))
       })
-    },
-
-    exportPreview(x, y, width, height) {
-      const imageData = this.canvasContext.getImageData(x, y, width, height)
-      const blob = new Blob(imageData.data, { type: 'image/png' })
-      this.$emit('preview', URL.createObjectURL(blob))
     },
 
     onMousedown(e) {

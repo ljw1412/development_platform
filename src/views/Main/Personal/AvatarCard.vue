@@ -19,7 +19,8 @@
       <el-button type="primary"
         size="mini"
         @click="imageUrl =''">重新上传</el-button>
-      <img :src="previewUrl" />
+      <img class="avatar-editor__preview"
+        :src="previewUrl" />
     </div>
   </base-card>
 </template>
@@ -92,5 +93,10 @@ export default {
 }
 .avatar-editor {
   padding: 0 20px;
+  &__preview {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+  }
 }
 </style>

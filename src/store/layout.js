@@ -22,6 +22,9 @@ const defaultState = () => {
   return {
     isMenuCollapsed: true,
     isDisplayPageHeader: true,
+    /* 用于 PageHeader */
+    // 控制是否为返回模式，如果为 false 者返回首页
+    isBack: false,
     title: ''
   }
 }
@@ -45,6 +48,7 @@ export default {
       let layout = Store.get('layout')
       if (layout) {
         if (routeName) layout.title = getTitleFromStorage(routeName)
+        layout.isBack = false
         commit('updateLayout', layout)
       } else {
         commit('clearLayout')
@@ -55,8 +59,8 @@ export default {
       commit('updateLayout', { title: getTitleFromStorage(routeName) })
     },
     // 修改标题
-    updateTitle({ commit }, title) {
-      commit('updateLayout', { title })
+    updateTitle({ commit }, data) {
+      commit('updateLayout', typeof data === 'string' ? { title: data } : data)
     },
     // 更新菜单栏折叠状态
     updateMenuCollapsed({ commit }, isCollapsed) {

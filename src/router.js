@@ -12,8 +12,10 @@ const UserEdit = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Setting/UserEdit')
 const FileBrowser = () =>
   import(/* webpackChunkName: "main" */ './views/Main/FileBrowser')
-const Project = () =>
-  import(/* webpackChunkName: "main" */ './views/Main/Project')
+const ProjectList = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Project/List')
+const ProjectCreate = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Project/Create')
 
 Vue.use(Router)
 
@@ -63,7 +65,12 @@ export default new Router({
         {
           path: 'project',
           name: 'project',
-          component: Project
+          component: ProjectList
+        },
+        {
+          path: 'project/create',
+          name: 'projectCreate',
+          component: ProjectCreate
         }
       ]
     }

@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <el-dropdown size="medium"
-      :show-timeout="100"
-      @command="onCommand">
-      <div class="profile-info">
-        <el-avatar class="profile-info__avatar"
-          :size="32"></el-avatar>
-        <div class="profile-info__username">{{username}}</div>
-        <i class="el-icon-arrow-down el-icon--right"></i>
-      </div>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon="el-icon-user-solid"
-          command="personal">个人中心</el-dropdown-item>
-        <el-dropdown-item divided
-          icon="el-icon-error"
-          command="logout">退出</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-  </div>
+  <el-dropdown size="medium"
+    :show-timeout="100"
+    @command="onCommand">
+    <div class="profile-info">
+      <el-avatar class="profile-info__avatar"
+        :size="32"></el-avatar>
+      <div class="profile-info__username">{{username}}</div>
+      <i class="el-icon-arrow-down el-icon--right"></i>
+    </div>
+    <el-dropdown-menu slot="dropdown">
+      <el-dropdown-item icon="el-icon-user-solid"
+        command="personal">个人中心</el-dropdown-item>
+      <el-dropdown-item divided
+        icon="el-icon-error"
+        command="logout">退出</el-dropdown-item>
+    </el-dropdown-menu>
+  </el-dropdown>
 </template>
 
 <script>

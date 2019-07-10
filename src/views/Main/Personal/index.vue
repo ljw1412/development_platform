@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import IdCard from './IdCard'
-import PasswordCard from './PasswordCard'
-import InfoCard from './InfoCard'
-import AvatarCard from './AvatarCard'
+import IdCard from './components/IdCard'
+import PasswordCard from './components/PasswordCard'
+import InfoCard from './components/InfoCard'
+import AvatarCard from './components/AvatarCard'
 import { mapActions } from 'vuex'
 export default {
   name: 'Personal',

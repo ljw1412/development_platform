@@ -2,20 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import VScrollbar from './components/VScrollbar'
-import ElementUI from 'element-ui'
-import '@/theme/element-variables.scss'
-import callApi from './utils/api'
-import Cookies from 'js-cookie'
-import Store from 'store'
-import expirePlugin from 'store/plugins/expire'
+import './inject'
 
 Vue.config.productionTip = false
-Vue.prototype.$callApi = callApi
-
-Vue.use(ElementUI, { size: 'small' })
-
-Vue.component('Scrollbar', VScrollbar)
 
 new Vue({
   router,
@@ -32,7 +21,3 @@ router.beforeResolve((to, from, next) => {
 router.afterEach((to, from) => {
   if (!store.state.user.token) router.replace({ name: 'login' })
 })
-
-Store.addPlugin(expirePlugin)
-window.Cookies = Cookies
-window.Store = Store

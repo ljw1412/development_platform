@@ -30,15 +30,17 @@
         prop="lastLoginDateTime"></el-table-column>
       <el-table-column label="操作"
         width="100">
-        <div v-if="!scope.row.isSuperAdmin"
-          slot-scope="scope">
-          <el-button circle
-            icon="el-icon-edit"
-            @click="onEditClick(scope.row)"></el-button>
-          <el-button circle
-            type="danger"
-            icon="el-icon-delete"
-            @click="onDeleteClick(scope.row)"></el-button>
+        <div slot-scope="scope"
+          style="min-height: 32px;">
+          <template v-if="!scope.row.isSuperAdmin">
+            <el-button circle
+              icon="el-icon-edit"
+              @click="onEditClick(scope.row)"></el-button>
+            <el-button circle
+              type="danger"
+              icon="el-icon-delete"
+              @click="onDeleteClick(scope.row)"></el-button>
+          </template>
         </div>
       </el-table-column>
     </el-table>

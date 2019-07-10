@@ -98,5 +98,33 @@ export default {
     width: 100%;
     text-align: center;
   }
+
+  @mixin active-left-line {
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background-color: #409eff;
+    }
+  }
+
+  .is-active {
+    &.el-menu-item {
+      @include active-left-line;
+    }
+
+    &.el-submenu {
+      position: relative;
+      /deep/ .el-submenu__title {
+        @include active-left-line;
+        * {
+          color: #409eff;
+        }
+      }
+    }
+  }
 }
 </style>

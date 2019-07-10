@@ -66,7 +66,7 @@ export default {
           password: this.user.password
         }
       }).then(data => {
-        Store.set('user', data, new Date().getTime() + 7 * 24 * 60 * 1000)
+        Store.set('user', data, new Date().getTime() + 3 * 24 * 60 * 60 * 1000)
         this.$router.replace({ name: 'main' })
       })
     },

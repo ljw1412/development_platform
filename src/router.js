@@ -12,6 +12,8 @@ const UserEdit = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Setting/UserEdit')
 const FileBrowser = () =>
   import(/* webpackChunkName: "main" */ './views/Main/FileBrowser')
+const Project = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Project')
 
 Vue.use(Router)
 
@@ -57,6 +59,11 @@ export default new Router({
           path: 'file',
           name: 'fileBrowser',
           component: FileBrowser
+        },
+        {
+          path: 'project',
+          name: 'project',
+          component: Project
         }
       ]
     }

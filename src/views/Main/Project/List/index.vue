@@ -6,13 +6,18 @@
     </template>
 
     <template #main>
-      <ul class="project-list">
-        <result v-if="!projectList.length"
-          title="您还未创建任何项目"></result>
-        <li v-for="project of projectList"
-          class="project-list__item"
-          :key="project.id"></li>
-      </ul>
+      <scrollbar>
+        <ul class="project-list">
+          <result v-if="!projectList.length"
+            title="您还未创建任何项目"
+            imageHeight="300px"
+            style="padding-top:100px;"
+            :src="require('@/assets/no-data.svg')"></result>
+          <li v-for="project of projectList"
+            class="project-list__item"
+            :key="project.id"></li>
+        </ul>
+      </scrollbar>
     </template>
   </base-list-layout>
 </template>

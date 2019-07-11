@@ -1,9 +1,10 @@
 <template>
   <div class="result">
-    <div class="result__image">
+    <div class="result__image"
+      :style="{ width: imageWidth, height: imageHeight }">
       <slot name="image">
         <div class="image"
-          :style="{'background-image':`url(${src})`}"></div>
+          :style="{ 'background-image': `url(${src})` }"></div>
       </slot>
     </div>
     <div class="result__title">
@@ -22,7 +23,9 @@ export default {
   props: {
     src: String,
     title: String,
-    subTitle: String
+    subTitle: String,
+    imageWidth: { type: String, default: '400px' },
+    imageHeight: { type: String, default: '400px' }
   }
 }
 </script>
@@ -33,8 +36,6 @@ export default {
   user-select: none;
   &__image {
     margin: 0 auto;
-    width: 200px;
-    height: 200px;
     .image {
       width: 100%;
       height: 100%;

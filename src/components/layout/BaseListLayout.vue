@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tcb-layout">
     <div v-if="$slots.action"
       class="action">
       <slot name="action"></slot>
@@ -20,12 +20,24 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
+.tcb-layout {
+  display: flex;
+  flex-direction: column;
+}
 .action {
+  flex-shrink: 0;
   * {
     margin: 0 10px 10px 0;
   }
   .el-input {
     width: 200px;
   }
+}
+.main {
+  flex-grow: 1;
+  height: 0;
+}
+.footer {
+  flex-shrink: 0;
 }
 </style>

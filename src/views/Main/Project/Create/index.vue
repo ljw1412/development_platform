@@ -15,14 +15,14 @@
     <template #main>
       <div class="step-1">
         <el-card class="select-card"
-          shadow="hover">
-
+          shadow="hover"
+          @click.native="onModeCardClick('new')">
           <div class="select-card__title">新建项目</div>
           <div class="select-card__explain">从头开始创建项目</div>
         </el-card>
         <el-card class="select-card"
-          shadow="hover">
-
+          shadow="hover"
+          @click.native="onModeCardClick('import')">
           <div class="select-card__title">导入项目</div>
           <div class="select-card__explain">导入服务器现有的项目</div>
         </el-card>
@@ -49,18 +49,25 @@ export default {
       activeIndex: 1,
       mode: '',
       steps: {
-        new: [],
-        import: []
+        new: [{ title: '新建项目', icon: '' }, { title: '完成', icon: '' }],
+        import: [{ title: '导入项目', icon: '' }, { title: '完成', icon: '' }]
       }
     }
   },
 
   methods: {
-    ...mapActions('layout', ['updateTitle'])
+    ...mapActions('layout', ['updateTitle']),
+
+    onModeCardClick(mode) {
+      this.mode = mode
+    }
   },
 
   created() {
-    this.updateTitle({ title: '项目管理/创建项目', isBack: true })
+    this.updateTitle({
+      title: '项目管理/创建项目',
+      isBack: true
+    })
   }
 }
 </script>

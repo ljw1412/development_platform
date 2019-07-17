@@ -19,5 +19,5 @@ router.beforeResolve((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  if (!store.state.user.token) router.replace({ name: 'login' })
+  if (!Cookies.get('token')) router.replace({ name: 'login' })
 })

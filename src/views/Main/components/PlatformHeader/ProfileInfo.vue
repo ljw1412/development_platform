@@ -39,6 +39,7 @@ export default {
           break
         case 'logout':
           Store.clearAll()
+          Cookies.remove('token');
           this.$router.replace({ name: 'login' })
           break
         default:

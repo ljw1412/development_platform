@@ -67,6 +67,7 @@ export default {
         }
       }).then(data => {
         Store.set('user', data, new Date().getTime() + 3 * 24 * 60 * 60 * 1000)
+        Cookies.set('token', data.token, { expires: 3 })
         this.$router.replace({ name: 'main' })
       })
     },

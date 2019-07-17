@@ -7,7 +7,7 @@ echo '正在打包...'
 yarn build
 echo '打包成功！'
 
-publishPath="/home/www/platform"
+publishPath="/home/services/development_platform_server/public"
 
 if [ ! -d $publishPath ];then
 echo "$publishPath 文件夹不存在，开始创建"

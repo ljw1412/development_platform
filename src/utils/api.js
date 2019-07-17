@@ -10,6 +10,8 @@ const methodList = ['get', 'post', 'put', 'patch', 'options', 'head', 'delete']
 const locationUrl = url.parse(window.location.origin)
 const base = locationUrl.protocol + '//' + locationUrl.hostname
 
+console.log(process.env)
+
 axios.defaults.baseURL = `${base}:3333/`
 axios.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded; charset=UTF-8'
@@ -32,12 +34,6 @@ function disposeParam(method, param) {
   return param
 }
 
-function addAuthToHeaders(config = {}) {
-  if (!config.headers) config.headers = {}
-  config.headers.authorization = store.state.user.token
-  return config
-}
-
 const callApi = ({
   method = 'get',
   api,
@@ -45,7 +41,6 @@ const callApi = ({
   config = {},
   noNotify = false
 } = {}) => {
-  addAuthToHeaders(config)
   const $ = axios.create(config)
   if (!methodList.includes(method.toLowerCase())) {
     method = methodList[0]

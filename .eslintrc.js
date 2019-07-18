@@ -14,5 +14,9 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint'
   },
-  globals: { Store: true, $: true, Cookies: true }
+  globals: {
+    moment: true,
+    Store: true,
+    Cookies: true
+  }
 }

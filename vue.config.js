@@ -22,6 +22,10 @@ module.exports = {
     plugins: [
       new webpack.BannerPlugin({
         banner: `Builder: ljw1412\nBuild time: ${new Date()}`
+      }),
+      new webpack.ProvidePlugin({
+        moment: 'moment',
+        Cookies: 'js-cookie'
       })
     ]
   }

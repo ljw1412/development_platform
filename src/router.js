@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const Login = () => import(/* webpackChunkName: "login" */ './views/Login')
 const Main = () => import(/* webpackChunkName: "main" */ './views/Main')
+const Home = () => import(/* webpackChunkName: "main" */ './views/Main/Home')
 const Personal = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Personal')
 const Setting = () =>
@@ -34,7 +35,13 @@ export default new Router({
       path: '/main',
       name: 'main',
       component: Main,
+      redirect: { name: 'home' },
       children: [
+        {
+          path: 'home',
+          name: 'home',
+          component: Home
+        },
         {
           path: 'personal',
           name: 'personal',

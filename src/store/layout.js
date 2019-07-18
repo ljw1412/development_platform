@@ -48,7 +48,10 @@ export default {
       let layout = Store.get('layout')
       if (layout) {
         if (routeName) layout.title = getTitleFromStorage(routeName)
-        layout.isBack = false
+        Object.assign(layout, {
+          isBack: false,
+          isDisplayPageHeader: true
+        })
         commit('updateLayout', layout)
       } else {
         commit('clearLayout')

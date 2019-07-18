@@ -5,7 +5,7 @@
       <platform-navbar style="flex-shrink:0;"></platform-navbar>
       <main>
         <page-header></page-header>
-        <router-view style="height: calc(100% - 44px);"></router-view>
+        <router-view :style="routerViewStyles"></router-view>
       </main>
     </section>
   </div>
@@ -15,6 +15,7 @@
 import PlatformHeader from './components/PlatformHeader'
 import PlatformNavbar from './components/PlatformNavbar'
 import PageHeader from './components/PageHeader'
+import { mapState } from 'vuex'
 export default {
   name: 'Main',
 
@@ -22,6 +23,15 @@ export default {
     PlatformHeader,
     PlatformNavbar,
     PageHeader
+  },
+
+  computed: {
+    ...mapState('layout', ['isDisplayPageHeader']),
+    routerViewStyles() {
+      return {
+        height: this.isDisplayPageHeader ? 'calc(100% - 44px)' : '100%'
+      }
+    }
   },
 
   data() {

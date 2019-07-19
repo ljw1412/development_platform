@@ -3,7 +3,7 @@
     <server-info v-bind="base"
       :uptime="state.uptime"></server-info>
     <server-state v-bind="state"></server-state>
-    <cpu-info :cpu="state.cpu || []"></cpu-info>
+    <cpu-info :cpus="state.cpus || []"></cpu-info>
     <network-info :network="state.networkInterfaces||{}"></network-info>
   </scrollbar>
 </template>

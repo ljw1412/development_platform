@@ -2,11 +2,11 @@
   <session-card class="cpu-info">
     <template #header>CPU状态</template>
     <ul>
-      <li v-for="(item,index) of cpu"
+      <li v-for="(cpu,index) of cpus"
         :key="index">
-        <div>#{{index}}: {{ item.model }}</div>
+        <div>#{{index}}: {{ cpu.model }}</div>
         <div>
-          <span v-for="(time,name) in item.times"
+          <span v-for="(time,name) in cpu.times"
             :key="`${name}-${index}`">
             {{name}}:{{time}}
           </span>
@@ -25,7 +25,7 @@ export default {
     SessionCard
   },
 
-  props: { cpu: { type: Array, default: () => [] } }
+  props: { cpus: { type: Array, default: () => [] } }
 }
 </script>
 

@@ -32,16 +32,12 @@ export default {
     },
 
     cpuPercentage() {
-      if (!this.cpu || !this.cpu.length) return 0
-      const cpuUsedList = this.cpu.map(item => {
-        const total = Object.values(item.times).reduce((a, b) => a + b)
-        return parseInt((1 - item.times.idle / total) * 100)
-      })
-      return parseInt(cpuUsedList.reduce((a, b) => a + b) / cpuUsedList.length)
+      if (!this.cpus || !this.cpus.length) return 0
+      return this.cpuUtilizationRate(this.cpus)
     },
 
     cpuCoreCount() {
-      return this.cpu ? this.cpu.length : 0
+      return this.cpus ? this.cpus.length : 0
     }
   },
 
@@ -55,10 +51,23 @@ export default {
     }
   },
 
-  methods: {},
+  methods: {
+    cpuUtilizationRate(cpus) {
+      const cpusUsedList = this.cpus.map(cpu => {
+        const totalTick = Object.values(cpu.times).reduce((a, b) => a + b)
+        const totalIdle = cpu.times.idle
+        const idle = totalIdle / cpus.length
+        const total = totalTick / cpus.length
+        return (100 * (total - idle)) / total
+      })
+      return (
+        cpusUsedList.reduce((a, b) => a + b) / cpusUsedList.length
+      ).toFixed(1)
+    }
+  },
 
   props: {
-    cpu: { type: Array, default: () => [] },
+    cpus: { type: Array, default: () => [] },
     loadAvg: { type: Array, default: () => [] },
     memory: { type: Object, default: () => ({}) },
     networkInterfaces: { type: Object, default: () => ({}) },

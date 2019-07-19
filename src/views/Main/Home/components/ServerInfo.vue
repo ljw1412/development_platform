@@ -48,8 +48,12 @@ export default {
       let time = ''
       const timeList = [
         {
+          unit: '天',
+          value: Math.floor(this.uptime / 3600 / 24)
+        },
+        {
           unit: '小时',
-          value: Math.floor(this.uptime / 3600)
+          value: Math.floor(this.uptime / 3600) % 24
         },
         {
           unit: '分钟',
@@ -57,7 +61,7 @@ export default {
         }
       ]
       return timeList
-        .map(item => (item.value ? item.value + item.unit : ''))
+        .map(item => (item.value > 0 ? item.value + item.unit : ''))
         .join('')
     }
   }

@@ -1,6 +1,7 @@
 <template>
   <session-card class="network-info">
-    <el-tabs>
+    <template #header>网络接口</template>
+    <el-tabs tab-position="left">
       <el-tab-pane v-for="(list,name) of network"
         :key="name"
         :label="name">

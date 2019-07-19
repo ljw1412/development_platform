@@ -26,6 +26,7 @@ export default {
 
   data() {
     return {
+      timer: null,
       base: { os: '', hostname: '' },
       state: {}
     }
@@ -46,8 +47,16 @@ export default {
 
   created() {
     this.updateTitle({ isDisplayPageHeader: false })
-    this.reFindState('state')
     this.reFindState('base')
+    this.reFindState('state')
+    this.timer = setInterval(() => {
+      this.reFindState('state')
+    }, 5000)
+  },
+
+  beforeDestroy() {
+    clearInterval(this.timer)
+    this.timer = null
   }
 }
 </script>

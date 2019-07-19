@@ -9,7 +9,7 @@
         <span>系统: {{ os }}</span>
       </div>
       <div class="server-info__uptime left__item">
-        已运行时间: {{formatUptime}}
+        不间断运行时间: {{formatUptime}}
       </div>
     </div>
     <div class="server-info__right">

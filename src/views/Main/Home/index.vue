@@ -1,20 +1,27 @@
 <template>
-  <div class="home">
-    <server-info v-bind="base"></server-info>
+  <scrollbar class="home">
+    <server-info v-bind="base"
+      :uptime="state.uptime"></server-info>
     <server-state v-bind="state"></server-state>
-  </div>
+    <cpu-info :cpu="state.cpu || []"></cpu-info>
+    <network-info :network="state.networkInterfaces||{}"></network-info>
+  </scrollbar>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import ServerInfo from './components/ServerInfo'
 import ServerState from './components/ServerState'
+import CpuInfo from './components/CpuInfo'
+import NetworkInfo from './components/NetworkInfo'
 export default {
   name: 'home',
 
   components: {
     ServerInfo,
-    ServerState
+    ServerState,
+    CpuInfo,
+    NetworkInfo
   },
 
   data() {
@@ -46,4 +53,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/index.scss';
+.home {
+  padding: 2px;
+  * {
+    color: $--color-text-primary;
+  }
+}
 </style>

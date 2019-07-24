@@ -33,7 +33,7 @@ export default {
 
     cpuPercentage() {
       if (!this.cpus || !this.cpus.length) return 0
-      return this.cpuUtilizationRate(this.cpus)
+      return parseFloat(this.cpuUtilizationRate(this.cpus))
     },
 
     cpuCoreCount() {

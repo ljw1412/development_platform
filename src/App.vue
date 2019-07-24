@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition name="el-fade-in-linear">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -13,6 +15,10 @@ html,
 body,
 #app {
   height: 100%;
+}
+
+#app {
+  overflow: hidden;
 }
 
 ul {

@@ -64,7 +64,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .home {
-  padding: 2px;
+  padding: 2px 10px;
   * {
     color: $--color-text-primary;
   }

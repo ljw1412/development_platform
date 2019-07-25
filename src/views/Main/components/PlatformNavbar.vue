@@ -59,6 +59,7 @@ export default {
       this.$callApi({ api: 'api/list_all_menu' }).then(data => {
         this.menuList = data
         Store.set('menu', data)
+        this.updateActiveIndex(this.$route.name)
       })
     },
 
@@ -80,7 +81,6 @@ export default {
   },
 
   mounted() {
-    this.updateActiveIndex(this.$route.name)
     this.reFindMenuList()
   },
 

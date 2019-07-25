@@ -10,6 +10,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import Timer from '@/class/Timer'
 import ServerInfo from './components/ServerInfo'
 import ServerState from './components/ServerState'
 import CpuInfo from './components/CpuInfo'
@@ -26,7 +27,7 @@ export default {
 
   data() {
     return {
-      timer: null,
+      timer: new Timer(5000, true, this.reFindState, 'state'),
       base: { os: '', hostname: '' },
       state: {}
     }
@@ -46,15 +47,11 @@ export default {
   created() {
     this.$setPageTitle({ isDisplayPageHeader: false })
     this.reFindState('base')
-    this.reFindState('state')
-    this.timer = setInterval(() => {
-      this.reFindState('state')
-    }, 5000)
+    this.timer.start()
   },
 
   beforeDestroy() {
-    clearInterval(this.timer)
-    this.timer = null
+    this.timer.stop()
   }
 }
 </script>

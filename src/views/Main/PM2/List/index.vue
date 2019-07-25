@@ -6,8 +6,12 @@
       <div class="service__header">
         <span class="header__title">{{item.name}}</span>
         <span class="header__path">{{item.path}}</span>
-        <el-tag :type="getTagType(item)"
-          effect="plain">{{item.status}}</el-tag>
+        <div>
+          <el-tag v-if="item.isProtected"
+            style="margin-right:5px">protected</el-tag>
+          <el-tag :type="getTagType(item)"
+            effect="plain">{{item.status}}</el-tag>
+        </div>
       </div>
       <div class="service__body">
         <div class="service__id service__info">
@@ -33,18 +37,20 @@
         <div class="service__operation service__info">
           <div class="info__title">操作</div>
           <div class="info__text">
-            <el-tooltip v-if="item.status==='online'"
-              content="暂停"
-              placement="bottom">
-              <i class="el-icon-video-pause"
-                @click="onOperationClick(item,'stop')"></i>
-            </el-tooltip>
-            <el-tooltip v-else
-              content="启动"
-              placement="bottom">
-              <i class="el-icon-video-play"
-                @click="onOperationClick(item,'start')"></i>
-            </el-tooltip>
+            <template v-if="!item.isProtected">
+              <el-tooltip v-if="item.status==='online'"
+                content="暂停"
+                placement="bottom">
+                <i class="el-icon-video-pause"
+                  @click="onOperationClick(item,'stop')"></i>
+              </el-tooltip>
+              <el-tooltip v-else
+                content="启动"
+                placement="bottom">
+                <i class="el-icon-video-play"
+                  @click="onOperationClick(item,'start')"></i>
+              </el-tooltip>
+            </template>
             <el-tooltip content="重启"
               placement="bottom">
               <i class="el-icon-refresh"
@@ -55,7 +61,8 @@
               <i class="el-icon-refresh-left"
                 @click="onOperationClick(item,'reload')"></i>
             </el-tooltip>
-            <el-tooltip content="删除"
+            <el-tooltip v-if="!item.isProtected"
+              content="删除"
               placement="bottom">
               <i class="el-icon-circle-close"
                 @click="onOperationClick(item,'delete')"></i>

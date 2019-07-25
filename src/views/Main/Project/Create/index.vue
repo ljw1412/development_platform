@@ -56,15 +56,13 @@ export default {
   },
 
   methods: {
-    ...mapActions('layout', ['updateTitle']),
-
     onModeCardClick(mode) {
       this.mode = mode
     }
   },
 
   created() {
-    this.updateTitle({
+    this.$setPageTitle({
       title: '项目管理/创建项目',
       isBack: true
     })

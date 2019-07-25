@@ -66,8 +66,6 @@ export default {
   },
 
   methods: {
-    ...mapActions('layout', ['updateTitle']),
-
     reFindUserInfo() {
       this.$callApi({ api: 'users/user_info' }).then(data => {
         this.user = data
@@ -88,7 +86,7 @@ export default {
   },
 
   created() {
-    this.updateTitle('个人中心')
+    this.$setPageTitle('个人中心')
     this.reFindUserInfo()
   }
 }

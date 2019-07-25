@@ -33,8 +33,6 @@ export default {
   },
 
   methods: {
-    ...mapActions('layout', ['updateTitle']),
-
     reFindState(action) {
       this.$callApi({
         api: 'system',
@@ -46,7 +44,7 @@ export default {
   },
 
   created() {
-    this.updateTitle({ isDisplayPageHeader: false })
+    this.$setPageTitle({ isDisplayPageHeader: false })
     this.reFindState('base')
     this.reFindState('state')
     this.timer = setInterval(() => {

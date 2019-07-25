@@ -5,6 +5,9 @@ import store from './store'
 import './inject'
 
 Vue.config.productionTip = false
+Vue.prototype.$setPageTitle = data => {
+  store.dispatch('layout/updateTitle', data)
+}
 
 new Vue({
   router,

@@ -59,23 +59,34 @@ export default {
       this.$callApi({ api: 'api/list_all_menu' }).then(data => {
         this.menuList = data
         Store.set('menu', data)
-        if (this.$route.name === 'main') this.syncTitle(this.$route.name)
       })
     },
 
     onMenuItemClick(item, parent) {
       this.$router.push(item.route)
+    },
+
+    updateActiveIndex(name) {
+      this.activeIndex = name
+      this.$nextTick(() => {
+        if (!this.$refs.menu.activeIndex) {
+          const menu = this.menuList.find(
+            item => !name.indexOf(item.route.name)
+          )
+          if (menu) this.activeIndex = menu.route.name
+        }
+      })
     }
   },
 
   mounted() {
-    this.activeIndex = this.$route.name
+    this.updateActiveIndex(this.$route.name)
     this.reFindMenuList()
   },
 
   watch: {
     '$route.name'(name) {
-      this.activeIndex = name
+      this.updateActiveIndex(name)
     }
   }
 }

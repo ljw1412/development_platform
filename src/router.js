@@ -17,6 +17,9 @@ const ProjectList = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Project/List')
 const ProjectCreate = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Project/Create')
+const PM2 = () => import(/* webpackChunkName: "main" */ './views/Main/PM2')
+const PM2List = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/PM2/List')
 
 Vue.use(Router)
 
@@ -78,6 +81,19 @@ export default new Router({
           path: 'project/create',
           name: 'projectCreate',
           component: ProjectCreate
+        },
+        {
+          path: 'pm2',
+          name: 'PM2',
+          component: PM2,
+          redirect: { name: 'PM2List' },
+          children: [
+            {
+              path: 'list',
+              name: 'PM2List',
+              component: PM2List
+            }
+          ]
         }
       ]
     }

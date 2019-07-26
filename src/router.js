@@ -20,6 +20,8 @@ const ProjectCreate = () =>
 const PM2 = () => import(/* webpackChunkName: "main" */ './views/Main/PM2')
 const PM2List = () =>
   import(/* webpackChunkName: "main" */ './views/Main/PM2/List')
+const PM2Details = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/PM2/Details')
 
 Vue.use(Router)
 
@@ -92,6 +94,11 @@ export default new Router({
               path: 'list',
               name: 'PM2List',
               component: PM2List
+            },
+            {
+              path: 'details',
+              name: 'PM2Details',
+              component: PM2Details
             }
           ]
         }

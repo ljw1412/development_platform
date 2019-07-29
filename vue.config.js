@@ -1,7 +1,10 @@
 const webpack = require('webpack')
 
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
+  publicPath: isDevelopment ? '/' : '',
+  productionSourceMap: false,
   devServer: {
     compress: true,
     port: 8998

@@ -1,6 +1,8 @@
 <template>
   <scrollbar class="pm2-details">
-    <pocess-info v-bind="process"></pocess-info>
+    <process-info v-bind="process"
+      disableTitleClick>
+    </process-info>
     <div class="charts">
       <details-charts title="cpu 使用率"
         yUnit="%"
@@ -13,14 +15,14 @@
 </template>
 
 <script>
-import PocessInfo from '../components/PocessInfo'
+import ProcessInfo from '../components/ProcessInfo'
 import DetailsCharts from '../components/DetailsCharts'
 import { setTags } from '../helper'
 import Timer from '@/class/Timer'
 export default {
   name: 'PM2Details',
 
-  components: { PocessInfo, DetailsCharts },
+  components: { ProcessInfo, DetailsCharts },
 
   data() {
     return {

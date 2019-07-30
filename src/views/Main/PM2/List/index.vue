@@ -1,13 +1,13 @@
 <template>
   <scrollbar class="pm2-list">
-    <pocess-info v-for="item of list"
+    <process-info v-for="item of list"
       :key="item.pmid"
-      v-bind="item"></pocess-info>
+      v-bind="item"></process-info>
   </scrollbar>
 </template>
 
 <script>
-import PocessInfo from '../components/PocessInfo'
+import ProcessInfo from '../components/ProcessInfo'
 import Timer from '@/class/Timer'
 import { formatFileSize } from '@/utils/file.js'
 import { setTags } from '../helper'
@@ -15,7 +15,7 @@ export default {
   name: 'PM2List',
 
   components: {
-    PocessInfo
+    ProcessInfo
   },
 
   data() {

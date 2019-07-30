@@ -1,6 +1,6 @@
 <template>
-  <div class="pocess">
-    <div class="pocess__header">
+  <div class="process">
+    <div class="process__header">
       <span class="header__title"
         :class="{'header__title--allow-click':!disableTitleClick}"
         @click="onServiceTitleClick">{{name}}</span>
@@ -11,28 +11,28 @@
           :type="tag.type">{{tag.label}}</el-tag>
       </div>
     </div>
-    <div class="pocess__body">
-      <div class="pocess__id pocess__info">
+    <div class="process__body">
+      <div class="process__id process__info">
         <div class="info__title">#</div>
         <div class="info__text">{{pmid}}</div>
       </div>
-      <div class="pocess__status pocess__info">
+      <div class="process__status process__info">
         <div class="info__title">VERSION</div>
         <div class="info__text">{{version}}</div>
       </div>
-      <div class="pocess__uptime pocess__info">
+      <div class="process__uptime process__info">
         <div class="info__title">UPTIME</div>
         <div class="info__text">{{uptime}}</div>
       </div>
-      <div class="pocess__cpu pocess__info">
+      <div class="process__cpu process__info">
         <div class="info__title">CPU</div>
         <div class="info__text">{{cpu}}</div>
       </div>
-      <div class="pocess__memory pocess__info">
+      <div class="process__memory process__info">
         <div class="info__title">MEMORY</div>
         <div class="info__text">{{memory}}</div>
       </div>
-      <div class="pocess__operation pocess__info">
+      <div class="process__operation process__info">
         <div class="info__title">操作</div>
         <div class="info__text">
           <template v-for="item of actionList">
@@ -133,7 +133,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
-.pocess {
+.process {
   padding: 8px 10px;
   margin-bottom: 10px;
   border: 1px solid $--border-color-lighter;

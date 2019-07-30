@@ -11,6 +11,10 @@
         yUnit="MB"
         :list="memoryList"></details-charts>
     </div>
+    <div>
+      <p v-for="(log,index) of logList"
+        :key="index">{{log}}</p>
+    </div>
   </scrollbar>
 </template>
 
@@ -26,10 +30,12 @@ export default {
 
   data() {
     return {
-      timer: new Timer(3000, true, this.reFindProcess),
+      timer: new Timer(3000, true, this.getInfo),
       process: { name: '进程名称', tag: [] },
       cpuList: [],
-      memoryList: []
+      memoryList: [],
+      logList: [],
+      lineNum: undefined
     }
   },
 
@@ -49,6 +55,11 @@ export default {
       })
     },
 
+    getInfo() {
+      this.reFindProcess()
+      this.reFindLog()
+    },
+
     reFindProcess() {
       this.$callApi({
         method: 'post',
@@ -58,6 +69,16 @@ export default {
         this.process = setTags(data)
         this.addDataToList(this.cpuList, data.cpu)
         this.addDataToList(this.memoryList, data.memory)
+      })
+    },
+
+    reFindLog() {
+      this.$callApi({
+        api: 'pm2/logs',
+        param: { id: this.id, lineNum: this.lineNum }
+      }).then(({ line, lineNum }) => {
+        this.logList.push(...line)
+        this.lineNum = lineNum
       })
     }
   },

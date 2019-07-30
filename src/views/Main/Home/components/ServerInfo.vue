@@ -69,10 +69,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/index.scss';
 .server-info {
   padding: 10px 15px;
   margin-bottom: 15px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid $--border-color-lighter;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   font-size: 16px;
   &__left,
   &__right {

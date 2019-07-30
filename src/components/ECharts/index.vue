@@ -1,6 +1,7 @@
 <template>
   <div ref="echarts"
-    class="echarts">
+    class="echarts"
+    :style="{width, height}">
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 import echarts from 'echarts/lib/echarts'
 // 引入柱状图
 import('echarts/lib/chart/bar')
+import('echarts/lib/chart/line')
 // 引入提示框和标题组件
 import('echarts/lib/component/tooltip')
 import('echarts/lib/component/title')
@@ -20,7 +22,10 @@ export default {
   name: 'ECharts',
 
   props: {
-    option: { type: Object, default: () => ({}) }
+    option: { type: Object, default: () => ({}) },
+    width: String,
+    height: String,
+    notMerge: { type: Boolean, default: true }
   },
 
   data() {
@@ -37,7 +42,7 @@ export default {
 
   watch: {
     option(val) {
-      this.echarts.setOption(this.option)
+      this.echarts.setOption(this.option, this.notMerge)
     }
   },
 
@@ -53,4 +58,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.echarts {
+  width: 100%;
+  height: 100%;
+}
 </style>

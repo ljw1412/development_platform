@@ -1,4 +1,4 @@
-const tagLabelList = ['watch', 'protected']
+const tagLabelList = ['watch', 'protect']
 
 function getStatusType(status) {
   const map = {

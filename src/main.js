@@ -5,6 +5,7 @@ import store from './store'
 import './inject'
 
 Vue.config.productionTip = false
+// 禁止在定时里跑，当开两个页面的时候，定时任务会影响另一个页面的正常界面状态
 Vue.prototype.$setPageTitle = data => {
   store.dispatch('layout/updateTitle', data)
 }

@@ -31,7 +31,6 @@ export default {
         api: 'pm2/list'
       }).then(({ count, list }) => {
         this.list = list.map(item => setTags(item))
-        this.$setPageTitle(`PM2进程管理器(${count})`)
       })
     }
   },

@@ -86,10 +86,10 @@ export default {
   }
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1000px) {
   .charts {
     flex-direction: column;
-    * {
+    & > * {
       width: 100%;
     }
   }

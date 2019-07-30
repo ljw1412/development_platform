@@ -221,5 +221,27 @@ export default {
   .header__path {
     display: none;
   }
+  .process {
+    &__header {
+      flex-wrap: wrap;
+      & > * {
+        width: 100%;
+      }
+      .header__tags {
+        span {
+          margin-left: 0;
+        }
+      }
+    }
+    &__body {
+      flex-wrap: wrap;
+    }
+    &__info {
+      width: 50%;
+      &:last-child::after {
+        display: block;
+      }
+    }
+  }
 }
 </style>

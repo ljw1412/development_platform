@@ -1,32 +1,30 @@
 <template>
-  <scrollbar>
-    <div class="personal">
-      <transition name="el-zoom-in-center">
-        <id-card v-show="isDisplayIdCard"
-          class="personal__card"
-          :user="user"
-          @editClick="onEditClick"></id-card>
-      </transition>
-      <transition name="el-zoom-in-center">
-        <info-card v-show="isDisplayInfoCard"
-          class="personal__card"
-          :user="user"
-          @back="onCardBack"
-          @change="onInfoChange"></info-card>
-      </transition>
-      <transition name="el-zoom-in-center">
-        <password-card v-show="isDisplayPasswordCard"
-          id="password-card"
-          class="personal__card"
-          @back="onCardBack"></password-card>
-      </transition>
-      <transition name="el-zoom-in-center">
-        <avatar-card v-show="isDisplayAvatarCard"
-          class="personal__card"
-          @back="onCardBack"></avatar-card>
-      </transition>
-    </div>
-  </scrollbar>
+  <div class="personal">
+    <transition name="el-zoom-in-center">
+      <id-card v-show="isDisplayIdCard"
+        class="personal__card"
+        :user="user"
+        @editClick="onEditClick"></id-card>
+    </transition>
+    <transition name="el-zoom-in-center">
+      <info-card v-show="isDisplayInfoCard"
+        class="personal__card"
+        :user="user"
+        @back="onCardBack"
+        @change="onInfoChange"></info-card>
+    </transition>
+    <transition name="el-zoom-in-center">
+      <password-card v-show="isDisplayPasswordCard"
+        id="password-card"
+        class="personal__card"
+        @back="onCardBack"></password-card>
+    </transition>
+    <transition name="el-zoom-in-center">
+      <avatar-card v-show="isDisplayAvatarCard"
+        class="personal__card"
+        @back="onCardBack"></avatar-card>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -93,6 +91,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/index.scss';
 .personal {
   position: relative;
   &__card {

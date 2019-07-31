@@ -17,10 +17,6 @@ body,
   height: 100%;
 }
 
-#app {
-  overflow: hidden;
-}
-
 ul {
   list-style: none;
 }
@@ -34,5 +30,6 @@ ul {
 ::-webkit-scrollbar {
   border: none;
   width: 6px;
+  height: 6px;
 }
 </style>

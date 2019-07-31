@@ -1,9 +1,9 @@
 <template>
-  <scrollbar class="pm2-list">
+  <div class="pm2-list">
     <process-info v-for="item of list"
       :key="item.pmid"
       v-bind="item"></process-info>
-  </scrollbar>
+  </div>
 </template>
 
 <script>

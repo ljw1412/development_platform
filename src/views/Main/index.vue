@@ -1,37 +1,27 @@
 <template>
   <div class="platform">
+    <platform-navbar></platform-navbar>
     <platform-header></platform-header>
-    <section class="platform__container">
-      <platform-navbar style="flex-shrink:0;"></platform-navbar>
-      <main>
-        <page-header></page-header>
-        <router-view :style="routerViewStyles"></router-view>
-      </main>
-    </section>
+    <main :class="`sidebar--${isMenuCollapsed?'fold':'unfold'}`">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <script>
 import PlatformHeader from './components/PlatformHeader'
 import PlatformNavbar from './components/PlatformNavbar'
-import PageHeader from './components/PageHeader'
 import { mapState } from 'vuex'
 export default {
   name: 'Main',
 
   components: {
     PlatformHeader,
-    PlatformNavbar,
-    PageHeader
+    PlatformNavbar
   },
 
   computed: {
-    ...mapState('layout', ['isDisplayPageHeader']),
-    routerViewStyles() {
-      return {
-        height: this.isDisplayPageHeader ? 'calc(100% - 44px)' : '100%'
-      }
-    }
+    ...mapState('layout', ['isMenuCollapsed'])
   },
 
   data() {
@@ -47,14 +37,17 @@ export default {
 .platform {
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  &__container {
-    height: calc(100% - 50px);
-    display: flex;
-    main {
-      flex-grow: 1;
-      width: 0;
-      padding: 20px 20px 0 20px;
+  overflow-y: scroll;
+  main {
+    padding-top: 50px;
+    transition: padding-left 0.3s ease-in-out;
+    &.sidebar {
+      &--fold {
+        padding-left: 64px;
+      }
+      &--unfold {
+        padding-left: 200px;
+      }
     }
   }
 }

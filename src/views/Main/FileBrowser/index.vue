@@ -1,5 +1,5 @@
 <template>
-  <div class="file-browser">
+  <div class="file-browser main-content-wrapper">
     <file-manager></file-manager>
   </div>
 </template>
@@ -17,4 +17,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/index.scss';
 </style>

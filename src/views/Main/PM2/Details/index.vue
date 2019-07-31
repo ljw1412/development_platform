@@ -99,10 +99,6 @@ export default {
 .pm2-details {
   box-sizing: border-box;
   height: 100%;
-  padding-bottom: 10px;
-  padding-right: 20px;
-  margin-right: -20px;
-  overflow-y: auto;
 }
 .charts {
   display: flex;

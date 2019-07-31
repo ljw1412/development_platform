@@ -1,5 +1,5 @@
 <template>
-  <div class="pm2">
+  <div class="pm2  main-content-wrapper">
     <router-view />
   </div>
 </template>
@@ -11,4 +11,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/index.scss';
 </style>

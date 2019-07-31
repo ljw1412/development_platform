@@ -21,7 +21,6 @@ const getTitleFromStorage = routeName => {
 const defaultState = () => {
   return {
     isMenuCollapsed: true,
-    isDisplayPageHeader: true,
     /* 用于 PageHeader */
     // 控制是否为返回模式，如果为 false 者返回首页
     isBack: false,
@@ -49,8 +48,7 @@ export default {
       if (layout) {
         if (routeName) layout.title = getTitleFromStorage(routeName)
         Object.assign(layout, {
-          isBack: false,
-          isDisplayPageHeader: true
+          isBack: false
         })
         commit('updateLayout', layout)
       } else {

@@ -1,15 +1,14 @@
 <template>
-  <div v-if="isDisplayPageHeader"
-    class="page-header">
+  <div class="page-title">
     <transition name="collapse-left">
       <div v-if="isBack"
-        class="page-header__back"
+        class="page-title__back"
         @click="onBack">
         <i class="el-icon-back"></i>
-        <div class="page-header__back-title">返回</div>
+        <div class="page-title__back-title">返回</div>
       </div>
     </transition>
-    <span class="page-header__content">{{title}}</span>
+    <span class="page-title__content">{{title}}</span>
   </div>
 </template>
 
@@ -19,7 +18,7 @@ export default {
   name: 'PageHeader',
 
   computed: {
-    ...mapState('layout', ['isDisplayPageHeader', 'title', 'isBack'])
+    ...mapState('layout', ['title', 'isBack'])
   },
 
   methods: {
@@ -34,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
-.page-header {
+.page-title {
   display: flex;
   line-height: 24px;
   flex-shrink: 0;
@@ -75,7 +74,6 @@ export default {
   }
   &__content {
     font-size: 18px;
-    color: $--color-text-primary;
   }
 }
 

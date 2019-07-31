@@ -1,11 +1,11 @@
 <template>
-  <scrollbar class="home">
+  <div class="home main-content-wrapper">
     <server-info v-bind="base"
       :uptime="state.uptime"></server-info>
     <server-state v-bind="state"></server-state>
     <cpu-info :cpus="state.cpus || []"></cpu-info>
     <network-info :network="state.networkInterfaces||{}"></network-info>
-  </scrollbar>
+  </div>
 </template>
 
 <script>
@@ -45,7 +45,6 @@ export default {
   },
 
   created() {
-    this.$setPageTitle({ isDisplayPageHeader: false })
     this.reFindState('base')
     this.timer.start()
   },
@@ -59,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .home {
-  padding: 2px 10px;
+  margin: 16px 24px;
   * {
     color: $--color-text-primary;
   }

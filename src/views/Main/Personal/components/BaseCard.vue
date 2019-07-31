@@ -34,6 +34,9 @@ export default {
   border-radius: 20px;
   background: linear-gradient(120deg, #2c2c2c 0%, #505050 100%);
   color: #fff;
+}
+
+.base-card {
   &:hover {
     animation: flashlight 0.5s linear 0.1s 1;
   }

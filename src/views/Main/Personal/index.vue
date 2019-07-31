@@ -1,5 +1,5 @@
 <template>
-  <div class="personal">
+  <div class="personal main-content-wrapper">
     <transition name="el-zoom-in-center">
       <id-card v-show="isDisplayIdCard"
         class="personal__card"

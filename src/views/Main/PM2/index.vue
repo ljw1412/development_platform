@@ -1,5 +1,5 @@
 <template>
-  <div class="pm2  main-content-wrapper">
+  <div class="pm2 main-content-wrapper">
     <router-view />
   </div>
 </template>

@@ -48,7 +48,7 @@ export default {
     // 内容的样式
     contentStyle: { type: [Object, String], default: () => ({}) },
     // 滚动条轨道颜色
-    barColor: String,
+    barColor: { type: String, default: 'transparent' },
     // 滚动条滑块颜色
     thumbColor: String,
     // 垂直导航栏距离右边的距离
@@ -214,6 +214,7 @@ export default {
     onMousewheel(e) {
       this.scroll('x', e.deltaX)
       this.scroll('y', e.deltaY)
+      return false
     }
   },
 

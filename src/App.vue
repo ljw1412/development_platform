@@ -24,4 +24,15 @@ body,
 ul {
   list-style: none;
 }
+
+::-webkit-scrollbar-thumb {
+  background-color: hsla(223, 3%, 50%, 0.4);
+}
+::-webkit-scrollbar-thumb:active {
+  background-color: hsla(223, 3%, 50%, 0.6);
+}
+::-webkit-scrollbar {
+  border: none;
+  width: 6px;
+}
 </style>

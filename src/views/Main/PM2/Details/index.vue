@@ -1,5 +1,5 @@
 <template>
-  <scrollbar class="pm2-details">
+  <div class="pm2-details">
     <process-info v-bind="process"
       disableTitleClick>
     </process-info>
@@ -11,11 +11,11 @@
         yUnit="MB"
         :list="memoryList"></details-charts>
     </div>
-    <div>
+    <div class="logs">
       <p v-for="(log,index) of logList"
         :key="index">{{log}}</p>
     </div>
-  </scrollbar>
+  </div>
 </template>
 
 <script>
@@ -77,7 +77,7 @@ export default {
         api: 'pm2/logs',
         param: { id: this.id, lineNum: this.lineNum }
       }).then(({ line, lineNum }) => {
-        this.logList.push(...line)
+        this.logList.unshift(...line.reverse())
         this.lineNum = lineNum
       })
     }
@@ -96,6 +96,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
+.pm2-details {
+  box-sizing: border-box;
+  height: 100%;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  margin-right: -20px;
+  overflow-y: auto;
+}
 .charts {
   display: flex;
   padding: 8px 10px;
@@ -105,6 +113,12 @@ export default {
     flex-grow: 1;
     width: 0;
   }
+}
+.logs {
+  height: 200px;
+  padding: 8px 10px;
+  border: 1px solid $--border-color-lighter;
+  overflow-y: auto;
 }
 
 @media screen and (max-width: 1000px) {

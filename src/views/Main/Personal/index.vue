@@ -98,6 +98,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    user-select: none;
   }
   &__info {
     display: flex;

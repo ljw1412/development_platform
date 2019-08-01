@@ -138,7 +138,7 @@ export default {
       top: 0;
       width: 3px;
       height: 100%;
-      background-color: #409eff;
+      background-color: $--color-primary;
     }
   }
 
@@ -152,7 +152,7 @@ export default {
       /deep/ .el-submenu__title {
         @include active-left-line;
         * {
-          color: #409eff;
+          color: $--color-primary;
         }
       }
     }

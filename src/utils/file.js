@@ -6,8 +6,9 @@ try {
   console.error('不支持 Blob 格式')
 }
 
-export const download = (url, name) => {
+export const download = (data, name) => {
   if (!isFileSaverSupported) return
+  FileSaver.saveAs(data, name)
 }
 
 export function formatFileSize(size) {

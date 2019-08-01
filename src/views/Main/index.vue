@@ -37,9 +37,10 @@ export default {
 .platform {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
   main {
+    height: calc(100% - 50px);
     padding-top: 50px;
+    overflow-y: scroll;
     transition: padding-left 0.3s ease-in-out;
     &.sidebar {
       &--fold {

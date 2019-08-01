@@ -58,9 +58,6 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .home {
-  margin: 16px 24px;
-  * {
-    color: $--color-text-primary;
-  }
+  color: $--color-text-primary;
 }
 </style>

@@ -166,6 +166,7 @@ export default {
         transform: translateX(-50%);
         font-size: 12px;
         color: $--color-text-placeholder;
+        white-space: nowrap;
       }
       &__tags {
         span {

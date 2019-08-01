@@ -26,9 +26,6 @@ export default {}
 }
 .action {
   flex-shrink: 0;
-  * {
-    margin: 0 10px 10px 0;
-  }
   .el-input {
     width: 200px;
   }

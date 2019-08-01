@@ -12,8 +12,21 @@
         :list="memoryList"></details-charts>
     </div>
     <div class="logs">
-      <p v-for="(log,index) of logList"
-        :key="index">{{log}}</p>
+      <div class="logs__action">
+        <span>实时日志</span>
+        <div>
+          <el-button type="danger"
+            size="mini"
+            @click="logList = []">清空</el-button>
+          <el-button type="primary"
+            size="mini"
+            @click="onSaveLogClick">保存</el-button>
+        </div>
+      </div>
+      <div class="logs__content">
+        <p v-for="(log,index) of logList"
+          :key="index">{{log}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +35,7 @@
 import ProcessInfo from '../components/ProcessInfo'
 import DetailsCharts from '../components/DetailsCharts'
 import { setTags } from '../helper'
+import { download } from '@/utils/file'
 import Timer from '@/class/Timer'
 export default {
   name: 'PM2Details',
@@ -80,6 +94,18 @@ export default {
         this.logList.unshift(...line.reverse())
         this.lineNum = lineNum
       })
+    },
+
+    onSaveLogClick() {
+      try {
+        const blob = new Blob([this.logList.join('\n')], { type: 'text/plain' })
+        download(
+          blob,
+          this.process.name + moment().format('_YYYY-MM-DD_HH-mm-ss')
+        )
+      } catch (error) {
+        console.error(error)
+      }
     }
   },
 
@@ -111,10 +137,22 @@ export default {
   }
 }
 .logs {
+  position: relative;
   height: 200px;
-  padding: 8px 10px;
+  padding: 8px 0 0 10px;
   border: 1px solid $--border-color-lighter;
-  overflow-y: auto;
+  &__action {
+    position: absolute;
+    display: flex;
+    width: calc(100% - 16px);
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__content {
+    margin-top: 32px;
+    height: calc(100% - 32px);
+    overflow-y: auto;
+  }
 }
 
 @media screen and (max-width: 1000px) {

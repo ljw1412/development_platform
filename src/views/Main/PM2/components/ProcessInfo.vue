@@ -12,25 +12,12 @@
       </div>
     </div>
     <div class="process__body">
-      <div class="process__id process__info">
-        <div class="info__title">#</div>
-        <div class="info__text">{{pmid}}</div>
-      </div>
-      <div class="process__status process__info">
-        <div class="info__title">VERSION</div>
-        <div class="info__text">{{version}}</div>
-      </div>
-      <div class="process__uptime process__info">
-        <div class="info__title">UPTIME</div>
-        <div class="info__text">{{uptime}}</div>
-      </div>
-      <div class="process__cpu process__info">
-        <div class="info__title">CPU</div>
-        <div class="info__text">{{cpu}}</div>
-      </div>
-      <div class="process__memory process__info">
-        <div class="info__title">MEMORY</div>
-        <div class="info__text">{{memory}}</div>
+      <div v-for="item of infoList"
+        class="process__info"
+        :class="item.class"
+        :key="item.label">
+        <div class="info__title">{{item.label}}</div>
+        <div class="info__text">{{item.value}}</div>
       </div>
       <div class="process__operation process__info">
         <div class="info__title">操作</div>
@@ -58,7 +45,7 @@ export default {
     name: String,
     path: String,
     tags: { type: Array, default: () => [] },
-    pmid: { type: Number, default: -1 },
+    pmid: [Number, String],
     version: String,
     uptime: String,
     cpu: String,
@@ -105,6 +92,16 @@ export default {
         }
       ]
       return list.filter(item => item.isDisplay)
+    },
+
+    infoList() {
+      return [
+        { label: '#', value: this.pmid, class: ['process__id'] },
+        { label: 'VERSION', value: this.version, class: ['process__status'] },
+        { label: 'UPTIME', value: this.uptime, class: ['process__uptime'] },
+        { label: 'CPU', value: this.cpu, class: ['process__cpu'] },
+        { label: 'MEMORY', value: this.memory, class: ['process__memory'] }
+      ]
     }
   },
 

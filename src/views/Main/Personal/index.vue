@@ -1,5 +1,5 @@
 <template>
-  <div class="personal main-content-wrapper">
+  <div class="personal">
     <transition name="el-zoom-in-center">
       <id-card v-show="isDisplayIdCard"
         class="personal__card"
@@ -94,10 +94,12 @@ export default {
 @import '@/theme/index.scss';
 .personal {
   position: relative;
+  height: 100%;
   &__card {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     user-select: none;
   }
   &__info {

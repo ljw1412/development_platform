@@ -36,15 +36,15 @@ export default {
   margin-top: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   .select-card {
     width: 400px;
     height: 300px;
     user-select: none;
     cursor: pointer;
-    &:first-child {
-      margin-right: 40px;
-    }
+    // &:first-child {
+    //   margin-right: 40px;
+    // }
     &__title {
       font-size: 24px;
       font-weight: 500;

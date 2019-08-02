@@ -62,6 +62,7 @@ header {
   display: flex;
   .menu-trigger {
     display: flex;
+    flex-shrink: 0;
     position: relative;
     font-size: 22px;
     height: 50px;
@@ -84,5 +85,6 @@ header {
 
 .header-right {
   margin-right: 10px;
+  flex-shrink: 0;
 }
 </style>

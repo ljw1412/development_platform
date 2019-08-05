@@ -29,7 +29,7 @@
             placeholder="请输入项目目标文件夹">
             <el-button slot="append"
               type="primary"
-              @click="onSelectDirClick">浏览</el-button>
+              @click="isDisplayDrawer = true">浏览</el-button>
           </el-input>
         </el-form-item>
       </template>
@@ -40,12 +40,16 @@
       class="file-manager-drawer"
       size="500px"
       :visible.sync="isDisplayDrawer">
-      <file-manager isSelect></file-manager>
+      <file-manager onlyDir
+        isSelect
+        @selectChange="onFileManagerSelectChange"></file-manager>
+      <div class="file-manager-drawer__path">{{selectedPath}}</div>
       <div class="file-manager-drawer__footer">
         <el-button size="medium"
           @click="isDisplayDrawer = false">取消</el-button>
         <el-button size="medium"
-          type="primary">选择</el-button>
+          type="primary"
+          @click="onDrawerSelectClick">选择</el-button>
       </div>
     </el-drawer>
   </div>
@@ -74,6 +78,7 @@ export default {
         name: '',
         dirPath: ''
       },
+      selectedPath: '',
       isDisplayDrawer: false
     }
   },
@@ -103,14 +108,20 @@ export default {
       this.project.git = ''
     },
 
-    onSelectDirClick() {
-      this.isDisplayDrawer = true
+    onFileManagerSelectChange(path) {
+      this.selectedPath = path
+    },
+
+    onDrawerSelectClick() {
+      this.project.dirPath = this.selectedPath
+      this.isDisplayDrawer = false
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/index.scss';
 .create-project {
   max-width: 800px;
   width: 100%;
@@ -139,6 +150,10 @@ export default {
     height: 100%;
     padding: 20px;
     padding-top: 0;
+  }
+  &__path {
+    font-size: 12px;
+    color: $--color-text-secondary;
   }
   &__footer {
     display: flex;

@@ -10,21 +10,18 @@
         @click.native="onNavClick(item)">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <div class="file-manager__file-list">
-      <ul>
-        <li v-for="(item,index) of fileList"
-          :key="index"
-          :class="{'isSelected': item.isSelected}"
-          @click="onFileClick(item)"
-          @dblclick="onFileDblclick(item)">
-          <el-image fit="contain"
-            class="file-icon"
-            :src="getFileIcon(item)"></el-image>
-          <span>{{item.name}}</span>
-        </li>
-      </ul>
-    </div>
-
+    <ul class="file-manager__file-list">
+      <li v-for="(item,index) of fileList"
+        :key="index"
+        :class="{'isSelected': item.isSelected}"
+        @click="onFileClick(item)"
+        @dblclick="onFileDblclick(item)">
+        <el-image fit="contain"
+          class="file-icon"
+          :src="getFileIcon(item)"></el-image>
+        <span>{{item.name}}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -32,6 +29,7 @@
 export default {
   props: {
     path: { type: String, default: '/' },
+    onlyDir: Boolean,
     isSelect: Boolean
   },
 
@@ -63,11 +61,16 @@ export default {
         : './images/icon-unknown.svg')
     },
 
+    concatPath(parentPath, name) {
+      return parentPath + (parentPath.endsWith('/') ? name : '/' + name)
+    },
+
     reFindFileList() {
       this.$callApi({
         api: 'file/',
         param: {
-          path: this.mPath
+          path: this.mPath,
+          onlyDir: this.onlyDir
         }
       }).then(data => {
         data.forEach(item => {
@@ -79,6 +82,9 @@ export default {
 
     onNavClick(item) {
       this.mPath = item.path
+      if (this.isSelect) {
+        this.selectedPath = item.path
+      }
     },
 
     onFileClick(item) {
@@ -87,26 +93,26 @@ export default {
           item.isSelected = false
         })
         this.$set(item, 'isSelected', true)
-        this.selectedPath = this.mPath + item.name
+        this.selectedPath = this.concatPath(this.mPath, item.name)
         return
       }
 
       if (item.type === 'dir') {
-        this.mPath += this.mPath.endsWith('/') ? item.name : '/' + item.name
+        this.mPath = this.concatPath(this.mPath, item.name)
       }
     },
 
     onFileDblclick(item) {
       if (!this.isSelect) return
       if (item.type === 'dir') {
-        this.selectedPath = ''
-        this.mPath += this.mPath.endsWith('/') ? item.name : '/' + item.name
+        this.mPath = this.concatPath(this.mPath, item.name)
       }
     }
   },
 
   mounted() {
     this.mPath = this.path
+    if (this.isSelect) this.selectedPath = this.path
     this.reFindFileList()
   },
 
@@ -114,6 +120,9 @@ export default {
     mPath(val) {
       this.fileList = []
       this.reFindFileList()
+    },
+    selectedPath(val) {
+      this.$emit('selectChange', val)
     }
   }
 }

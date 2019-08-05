@@ -113,6 +113,7 @@ export default {
         param: { id, type }
       }).then(data => {
         this.reFindList()
+        this.$emit('stateChange')
       })
     },
 

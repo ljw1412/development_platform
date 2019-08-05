@@ -2,7 +2,6 @@ import Vue from 'vue'
 import axios from 'axios'
 import url from 'url'
 import qs from 'qs'
-import store from '@/store'
 const vue = new Vue()
 
 const methodList = ['get', 'post', 'put', 'patch', 'options', 'head', 'delete']

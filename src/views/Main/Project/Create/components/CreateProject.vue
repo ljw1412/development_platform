@@ -41,6 +41,12 @@
       size="500px"
       :visible.sync="isDisplayDrawer">
       <file-manager isSelect></file-manager>
+      <div class="file-manager-drawer__footer">
+        <el-button size="medium"
+          @click="isDisplayDrawer = false">取消</el-button>
+        <el-button size="medium"
+          type="primary">选择</el-button>
+      </div>
     </el-drawer>
   </div>
 </template>
@@ -128,7 +134,21 @@ export default {
 
 .file-manager-drawer {
   /deep/ .el-drawer__body {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    padding: 20px;
+    padding-top: 0;
+  }
+  &__footer {
+    display: flex;
+    margin-top: 10px;
+    .el-button {
+      flex-grow: 1;
+      & + .el-button {
+        margin-left: 10px;
+      }
+    }
   }
 }
 </style>

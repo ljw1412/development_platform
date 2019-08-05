@@ -10,8 +10,8 @@
         @click.native="onNavClick(item)">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <scrollbar>
-      <ul class="file-manager__file-list">
+    <div class="file-manager__file-list">
+      <ul>
         <li v-for="(item,index) of fileList"
           :key="index"
           :class="{'isSelected': item.isSelected}"
@@ -23,7 +23,8 @@
           <span>{{item.name}}</span>
         </li>
       </ul>
-    </scrollbar>
+    </div>
+
   </div>
 </template>
 
@@ -127,6 +128,12 @@ export default {
   &--select {
     user-select: none;
   }
+
+  &__breadcrumb {
+    flex-shrink: 0;
+    padding: 10px 0;
+  }
+
   &__breadcrumb-item:not(.isLast) {
     /deep/ .el-breadcrumb__inner {
       cursor: pointer;
@@ -136,16 +143,10 @@ export default {
     }
   }
 
-  &__breadcrumb {
-    flex-shrink: 0;
-    padding: 10px 0;
-  }
-  &__scrollbar {
+  &__file-list {
     flex-grow: 1;
     height: 100%;
-  }
-  &__file-list {
-    margin-bottom: 10px;
+    overflow-y: auto;
     li {
       position: relative;
       display: flex;

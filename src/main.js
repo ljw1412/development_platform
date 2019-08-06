@@ -3,6 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './inject'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
+
+console.log(moment([2019, 1, 1]).fromNow())
 
 Vue.config.productionTip = false
 // 禁止在定时里跑，当开两个页面的时候，定时任务会影响另一个页面的正常界面状态

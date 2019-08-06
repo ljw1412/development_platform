@@ -26,7 +26,8 @@
       </el-form-item>
       <div v-loading="isLoggingIn"
         class="buttons-wrapper">
-        <el-button class="btn-login"
+        <el-button v-if="false"
+          class="btn-login"
           size="large"
           @click="onGuestClick">游客登录</el-button>
         <el-button class="btn-login"

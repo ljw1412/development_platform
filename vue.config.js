@@ -34,7 +34,7 @@ module.exports = {
           moment: 'moment',
           Cookies: 'js-cookie'
         }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
       ]
     }
     if (isAnalyzer) customConfig.plugins.push(new BundleAnalyzerPlugin())

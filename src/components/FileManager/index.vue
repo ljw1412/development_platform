@@ -67,7 +67,7 @@ export default {
 
     reFindFileList() {
       this.$callApi({
-        api: 'file/',
+        api: 'file/list',
         param: {
           path: this.mPath,
           onlyDir: this.onlyDir

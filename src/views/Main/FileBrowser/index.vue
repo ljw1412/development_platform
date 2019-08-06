@@ -1,5 +1,5 @@
 <template>
-  <div class="file-browser main-content-wrapper">
+  <div class="file-browser main-content-wrapper fill-content-wrapper">
     <file-manager></file-manager>
   </div>
 </template>

@@ -2,6 +2,7 @@
   <div class="create-project">
     <el-form label-position="top"
       status-icon
+      hide-required-asterisk
       :model="project">
       <el-form-item label="来源"
         class="create-project__origin">
@@ -16,21 +17,29 @@
         <el-form-item v-if="isFromGit"
           label="git仓库地址"
           prop="git"
-          :rules="[ { validator: isGitUrl, trigger: 'blur' }]">
+          :rules="[{ validator: isGitUrl, trigger: 'blur' }]">
           <el-input v-model="project.git"
             placeholder="请输入git仓库地址"></el-input>
         </el-form-item>
-        <el-form-item label="项目名称">
+        <el-form-item label="项目名称"
+          prop="name"
+          :rules="[{ required: true, message: '请输入项目名称', trigger: 'blur' }]">
           <el-input v-model="project.name"
             placeholder="请输入项目名称"></el-input>
         </el-form-item>
-        <el-form-item label="项目目标文件夹">
+        <el-form-item label="项目目标文件夹"
+          ref="dirPathInput"
+          prop="dirPath"
+          :rules="[{ validator: isExists, trigger: 'blur' }]">
           <el-input v-model="project.dirPath"
             placeholder="请输入项目目标文件夹">
             <el-button slot="append"
               type="primary"
               @click="isDisplayDrawer = true">浏览</el-button>
           </el-input>
+        </el-form-item>
+        <el-form-item label="项目实际路径">
+          {{finalProjectPath}}
         </el-form-item>
       </template>
     </el-form>
@@ -67,6 +76,16 @@ export default {
   computed: {
     isFromGit() {
       return this.project.origin === 'git'
+    },
+
+    finalProjectPath() {
+      if (!this.project.dirPath || !this.project.name) return ''
+      const path =
+        this.project.dirPath +
+        (this.project.dirPath.endsWith('/')
+          ? this.project.name
+          : '/' + this.project.name)
+      return path
     }
   },
 
@@ -93,6 +112,12 @@ export default {
       return Promise.reject('git 地址格式不正确')
     },
 
+    isExists(rule, path) {
+      if (!path) return Promise.reject('项目目标文件夹路径不能为空')
+      if (path === '/') return Promise.reject('请不要使用根目录作为目标文件夹')
+      return this.reFindDirExists(path)
+    },
+
     reFindValidUrl(url) {
       return this.$callApi({
         api: 'git/checkValid',
@@ -101,6 +126,17 @@ export default {
         valid
           ? Promise.resolve('这是一个有效的仓库')
           : Promise.reject('这不是一个有效的仓库地址')
+      )
+    },
+
+    reFindDirExists(path) {
+      return this.$callApi({
+        api: 'file/exists',
+        param: { path }
+      }).then(isExists =>
+        isExists
+          ? Promise.resolve('存在该文件夹')
+          : Promise.reject(`不存在"${path}"路径`)
       )
     },
 
@@ -115,6 +151,7 @@ export default {
     onDrawerSelectClick() {
       this.project.dirPath = this.selectedPath
       this.isDisplayDrawer = false
+      this.$refs.dirPathInput.clearValidate()
     }
   }
 }

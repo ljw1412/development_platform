@@ -1,12 +1,14 @@
 <template>
-  <base-list-layout class="project-create">
+  <base-list-layout class="project-create"
+    :class="wrapperClasses">
     <template #action>
       <el-steps simple
         :active="activeIndex">
         <el-step v-for="(step,index) of stepList"
           :key="mode+'-'+index"
           :title="step.title"
-          :icon="step.icon"></el-step>
+          :icon="step.icon"
+          @click.native="onStepClick($event,step)"></el-step>
       </el-steps>
     </template>
 
@@ -34,6 +36,12 @@ export default {
   },
 
   computed: {
+    wrapperClasses() {
+      const classes = []
+      if (this.mode) classes.push(`project-create--${this.mode}-mode`)
+      return classes
+    },
+
     stepList() {
       let stepList = [
         {
@@ -60,7 +68,7 @@ export default {
       activeIndex: 1,
       mode: '',
       steps: {
-        new: [
+        create: [
           { title: '新建项目', icon: '', component: CreateProject },
           { title: '完成', icon: '' }
         ],
@@ -69,7 +77,11 @@ export default {
     }
   },
 
-  methods: {},
+  methods: {
+    onStepClick(e, step) {
+      console.log(e, step)
+    }
+  },
 
   created() {
     this.$setPageTitle({ title: '项目管理/创建项目', isBack: true })
@@ -81,5 +93,19 @@ export default {
 @import '@/theme/index.scss';
 .project-create {
   height: 100%;
+  background-color: #fff;
+  transition: background-color 0.5s;
+  &--create-mode {
+    background-color: mix(white, green, 80%);
+  }
+  &--import-mode {
+    background-color: mix(white, orange, 80%);
+  }
+}
+
+.el-step:first-child {
+  /deep/ .el-step__title.is-finish {
+    cursor: pointer;
+  }
 }
 </style>

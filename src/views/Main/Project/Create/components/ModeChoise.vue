@@ -2,7 +2,7 @@
   <div class="mode-choise">
     <el-card class="select-card"
       shadow="hover"
-      @click.native="onModeCardClick('new')">
+      @click.native="onModeCardClick('create')">
       <div class="select-card__title">新建项目</div>
       <div class="select-card__explain">从头开始创建项目</div>
     </el-card>

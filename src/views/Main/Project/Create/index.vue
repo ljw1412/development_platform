@@ -95,12 +95,12 @@ export default {
   height: 100%;
   background-color: #fff;
   transition: background-color 0.5s;
-  &--create-mode {
-    background-color: mix(white, green, 80%);
-  }
-  &--import-mode {
-    background-color: mix(white, orange, 80%);
-  }
+  // &--create-mode {
+  //   background-color: mix(white, green, 80%);
+  // }
+  // &--import-mode {
+  //   background-color: mix(white, orange, 80%);
+  // }
 }
 
 .el-step:first-child {

@@ -39,7 +39,9 @@
           </el-input>
         </el-form-item>
         <el-form-item label="项目实际路径">
-          {{finalProjectPath}}
+          <el-input :value="finalProjectPath"
+            disabled
+            placeholder="自动生成"></el-input>
         </el-form-item>
       </template>
     </el-form>

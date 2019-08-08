@@ -22,6 +22,7 @@
           type="password"
           prefix-icon="el-icon-key"
           placeholder="请输入登录密码"
+          show-password
           @keydown.native.enter="onLoginClick"></el-input>
       </el-form-item>
       <div v-loading="isLoggingIn"

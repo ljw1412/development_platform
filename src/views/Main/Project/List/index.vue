@@ -7,14 +7,14 @@
 
     <template #main>
       <ul class="project-list">
-        <result v-if="!projectList.length"
+        <result v-if="isLoaded && !projectList.length"
           title="您还未创建任何项目"
           imageHeight="300px"
           style="padding-top:100px;"
           :src="require('@/assets/no-data.svg')"></result>
         <li v-for="project of projectList"
           class="project-list__item"
-          :key="project.id"></li>
+          :key="project.id">{{project.name}}</li>
       </ul>
     </template>
   </base-list-layout>
@@ -32,8 +32,29 @@ export default {
 
   data() {
     return {
+      isLoaded: false,
       projectList: []
     }
+  },
+
+  methods: {
+    reFindList() {
+      this.$callApi({
+        api: 'project/list',
+        param: {}
+      })
+        .then(data => {
+          this.isLoaded = true
+          this.projectList = data
+        })
+        .catch(() => {
+          this.isLoaded = true
+        })
+    }
+  },
+
+  created() {
+    this.reFindList()
   }
 }
 </script>

@@ -75,7 +75,7 @@ export default {
   methods: {
     reFindRoleList() {
       this.$callApi({
-        api: 'roles/list'
+        api: 'users/roleslist'
       }).then(data => {
         this.roleList = data
       })

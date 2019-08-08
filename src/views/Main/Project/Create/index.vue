@@ -7,8 +7,7 @@
         <el-step v-for="(step,index) of stepList"
           :key="mode+'-'+index"
           :title="step.title"
-          :icon="step.icon"
-          @click.native="onStepClick($event,step)"></el-step>
+          :icon="step.icon"></el-step>
       </el-steps>
     </template>
 
@@ -77,11 +76,7 @@ export default {
     }
   },
 
-  methods: {
-    onStepClick(e, step) {
-      console.log(e, step)
-    }
-  },
+  methods: {},
 
   created() {
     this.$setPageTitle({ title: '项目管理/创建项目', isBack: true })

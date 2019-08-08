@@ -1,9 +1,10 @@
 <template>
   <div class="create-project">
-    <el-form label-position="top"
+    <el-form :model="project"
+      ref="form"
+      label-position="top"
       status-icon
-      hide-required-asterisk
-      :model="project">
+      hide-required-asterisk>
       <el-form-item label="来源"
         class="create-project__origin">
         <el-radio-group v-model="project.origin"
@@ -22,6 +23,7 @@
             placeholder="请输入git仓库地址"></el-input>
         </el-form-item>
         <el-form-item label="项目名称"
+          ref="projectName"
           prop="name"
           :rules="[{ required: true, message: '请输入项目名称', trigger: 'blur' }]">
           <el-input v-model="project.name"
@@ -43,6 +45,18 @@
             disabled
             placeholder="自动生成"></el-input>
         </el-form-item>
+        <el-form-item label="项目描述(选填)">
+          <el-input v-model="project.description"
+            show-word-limit
+            maxlength="200"
+            type="textarea"
+            rows="5"
+            resize="none"></el-input>
+        </el-form-item>
+        <div class="create-project__actions">
+          <el-button type="primary"
+            @click="onCreateClick">创建</el-button>
+        </div>
       </template>
     </el-form>
     <!-- 文件浏览器 -->
@@ -97,7 +111,8 @@ export default {
         origin: '',
         git: '',
         name: '',
-        dirPath: ''
+        dirPath: '',
+        description: ''
       },
       selectedPath: '',
       isDisplayDrawer: false
@@ -108,6 +123,7 @@ export default {
     isGitUrl(rule, url) {
       const regx = /^(git|https?).*\.git$/
       if (regx.test(url)) {
+        this.$refs.projectName.clearValidate()
         this.project.name = url.substr(url.lastIndexOf('/') + 1).split('.')[0]
         return this.reFindValidUrl(url)
       }
@@ -120,6 +136,7 @@ export default {
       return this.reFindDirExists(path)
     },
 
+    // git 仓库校验是否有效
     reFindValidUrl(url) {
       return this.$callApi({
         api: 'git/checkValid',
@@ -131,6 +148,7 @@ export default {
       )
     },
 
+    // 文件夹校验是否存在
     reFindDirExists(path) {
       return this.$callApi({
         api: 'file/exists',
@@ -140,6 +158,14 @@ export default {
           ? Promise.resolve('存在该文件夹')
           : Promise.reject(`不存在"${path}"路径`)
       )
+    },
+
+    reSaveProject() {
+      this.$callApi({
+        method: 'put',
+        api: 'project/save',
+        param: Object.assign({ path: this.finalProjectPath }, this.project)
+      }).then(data => {})
     },
 
     onOriginChange(e) {
@@ -154,6 +180,13 @@ export default {
       this.project.dirPath = this.selectedPath
       this.isDisplayDrawer = false
       this.$refs.dirPathInput.clearValidate()
+    },
+
+    onCreateClick() {
+      this.$refs.form
+        .validate()
+        .then(this.reSaveProject)
+        .catch(() => {})
     }
   }
 }
@@ -179,6 +212,9 @@ export default {
         }
       }
     }
+  }
+  &__actions {
+    text-align: right;
   }
 }
 

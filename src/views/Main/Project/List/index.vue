@@ -6,22 +6,37 @@
     </template>
 
     <template #main>
-      <ul class="project-list">
-        <result v-if="isLoaded && !projectList.length"
+      <el-table :data="projectList"
+        :row-style="{cursor: 'pointer'}"
+        @row-click="onRowClick">
+        <result v-if="isLoaded"
+          slot="empty"
           title="您还未创建任何项目"
           iconHeight="200px"
-          style="padding-top:40px;"
+          style="padding:40px 0;"
           :icon="require('@/assets/no-data.svg')"></result>
-        <li v-for="project of projectList"
-          class="project-list__item"
-          :key="project.id">{{project.name}}</li>
-      </ul>
+        <el-table-column label="名称"
+          prop="name"></el-table-column>
+        <el-table-column label="源">
+          <div slot-scope="scope"
+            class="project__origin">
+            <el-image v-if="scope.row.origin === 'git'"
+              style="width:22px;height:22px;"
+              :src="require('@/assets/icon-git.svg')"></el-image>
+          </div>
+        </el-table-column>
+        <el-table-column label="状态">
+          <span slot-scope="scope">
+            {{getProjectStateStr(scope.row.state)}}</span>
+        </el-table-column>
+      </el-table>
     </template>
   </base-list-layout>
 </template>
 
 <script>
 import Result from '@/components/Result'
+import { getProjectStateStr } from '../helper'
 
 export default {
   name: 'ProjectList',
@@ -38,6 +53,8 @@ export default {
   },
 
   methods: {
+    getProjectStateStr,
+
     reFindList() {
       this.$callApi({
         api: 'project/list'
@@ -49,6 +66,14 @@ export default {
         .catch(() => {
           this.isLoaded = true
         })
+    },
+
+    onRowClick(row, column) {
+      console.log(row, column)
+      this.$router.push({
+        name: 'ProjectDetails',
+        query: { name: row.name, id: row.id }
+      })
     }
   },
 
@@ -60,7 +85,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
-.project-list {
-  min-height: 300px;
+
+.project__origin {
+  display: flex;
+  align-items: center;
 }
 </style>

@@ -6,9 +6,10 @@
         <i v-if="isIcon"
           :class="icon"
           :style="iconStyle"></i>
-        <div v-else
-          class="image"
-          :style="{ 'background-image': `url(${icon})` }"></div>
+        <el-image v-else
+          fit="contain"
+          :src="icon">
+        </el-image>
       </slot>
     </div>
     <div class="result__title">

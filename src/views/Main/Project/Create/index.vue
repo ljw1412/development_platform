@@ -105,10 +105,4 @@ export default {
   //   background-color: mix(white, orange, 80%);
   // }
 }
-
-.el-step:first-child {
-  /deep/ .el-step__title.is-finish {
-    cursor: pointer;
-  }
-}
 </style>

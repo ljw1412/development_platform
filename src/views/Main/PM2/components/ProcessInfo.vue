@@ -28,7 +28,7 @@
               :key="item.type"
               :content="item.label">
               <i :class="item.icon"
-                @click="onOperationClick(item.type)"></i>
+                @click="onOperationClick(item)"></i>
             </el-tooltip>
           </template>
         </div>
@@ -112,7 +112,6 @@ export default {
         api: 'pm2/action',
         param: { id, type }
       }).then(data => {
-        this.reFindList()
         this.$emit('stateChange')
       })
     },
@@ -122,8 +121,15 @@ export default {
       this.$router.push({ name: 'PM2Details', query: { id: this.pmid } })
     },
 
-    onOperationClick(type) {
-      this.reSaveService(this.pmid, type)
+    onOperationClick(item) {
+      this.$confirm(`确定要 ${item.label} 进程 “${this.name}” 吗？`, {
+        title: '提示',
+        type: 'warning'
+      })
+        .then(() => {
+          this.reSaveService(this.pmid, item.type)
+        })
+        .catch(() => {})
     }
   }
 }
@@ -221,25 +227,30 @@ export default {
     display: none;
   }
   .process {
+    &__body {
+      flex-wrap: wrap;
+    }
+    &__info {
+      width: 33.33%;
+      &:last-child::after {
+        display: block;
+      }
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .process {
     &__header {
       flex-wrap: wrap;
       & > * {
         width: 100%;
       }
-      .header__tags {
-        span {
-          margin-left: 0;
-        }
+      .header__tags span {
+        margin-left: 0;
       }
-    }
-    &__body {
-      flex-wrap: wrap;
     }
     &__info {
       width: 50%;
-      &:last-child::after {
-        display: block;
-      }
     }
   }
 }

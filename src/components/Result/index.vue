@@ -1,10 +1,14 @@
 <template>
   <div class="result">
-    <div class="result__image"
-      :style="{ width: imageWidth, height: imageHeight }">
+    <div class="result__image-wrapper"
+      :style="imageWrapperStyles">
       <slot name="image">
-        <div class="image"
-          :style="{ 'background-image': `url(${src})` }"></div>
+        <i v-if="isIcon"
+          :class="icon"
+          :style="iconStyle"></i>
+        <div v-else
+          class="image"
+          :style="{ 'background-image': `url(${icon})` }"></div>
       </slot>
     </div>
     <div class="result__title">
@@ -21,11 +25,29 @@ export default {
   name: 'Result',
 
   props: {
-    src: String,
+    icon: { type: String, default: '' },
+    iconSize: { type: String, default: '120px' },
+    iconColor: String,
+    iconWidth: { type: String, default: '300px' },
+    iconHeight: { type: String, default: '300px' },
     title: String,
-    subTitle: String,
-    imageWidth: { type: String, default: '400px' },
-    imageHeight: { type: String, default: '400px' }
+    subTitle: String
+  },
+
+  computed: {
+    isIcon() {
+      return !this.icon.includes('/')
+    },
+
+    imageWrapperStyles() {
+      return this.isIcon
+        ? { width: this.iconSize }
+        : { width: this.iconWidth, height: this.iconHeight }
+    },
+
+    iconStyle() {
+      return { 'font-size': this.iconSize, color: this.iconColor }
+    }
   }
 }
 </script>
@@ -34,7 +56,8 @@ export default {
 @import '@/theme/index.scss';
 .result {
   user-select: none;
-  &__image {
+  &__image-wrapper {
+    display: flex;
     margin: 0 auto;
     .image {
       width: 100%;

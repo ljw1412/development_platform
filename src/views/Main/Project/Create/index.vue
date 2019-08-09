@@ -21,17 +21,18 @@
 <script>
 import { mapActions } from 'vuex'
 import ModeChoise from './components/ModeChoise'
-import CreateProject from './components/CreateProject'
+import ProjectCreator from './components/ProjectCreator'
+import ProjectComplete from './components/ProjectComplete'
 export default {
   name: 'ProjectCreate',
 
   provide() {
-    return { project: this }
+    return { creator: this }
   },
 
   components: {
     ModeChoise,
-    CreateProject
+    ProjectCreator
   },
 
   computed: {
@@ -68,10 +69,17 @@ export default {
       mode: '',
       steps: {
         create: [
-          { title: '新建项目', icon: '', component: CreateProject },
-          { title: '完成', icon: '' }
+          {
+            title: '新建项目',
+            icon: 'el-icon-edit',
+            component: ProjectCreator
+          },
+          { title: '完成', icon: '', component: ProjectComplete }
         ],
-        import: [{ title: '导入项目', icon: '' }, { title: '完成', icon: '' }]
+        import: [
+          { title: '导入项目', icon: 'el-icon-edit' },
+          { title: '完成', icon: '', component: ProjectComplete }
+        ]
       }
     }
   },

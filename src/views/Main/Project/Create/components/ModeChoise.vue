@@ -17,14 +17,14 @@
 
 <script>
 export default {
-  name: 'ModeChoise',
+  name: 'ProjectModeChoise',
 
-  inject: ['project'],
+  inject: ['creator'],
 
   methods: {
     onModeCardClick(mode) {
-      this.project.mode = mode
-      this.project.activeIndex = 2
+      this.creator.mode = mode
+      this.creator.activeIndex = 2
     }
   }
 }

@@ -9,9 +9,9 @@
       <ul class="project-list">
         <result v-if="isLoaded && !projectList.length"
           title="您还未创建任何项目"
-          imageHeight="300px"
-          style="padding-top:100px;"
-          :src="require('@/assets/no-data.svg')"></result>
+          iconHeight="200px"
+          style="padding-top:40px;"
+          :icon="require('@/assets/no-data.svg')"></result>
         <li v-for="project of projectList"
           class="project-list__item"
           :key="project.id">{{project.name}}</li>
@@ -40,8 +40,7 @@ export default {
   methods: {
     reFindList() {
       this.$callApi({
-        api: 'project/list',
-        param: {}
+        api: 'project/list'
       })
         .then(data => {
           this.isLoaded = true

@@ -1,12 +1,12 @@
 <template>
-  <div class="create-project">
+  <div class="project-creator">
     <el-form :model="project"
       ref="form"
       label-position="top"
       status-icon
       hide-required-asterisk>
       <el-form-item label="来源"
-        class="create-project__origin">
+        class="project-creator__origin">
         <el-radio-group v-model="project.origin"
           size="medium"
           @change="onOriginChange">
@@ -53,8 +53,9 @@
             rows="5"
             resize="none"></el-input>
         </el-form-item>
-        <div class="create-project__actions">
+        <div class="project-creator__actions">
           <el-button type="primary"
+            :loading="isSaving"
             @click="onCreateClick">创建</el-button>
         </div>
       </template>
@@ -83,11 +84,13 @@
 <script>
 import FileManager from '@/components/FileManager'
 export default {
-  name: 'CreateProject',
+  name: 'ProjectCreator',
 
   components: {
     FileManager
   },
+
+  inject: ['creator'],
 
   computed: {
     isFromGit() {
@@ -115,7 +118,8 @@ export default {
         description: ''
       },
       selectedPath: '',
-      isDisplayDrawer: false
+      isDisplayDrawer: false,
+      isSaving: false
     }
   },
 
@@ -161,11 +165,20 @@ export default {
     },
 
     reSaveProject() {
+      this.isSaving = true
       this.$callApi({
         method: 'put',
         api: 'project/save',
         param: Object.assign({ path: this.finalProjectPath }, this.project)
-      }).then(data => {})
+      })
+        .then(data => {
+          this.isSaving = false
+          this.creator.currentStep.icon = 'el-icon-circle-check'
+          this.creator.activeIndex = 3
+        })
+        .catch(() => {
+          this.isSaving = false
+        })
     },
 
     onOriginChange(e) {
@@ -194,7 +207,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
-.create-project {
+.project-creator {
   max-width: 800px;
   width: 100%;
   padding: 20px 10px;

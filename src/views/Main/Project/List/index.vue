@@ -70,7 +70,7 @@ export default {
 
     onRowClick(row, column) {
       this.$router.push({
-        name: 'ProjectDetails',
+        name: 'projectDetails',
         query: { name: row.name, id: row.id }
       })
     }

@@ -143,7 +143,7 @@ export default {
     // git 仓库校验是否有效
     reFindValidUrl(url) {
       return this.$callApi({
-        api: 'git/checkValid',
+        api: 'project/checkGitValid',
         param: { url }
       }).then(({ valid, out }) =>
         valid

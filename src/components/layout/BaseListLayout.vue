@@ -32,7 +32,6 @@ export default {}
 }
 .main {
   flex-grow: 1;
-  height: 0;
 }
 .footer {
   flex-shrink: 0;

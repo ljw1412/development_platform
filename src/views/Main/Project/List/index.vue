@@ -7,6 +7,7 @@
 
     <template #main>
       <el-table :data="projectList"
+        :show-header="!!projectList.length"
         :row-style="{cursor: 'pointer'}"
         @row-click="onRowClick">
         <result v-if="isLoaded"
@@ -88,5 +89,9 @@ export default {
 .project__origin {
   display: flex;
   align-items: center;
+}
+
+.el-table::before {
+  display: none;
 }
 </style>

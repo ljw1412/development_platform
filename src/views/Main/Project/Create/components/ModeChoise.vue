@@ -33,6 +33,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .mode-choise {
+  @include auto-center-view(1200px);
   margin-top: 40px;
   display: flex;
   align-items: center;

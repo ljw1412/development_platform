@@ -208,10 +208,8 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .project-creator {
-  max-width: 800px;
-  width: 100%;
+  @include auto-center-view(800px);
   padding: 20px 10px;
-  margin: 0 auto;
   box-sizing: border-box;
   &__origin {
     /deep/ .el-radio-group {

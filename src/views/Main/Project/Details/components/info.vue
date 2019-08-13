@@ -50,4 +50,7 @@ export default {
     @include divider;
   }
 }
+.el-form {
+  @include auto-center-view(800px);
+}
 </style>

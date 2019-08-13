@@ -9,3 +9,10 @@
     background-color: $color;
   }
 }
+
+@mixin auto-center-view($-max-width: 1000px) {
+  max-width: $-max-width;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}

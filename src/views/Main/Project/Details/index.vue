@@ -38,6 +38,7 @@
 <script>
 import { getProjectStateStr } from '../helper'
 import ProjectInfo from './components/info'
+import ProjectAdvanced from './components/advanced'
 export default {
   name: 'ProjectDetails',
 
@@ -51,7 +52,8 @@ export default {
       currentTab: 'info',
       tabList: [
         { label: '信息', name: 'info', component: ProjectInfo },
-        { label: '其他', name: 'other' }
+        { label: '其他', name: 'other' },
+        { label: '高级', name: 'advanced', component: ProjectAdvanced }
       ]
     }
   },

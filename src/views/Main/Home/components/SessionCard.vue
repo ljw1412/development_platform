@@ -20,10 +20,13 @@ export default {
   padding: 10px 15px;
   font-size: 16px;
   border: 1px solid $--border-color-lighter;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  transition: 0.3s;
   &__header {
     margin-bottom: 10px;
+  }
+  &:hover {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   }
 }
 </style>

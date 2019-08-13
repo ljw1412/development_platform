@@ -10,18 +10,25 @@
         @click.native="onNavClick(item)">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <ul class="file-manager__file-list">
-      <li v-for="(item,index) of fileList"
-        :key="index"
-        :class="{'isSelected': item.isSelected}"
-        @click="onFileClick(item)"
-        @dblclick="onFileDblclick(item)">
-        <el-image fit="contain"
-          class="file-icon"
-          :src="getFileIcon(item)"></el-image>
-        <span>{{item.name}}</span>
-      </li>
-    </ul>
+    <el-table class="table"
+      height="100%"
+      :empty-text="isLoading?'加载中……':'该文件夹没有任何文件'"
+      :data="fileList"
+      :show-header="false"
+      :highlight-current-row="isSelect"
+      @row-click="onFileClick"
+      @row-dblclick="onFileDblclick">
+      <el-table-column label="名称">
+        <template #default="scope">
+          <div class="table__name">
+            <el-image fit="contain"
+              class="table__file-icon"
+              :src="getFileIcon(scope.row)"></el-image>
+            <span>{{scope.row.name}}</span>
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -50,7 +57,8 @@ export default {
     return {
       mPath: '/',
       selectedPath: '',
-      fileList: []
+      fileList: [],
+      isLoading: false
     }
   },
 
@@ -66,6 +74,7 @@ export default {
     },
 
     reFindFileList() {
+      this.isLoading = true
       this.$callApi({
         api: 'file/list',
         param: {
@@ -77,6 +86,7 @@ export default {
           item.isSelected = false
         })
         this.fileList = data
+        this.isLoading = false
       })
     },
 
@@ -152,35 +162,20 @@ export default {
     }
   }
 
-  &__file-list {
-    flex-grow: 1;
-    height: 100%;
-    overflow-y: auto;
-    li {
-      position: relative;
+  .table {
+    user-select: none;
+    &__name {
       display: flex;
       align-items: center;
-      height: 40px;
+    }
+    &__file-icon {
+      user-select: none;
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+    }
+    /deep/ .el-table__row {
       cursor: pointer;
-      &.isSelected {
-        background-color: rgba($color: $--color-primary, $alpha: 0.3);
-      }
-      &:not(.isSelected):hover {
-        background-color: rgba($color: $--color-primary, $alpha: 0.1);
-      }
-      .file-icon {
-        user-select: none;
-        width: 20px;
-        height: 20px;
-        margin: 0 5px;
-      }
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        border-bottom: 1px solid #ccc;
-      }
     }
   }
 }

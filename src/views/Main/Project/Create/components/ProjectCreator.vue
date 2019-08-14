@@ -149,7 +149,8 @@ export default {
     reFindValidUrl(url) {
       return this.$callApi({
         api: 'project/checkGitValid',
-        param: { url }
+        param: { url },
+        config: { timeout: 5000 }
       }).then(({ valid, out }) =>
         valid
           ? Promise.resolve('这是一个有效的仓库')

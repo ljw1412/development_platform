@@ -96,8 +96,9 @@ export default {
       }).then(data => {
         this.$notify.success({
           title: '消息',
+          dangerouslyUseHTMLString: true,
           message:
-            `${this.project.name}删除成功` +
+            `${this.project.name} 删除成功。<br/>` +
             (this.project.path ? '请手动连接服务器删除项目文件夹' : '')
         })
         this.$router.push({ name: 'project' })

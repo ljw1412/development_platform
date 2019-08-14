@@ -133,7 +133,6 @@ export default {
       const regx = /^(git|https?).*\.git$/
       if (regx.test(url)) {
         this.$refs.projectName.clearValidate()
-        this.project.name = url.substr(url.lastIndexOf('/') + 1).split('.')[0]
         return this.reFindValidUrl(url)
       }
       return Promise.reject('git 地址格式不正确')
@@ -206,6 +205,12 @@ export default {
         .validate()
         .then(this.reSaveProject)
         .catch(() => {})
+    }
+  },
+
+  watch: {
+    'project.git'(url) {
+      this.project.name = url.substr(url.lastIndexOf('/') + 1).split('.')[0]
     }
   }
 }

@@ -13,6 +13,16 @@
         :percentage="cpuPercentage"
         :color="colors"></el-progress>
     </div>
+    <div class="server-state__item">
+      <div>平均负载</div>
+      <ul style="margin-top:20px;text-align:right;">
+        <li v-for="(item,index) of loadAvgList"
+          :key="index">
+          <span>{{item.label}}:</span>
+          <span>{{item.value.toFixed(2)}}</span>
+        </li>
+      </ul>
+    </div>
   </session-card>
 </template>
 
@@ -38,6 +48,13 @@ export default {
 
     cpuCoreCount() {
       return this.cpus ? this.cpus.length : 0
+    },
+
+    loadAvgList() {
+      const labelList = ['1分钟', '5分钟', '15分钟']
+      return this.loadAvg.map((item, index) => {
+        return { label: labelList[index], value: item }
+      })
     }
   },
 
@@ -79,7 +96,8 @@ export default {
 <style lang="scss" scoped>
 .server-state {
   &__item {
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
     text-align: center;
     margin: 0 20px;
   }

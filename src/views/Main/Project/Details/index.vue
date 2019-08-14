@@ -16,6 +16,7 @@
           <el-button v-if="project.origin === 'git'&& project.state === 0"
             type="primary"
             size="mini"
+            :loading="isIniting"
             @click="onInitClick">初始化</el-button>
         </el-col>
       </div>
@@ -27,7 +28,8 @@
           :name="tab.name">
           <component v-if="tab.component"
             :is="tab.component"
-            :project="project"></component>
+            :project="project"
+            @nameChange="reFindProject"></component>
         </el-tab-pane>
       </el-tabs>
     </template>
@@ -54,7 +56,8 @@ export default {
         { label: '信息', name: 'info', component: ProjectInfo },
         { label: '其他', name: 'other' },
         { label: '高级', name: 'advanced', component: ProjectAdvanced }
-      ]
+      ],
+      isIniting: false
     }
   },
 
@@ -70,17 +73,23 @@ export default {
     },
 
     reSaveInit() {
+      this.isIniting = true
       this.$callApi({
         method: 'post',
         api: 'project/init',
         param: { id: this.$route.query.id }
-      }).then(data => {
-        this.$notify.success({
-          title: '消息',
-          message: '初始化成功！'
-        })
-        this.reFindProject()
       })
+        .then(data => {
+          this.$notify.success({
+            title: '消息',
+            message: '初始化成功！'
+          })
+          this.reFindProject()
+          this.isIniting = false
+        })
+        .catch(() => {
+          this.isIniting = false
+        })
     },
 
     onInitClick() {

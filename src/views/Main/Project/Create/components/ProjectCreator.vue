@@ -25,8 +25,13 @@
         <el-form-item label="项目名称"
           ref="projectName"
           prop="name"
-          :rules="[{ required: true, message: '请输入项目名称', trigger: 'blur' }]">
+          :rules="[
+            { required: true, message: '请输入项目名称', trigger: 'blur' },
+            { max:30, message:'名称最多为 30 字', trigger: 'blur' }
+          ]">
           <el-input v-model="project.name"
+            maxlength="30"
+            show-word-limit
             placeholder="请输入项目名称"></el-input>
         </el-form-item>
         <el-form-item label="项目目标文件夹"
@@ -167,7 +172,7 @@ export default {
     reSaveProject() {
       this.isSaving = true
       this.$callApi({
-        method: 'put',
+        method: 'post',
         api: 'project/save',
         param: Object.assign({ path: this.finalProjectPath }, this.project)
       })

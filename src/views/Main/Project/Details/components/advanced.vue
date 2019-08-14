@@ -1,15 +1,19 @@
 <template>
   <div class="advanced">
-    <el-collapse accordion>
+    <el-collapse accordion
+      @change="onCollapseChange">
       <el-collapse-item name="1">
         <div class="advanced__collapse-title"
           slot="title">重命名项目 / Rename project</div>
-        <el-form :model="renameForm"
-          class="rename-form">
-          <el-form-item label="项目名称">
+        <el-form ref="renameForm"
+          class="rename-form"
+          :model="renameForm">
+          <el-form-item label="项目名称"
+            prop="name"
+            :rules="{required: true,trigger: 'blur',message: '请输入新项目名称'}">
             <el-input v-model="renameForm.name"
               placeholder="请输入新的项目名称"
-              maxlength="20"
+              maxlength="30"
               show-word-limit></el-input>
           </el-form-item>
           <el-form-item>
@@ -17,7 +21,8 @@
               <li>修改项目名称不会修改项目最终路径</li>
             </ul>
           </el-form-item>
-          <el-button type="warning">修改</el-button>
+          <el-button type="warning"
+            @click="onRenameClick">修改</el-button>
         </el-form>
       </el-collapse-item>
       <el-collapse-item name="2">
@@ -30,6 +35,7 @@
         </div>
       </el-collapse-item>
     </el-collapse>
+    <!-- 警告弹窗 -->
     <el-dialog title="警告"
       class="delete-dialog"
       :visible.sync="isDisplayDeleteDialog"
@@ -37,10 +43,10 @@
       <p class="text-danger">将要删除 {{project.name}}。删除后将无法恢复！确定执行此操作？</p>
       <p>此操作可能导致数据丢失。为了防止意外行为，我们要求您确认您的意图。<br />请输入 <span class="code">{{project.name}}</span> 以继续，或关闭弹窗来取消。</p>
       <el-input v-model="deleteForm.name"></el-input>
-      <el-button slot="footer"
-        type="danger"
+      <el-button type="danger"
+        slot="footer"
         :disabled="isDisabledDelete"
-        @click="onDeleteClick">删除</el-button>
+        @click="reDelProject">删除</el-button>
     </el-dialog>
   </div>
 </template>
@@ -68,11 +74,58 @@ export default {
   },
 
   methods: {
+    reSaveNewName() {
+      this.$callApi({
+        method: 'post',
+        api: 'project/save',
+        param: { id: this.project.id, name: this.renameForm.name }
+      }).then(data => {
+        this.$notify.success({
+          title: '消息',
+          message: '修改成功'
+        })
+        this.$emit('nameChange')
+      })
+    },
+
+    reDelProject() {
+      this.$callApi({
+        method: 'post',
+        api: 'project/delete',
+        param: { id: this.project.id }
+      }).then(data => {
+        this.$notify.success({
+          title: '消息',
+          message:
+            `${this.project.name}删除成功` +
+            (this.project.path ? '请手动连接服务器删除项目文件夹' : '')
+        })
+        this.$router.push({ name: 'project' })
+      })
+    },
+
     onDeleteDialogOpen() {
       this.deleteForm.name = ''
     },
 
-    onDeleteClick() {}
+    onCollapseChange() {
+      this.$refs.renameForm.clearValidate()
+    },
+
+    onRenameClick() {
+      this.$refs.renameForm
+        .validate()
+        .then(this.reSaveNewName)
+        .catch(() => {})
+    }
+  },
+
+  watch: {
+    project(val) {
+      if (val.name) {
+        this.renameForm.name = this.project.name
+      }
+    }
   }
 }
 </script>
@@ -92,10 +145,8 @@ export default {
   padding: 0 10px;
 }
 
-.delete-dialog {
-  p {
-    margin-bottom: 20px;
-  }
+.delete-dialog p {
+  margin-bottom: 20px;
 }
 .text-danger {
   color: $--color-danger;

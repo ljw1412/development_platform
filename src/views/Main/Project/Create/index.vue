@@ -12,7 +12,7 @@
     </template>
 
     <template #main>
-      <component :is="currentComponent"></component>
+      <component :is="currentComponent" :id="id"></component>
     </template>
 
   </base-list-layout>
@@ -66,6 +66,8 @@ export default {
   data() {
     return {
       activeIndex: 1,
+      // 保存成功后返回的 id
+      id: '',
       mode: '',
       steps: {
         create: [

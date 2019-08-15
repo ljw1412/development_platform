@@ -178,6 +178,7 @@ export default {
       })
         .then(data => {
           this.isSaving = false
+          this.creator.id = data.id
           this.creator.currentStep.icon = 'el-icon-circle-check'
           this.creator.activeIndex = 3
         })

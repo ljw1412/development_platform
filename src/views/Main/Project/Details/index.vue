@@ -99,7 +99,7 @@ export default {
 
   mounted() {
     this.$setPageTitle({
-      title: `项目管理/${this.$route.query.name}`,
+      title: `项目管理/项目详情`,
       isBack: true
     })
     this.reFindProject()

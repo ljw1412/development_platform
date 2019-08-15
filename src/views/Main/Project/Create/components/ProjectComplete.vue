@@ -4,8 +4,8 @@
       icon="el-icon-circle-check"
       icon-color="#67C23A">
       <template #subTitle>
-        <span class="complete__back"
-          @click="onBackListClick">返回列表</span>
+        <span class="complete__redirection"
+          @click="onRedirectionClick">{{id?'进入项目':'返回列表'}}</span>
       </template>
     </result>
   </div>
@@ -15,9 +15,18 @@
 export default {
   name: 'ProjectComplete',
 
+  props: { id: [String, Number] },
+
   methods: {
-    onBackListClick() {
-      this.$router.push({ name: 'project' })
+    onRedirectionClick() {
+      if (this.id) {
+        this.$router.replace({
+          name: 'projectDetails',
+          query: { id: this.id }
+        })
+      } else {
+        this.$router.replace({ name: 'project' })
+      }
     }
   }
 }
@@ -27,7 +36,7 @@ export default {
 @import '@/theme/index.scss';
 .complete {
   margin-top: 40px;
-  &__back {
+  &__redirection {
     cursor: pointer;
     &:hover {
       color: $--color-success;

@@ -1,13 +1,14 @@
 <template>
   <div ref="wrapper"
     class="scrollbar-view-wrapper"
-    @mousewheel="onMousewheel">
+    @mousewheel="onMousewheel"
+    @touchstart=" handleTouchstart">
     <div ref="content"
       class="scrollbar-view"
       :style="viewStyles">
       <slot></slot>
     </div>
-    <div v-if="isThumbShow.y"
+    <div v-if="!hiddenBar && isThumbShow.y"
       ref="barY"
       class="scrollbar scrollbar--vertical"
       :class="{'scrollbar--drag':thumb.direction==='y',
@@ -18,7 +19,7 @@
         :style="thumbYStyles"
         @mousedown.stop="handleThumbDragStart($event,'y')"></div>
     </div>
-    <div v-if="isThumbShow.x"
+    <div v-if="!hiddenBar && isThumbShow.x"
       ref="barX"
       class="scrollbar scrollbar--horizontal"
       :class="{'scrollbar--drag':thumb.direction==='x',
@@ -48,7 +49,7 @@ export default {
     // 内容的样式
     contentStyle: { type: [Object, String], default: () => ({}) },
     // 滚动条轨道颜色
-    barColor: { type: String, default: 'transparent' },
+    barColor: String,
     // 滚动条滑块颜色
     thumbColor: String,
     // 垂直导航栏距离右边的距离
@@ -58,7 +59,9 @@ export default {
     // 滚动条宽度
     barWidth: { type: Number, default: 6 },
     // 圆边模式
-    round: Boolean
+    round: Boolean,
+    // 隐藏滚动条
+    hiddenBar: Boolean
   },
 
   computed: {
@@ -214,7 +217,32 @@ export default {
     onMousewheel(e) {
       this.scroll('x', e.deltaX)
       this.scroll('y', e.deltaY)
-      return false
+    },
+
+    // 触摸事件开始
+    handleTouchstart(e) {
+      if (!e.touches || e.touches.length > 1) return
+      this.thumb.y = e.touches[0].clientY
+      this.thumb.x = e.touches[0].clientX
+      on(window, 'touchmove', this.handleTouchmove)
+      on(window, 'touchend', this.handleTouchend)
+    },
+
+    // 触摸事件移动
+    handleTouchmove(e) {
+      if (!e.touches || e.touches.length > 1) return
+      const deltaY = this.thumb.y - e.touches[0].clientY
+      this.scroll('y', deltaY)
+      this.thumb.y = e.touches[0].clientY
+      const deltaX = this.thumb.x - e.touches[0].clientX
+      this.scroll('x', deltaX)
+      this.thumb.x = e.touches[0].clientX
+    },
+
+    // 触摸事件结束
+    handleTouchend(e) {
+      off(window, 'touchmove', this.handleTouchmove)
+      off(window, 'touchend', this.handleTouchend)
     }
   },
 

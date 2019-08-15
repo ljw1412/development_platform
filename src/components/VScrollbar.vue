@@ -11,8 +11,10 @@
     <div v-if="!hiddenBar && isThumbShow.y"
       ref="barY"
       class="scrollbar scrollbar--vertical"
-      :class="{'scrollbar--drag':thumb.direction==='y',
-        'scrollbar--round':round}"
+      :class="{
+        'scrollbar--drag': ['y','xy'].includes(thumb.direction),
+        'scrollbar--round':round
+      }"
       :style="scrollbarYStyles">
       <div ref="thumbY"
         class="scrollbar__thumb"
@@ -22,8 +24,10 @@
     <div v-if="!hiddenBar && isThumbShow.x"
       ref="barX"
       class="scrollbar scrollbar--horizontal"
-      :class="{'scrollbar--drag':thumb.direction==='x',
-        'scrollbar--round':round}"
+      :class="{
+        'scrollbar--drag': ['x','xy'].includes(thumb.direction),
+        'scrollbar--round':round
+      }"
       :style="scrollbarXStyles">
       <div ref="thumbX"
         class="scrollbar__thumb"
@@ -222,6 +226,7 @@ export default {
     // 触摸事件开始
     handleTouchstart(e) {
       if (!e.touches || e.touches.length > 1) return
+      this.thumb.direction = 'xy'
       this.thumb.y = e.touches[0].clientY
       this.thumb.x = e.touches[0].clientX
       on(window, 'touchmove', this.handleTouchmove)
@@ -241,6 +246,7 @@ export default {
 
     // 触摸事件结束
     handleTouchend(e) {
+      this.thumb.direction = ''
       off(window, 'touchmove', this.handleTouchmove)
       off(window, 'touchend', this.handleTouchend)
     }

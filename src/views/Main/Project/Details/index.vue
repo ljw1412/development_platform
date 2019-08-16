@@ -42,6 +42,7 @@ import { getProjectStateStr } from '../helper'
 import ProjectInfo from './components/info'
 import ProjectAdvanced from './components/advanced'
 import ProjectPublish from './components/publish'
+import ProjectTimeline from './components/timeline'
 export default {
   name: 'ProjectDetails',
 
@@ -52,7 +53,7 @@ export default {
       tabList: [
         { label: '信息', name: 'info', component: ProjectInfo },
         { label: '发布', name: 'publish', component: ProjectPublish },
-        { label: '时间轴', name: 'timeline' },
+        { label: '时间轴', name: 'timeline', component: ProjectTimeline },
         { label: '其他', name: 'other' },
         { label: '高级', name: 'advanced', component: ProjectAdvanced }
       ],

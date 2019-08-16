@@ -39,8 +39,10 @@ export default {
     }
   },
 
-  created() {
-    this.reFindTimelineList()
+  watch: {
+    'project.id'() {
+      this.reFindTimelineList()
+    }
   }
 }
 </script>
@@ -49,6 +51,6 @@ export default {
 @import '@/theme/index.scss';
 .timeline {
   @include auto-center-view(1000px);
-  padding-top: 20px;
+  padding: 20px 15px 0 15px;
 }
 </style>

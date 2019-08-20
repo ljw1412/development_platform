@@ -6,6 +6,8 @@
       <el-form-item v-for="info of infoList"
         :key="info.key"
         :label="info.label">{{info.value}}</el-form-item>
+      <el-form-item v-if="project.origin === 'git'"
+        label="当前分支">{{project.status.current}}</el-form-item>
     </el-form>
   </div>
 </template>
@@ -43,6 +45,7 @@ export default {
   &__description {
     position: relative;
     margin: 0 25px;
+    padding: 0 10px;
     margin-bottom: 15px;
     padding-bottom: 15px;
     font-size: 12px;

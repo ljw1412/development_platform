@@ -11,9 +11,8 @@
       </el-steps>
     </template>
 
-    <template #main>
-      <component :is="currentComponent" :id="id"></component>
-    </template>
+    <component :is="currentComponent"
+      :id="id"></component>
 
   </base-list-layout>
 </template>
@@ -28,11 +27,6 @@ export default {
 
   provide() {
     return { creator: this }
-  },
-
-  components: {
-    ModeChoise,
-    ProjectCreator
   },
 
   computed: {

@@ -5,33 +5,31 @@
         @click="$router.push({name:'projectCreate'})">创建项目</el-button>
     </template>
 
-    <template #main>
-      <el-table :data="projectList"
-        :show-header="!!projectList.length"
-        :row-style="{cursor: 'pointer'}"
-        @row-click="onRowClick">
-        <result v-if="isLoaded"
-          slot="empty"
-          title="您还未创建任何项目"
-          iconHeight="200px"
-          style="padding:40px 0;"
-          :icon="require('@/assets/no-data.svg')"></result>
-        <el-table-column label="名称"
-          prop="name"></el-table-column>
-        <el-table-column label="源">
-          <div slot-scope="scope"
-            class="project__origin">
-            <el-image v-if="scope.row.origin === 'git'"
-              style="width:22px;height:22px;"
-              :src="require('@/assets/icon-git.svg')"></el-image>
-          </div>
-        </el-table-column>
-        <el-table-column label="状态">
-          <span slot-scope="scope">
-            {{getProjectStateStr(scope.row.state)}}</span>
-        </el-table-column>
-      </el-table>
-    </template>
+    <el-table :data="projectList"
+      :show-header="!!projectList.length"
+      :row-style="{cursor: 'pointer'}"
+      @row-click="onRowClick">
+      <result v-if="isLoaded"
+        slot="empty"
+        title="您还未创建任何项目"
+        iconHeight="200px"
+        style="padding:40px 0;"
+        :icon="require('@/assets/no-data.svg')"></result>
+      <el-table-column label="名称"
+        prop="name"></el-table-column>
+      <el-table-column label="源">
+        <div slot-scope="scope"
+          class="project__origin">
+          <el-image v-if="scope.row.origin === 'git'"
+            style="width:22px;height:22px;"
+            :src="require('@/assets/icon-git.svg')"></el-image>
+        </div>
+      </el-table-column>
+      <el-table-column label="状态">
+        <span slot-scope="scope">
+          {{getProjectStateStr(scope.row.state)}}</span>
+      </el-table-column>
+    </el-table>
   </base-list-layout>
 </template>
 

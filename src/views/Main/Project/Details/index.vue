@@ -26,14 +26,13 @@
           :key="tab.name"
           :label="tab.label"
           :name="tab.name">
-          <component v-if="tab.component"
-            :is="tab.component"
-            :project="project"
-            @nameChange="reFindProject"></component>
         </el-tab-pane>
       </el-tabs>
     </template>
 
+    <component :is="currentComponent"
+      :project="project"
+      @nameChange="reFindProject"></component>
   </base-list-layout>
 </template>
 
@@ -58,6 +57,14 @@ export default {
         { label: '高级', name: 'advanced', component: ProjectAdvanced }
       ],
       isIniting: false
+    }
+  },
+
+  computed: {
+    currentComponent() {
+      const tab = this.tabList.find(item => item.name === this.currentTab)
+      if (!tab) return null
+      return tab.component || null
     }
   },
 

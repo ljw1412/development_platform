@@ -4,9 +4,9 @@
       class="action">
       <slot name="action"></slot>
     </div>
-    <div v-if="$slots.main"
+    <div v-if="$slots.default"
       class="main">
-      <slot name="main"></slot>
+      <slot></slot>
     </div>
     <div v-if="$slots.footer"
       class="footer">

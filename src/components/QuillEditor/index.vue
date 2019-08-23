@@ -5,7 +5,8 @@
     <!-- Create the editor container -->
     <div class="quill-editor"
       ref="editor"
-      :id="editorId"></div>
+      :id="editorId"
+      @click.stop="onEditorClick"></div>
   </div>
 </template>
 
@@ -51,6 +52,10 @@ export default {
   },
 
   methods: {
+    onEditorClick() {
+      this.editor.focus()
+    },
+
     setDisabled(isDabled) {
       this.editor.enable(!isDabled)
     },
@@ -92,6 +97,17 @@ export default {
 
   mounted() {
     this.initQuill()
+  },
+
+  beforeDestroy() {
+    this.editor = null
+  },
+
+  watch: {
+    value(val) {
+      if (val === this.getContent()) return
+      this.setContent(val)
+    }
   }
 }
 </script>

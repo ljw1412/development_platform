@@ -3,7 +3,7 @@
     <el-button type="danger"
       @click="onResetClick">重新生成菜单</el-button>
     <quill-editor v-model="html"></quill-editor>
-    <md-editor v-model="html"
+    <md-editor v-model="markdown"
       no-border></md-editor>
   </div>
 </template>
@@ -21,7 +21,8 @@ export default {
 
   data() {
     return {
-      html: ''
+      html: '',
+      markdown: ''
     }
   },
 

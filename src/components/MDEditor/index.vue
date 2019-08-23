@@ -50,7 +50,6 @@ export default {
         const content = this.editor.value()
         this.$emit('input', content)
         this.$emit('change', content)
-        console.log(content)
       })
     },
 
@@ -63,6 +62,17 @@ export default {
 
   mounted() {
     this.initSimpleMDE()
+  },
+
+  beforeDestroy() {
+    this.editor = null
+  },
+
+  watch: {
+    value(val) {
+      if (val === this.editor.value()) return
+      this.editor.value(val)
+    }
   }
 }
 </script>

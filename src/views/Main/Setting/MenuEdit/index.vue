@@ -2,12 +2,28 @@
   <div class="menu-edit">
     <el-button type="danger"
       @click="onResetClick">重新生成菜单</el-button>
+    <quill-editor v-model="html"></quill-editor>
+    <md-editor v-model="html"
+      no-border></md-editor>
   </div>
 </template>
 
 <script>
+import QuillEditor from '@/components/QuillEditor'
+import mdEditor from '@/components/MDEditor'
 export default {
   name: 'MenuEdit',
+
+  components: {
+    QuillEditor,
+    mdEditor
+  },
+
+  data() {
+    return {
+      html: ''
+    }
+  },
 
   methods: {
     reResetMenu() {

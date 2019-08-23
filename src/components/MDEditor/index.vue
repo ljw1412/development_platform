@@ -1,5 +1,6 @@
 <template>
-  <div class="md-editor-wrapper">
+  <div class="md-editor-wrapper"
+    :class="{'no-border': noBorder}">
     <textarea ref="editor"
       class="md-editor"></textarea>
   </div>
@@ -17,7 +18,8 @@ export default {
     value: String,
     // 是否开启代码高亮
     highlight: { type: Boolean, default: false },
-    configs: { type: Object, default: () => ({}) }
+    configs: { type: Object, default: () => ({}) },
+    noBorder: Boolean
   },
 
   data() {
@@ -66,4 +68,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.no-border {
+  /deep/ {
+    .editor-toolbar {
+      border: none;
+      border-bottom: 1px solid #e8eaec;
+    }
+    .CodeMirror {
+      border: 0;
+    }
+  }
+}
 </style>

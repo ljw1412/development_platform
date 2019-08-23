@@ -3,7 +3,7 @@
     :class="{'no-border': noBorder}"
     :style="[editorStyles]">
     <!-- Create the editor container -->
-    <div class="quill-editor i-quill-no-border"
+    <div class="quill-editor"
       ref="editor"
       :id="editorId"></div>
   </div>

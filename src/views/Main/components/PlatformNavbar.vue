@@ -120,7 +120,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 80;
+  z-index: 3;
   height: 100%;
   &:not(.el-menu--collapse) {
     width: 200px;

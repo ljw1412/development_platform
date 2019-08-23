@@ -48,7 +48,7 @@ header {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 90;
+  z-index: 7;
   display: flex;
   height: 50px;
   color: #fff;

@@ -5,7 +5,7 @@
       icon-color="#606266">
       <template #subTitle>
         <el-link type="primary"
-          @click="$router.push({name:'projectPublishCreate',query:$route.query})">
+          @click="$router.push({name:'projectPublishEdit',query:$route.query})">
           <span>立刻创建</span>
           <i class="el-icon-right"></i>
         </el-link>

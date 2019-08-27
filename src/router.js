@@ -17,6 +17,8 @@ const ProjectList = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Project/List')
 const ProjectCreate = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Project/Create')
+const ProjectPublishEdit = () =>
+  import(/* webpackChunkName: "main" */ './views/Main/Project/Edit/Publish')
 const ProjectDetails = () =>
   import(/* webpackChunkName: "main" */ './views/Main/Project/Details')
 const PM2 = () => import(/* webpackChunkName: "main" */ './views/Main/PM2')
@@ -85,6 +87,11 @@ export default new Router({
           path: 'project/create',
           name: 'projectCreate',
           component: ProjectCreate
+        },
+        {
+          path: 'project/edit-publish',
+          name: 'projectPublishEdit',
+          component: ProjectPublishEdit
         },
         {
           path: 'project/details',

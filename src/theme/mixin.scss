@@ -10,9 +10,10 @@
   }
 }
 
-@mixin auto-center-view($-max-width: 1000px) {
+@mixin auto-center-view($-max-width: 992px) {
   max-width: $-max-width;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
 }

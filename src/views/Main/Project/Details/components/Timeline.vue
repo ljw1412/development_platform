@@ -59,9 +59,8 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .timeline {
-  box-sizing: border-box;
-  @include auto-center-view(1000px);
-  padding: 20px 15px 0 15px;
+  @include auto-center-view();
+  padding: 20px 20px 0 20px;
   &__time-and-user {
     margin-bottom: 8px;
     padding-top: 4px;

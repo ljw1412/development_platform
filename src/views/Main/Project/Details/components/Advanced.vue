@@ -138,8 +138,8 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .advanced {
-  padding: 0 10px;
-  @include auto-center-view(800px);
+  padding: 0 20px;
+  @include auto-center-view();
   &__collapse-title {
     font-size: 16px;
     font-weight: 600;

@@ -220,9 +220,8 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .project-creator {
-  @include auto-center-view(800px);
+  @include auto-center-view();
   padding: 20px 10px;
-  box-sizing: border-box;
   &__origin {
     /deep/ .el-radio-group {
       display: flex;

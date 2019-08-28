@@ -120,10 +120,9 @@ export default {
 <style lang="scss" scoped>
 @import '@/theme/index.scss';
 .publish {
-  box-sizing: border-box;
-  padding: 0 10px;
+  padding: 0 20px;
   min-height: 200px;
-  @include auto-center-view(1000px);
+  @include auto-center-view();
   &__action {
     position: relative;
     display: flex;

@@ -55,6 +55,6 @@ export default {
   }
 }
 .el-form {
-  @include auto-center-view(800px);
+  @include auto-center-view();
 }
 </style>

@@ -30,7 +30,8 @@
       </el-tabs>
     </template>
 
-    <component :is="currentComponent"
+    <component v-if="isLoaded"
+      :is="currentComponent"
       :project="project"
       @nameChange="reFindProject"></component>
   </base-list-layout>
@@ -56,7 +57,8 @@ export default {
         { label: '其他', name: 'other' },
         { label: '高级', name: 'advanced', component: ProjectAdvanced }
       ],
-      isIniting: false
+      isIniting: false,
+      isLoaded: false
     }
   },
 
@@ -83,6 +85,7 @@ export default {
       }).then(data => {
         data.stateStr = getProjectStateStr(data.state)
         this.project = data
+        this.isLoaded = true
       })
     },
 

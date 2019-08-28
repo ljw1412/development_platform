@@ -17,8 +17,10 @@ new Vue({
 }).$mount('#app')
 
 router.beforeResolve((to, from, next) => {
-  store.dispatch('user/syncUser')
-  store.dispatch('layout/syncLayout', to.name)
+  if (to.name !== from.name) {
+    store.dispatch('user/syncUser')
+    store.dispatch('layout/syncLayout', to.name)
+  }
   next()
 })
 

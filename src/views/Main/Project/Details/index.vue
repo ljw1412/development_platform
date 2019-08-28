@@ -38,10 +38,10 @@
 
 <script>
 import { getProjectStateStr } from '../helper'
-import ProjectInfo from './components/info'
-import ProjectAdvanced from './components/advanced'
-import ProjectPublish from './components/publish'
-import ProjectTimeline from './components/timeline'
+import ProjectInfo from './components/Info'
+import ProjectAdvanced from './components/Advanced'
+import ProjectPublish from './components/Publish'
+import ProjectTimeline from './components/Timeline'
 export default {
   name: 'ProjectDetails',
 
@@ -69,6 +69,13 @@ export default {
   },
 
   methods: {
+    updateQuery(query) {
+      this.$router.replace({
+        name: this.$route.name,
+        query
+      })
+    },
+
     reFindProject() {
       this.$callApi({
         api: `project/details`,
@@ -104,12 +111,25 @@ export default {
     }
   },
 
+  created() {
+    const type = this.$route.query.type
+    if (type && this.tabList.map(item => item.name).includes(type)) {
+      this.currentTab = type
+    }
+  },
+
   mounted() {
     this.$setPageTitle({
       title: `项目管理/项目详情`,
       isBack: true
     })
     this.reFindProject()
+  },
+
+  watch: {
+    currentTab(val) {
+      this.updateQuery({ ...this.$route.query, type: val })
+    }
   }
 }
 </script>

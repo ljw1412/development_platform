@@ -11,7 +11,7 @@
 <script>
 import PlatformHeader from './components/PlatformHeader'
 import PlatformNavbar from './components/PlatformNavbar'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Main',
 

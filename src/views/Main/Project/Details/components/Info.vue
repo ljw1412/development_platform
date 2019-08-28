@@ -1,3 +1,4 @@
+
 <template>
   <div class="info">
     <div v-if="project.description"

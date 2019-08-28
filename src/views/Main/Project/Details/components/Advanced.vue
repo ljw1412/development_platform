@@ -121,6 +121,10 @@ export default {
     }
   },
 
+  created() {
+    this.renameForm.name = this.project.name
+  },
+
   watch: {
     project(val) {
       if (val.name) {

@@ -9,7 +9,7 @@
           <span>{{item.user.nickname || item.user.username}}</span>
         </div>
         <h3>{{item.title}}</h3>
-        <p>{{item.log}}</p>
+        <p class="timeline__log">{{item.log}}</p>
       </el-timeline-item>
     </el-timeline>
   </div>
@@ -68,6 +68,9 @@ export default {
     color: #909399;
     line-height: 1;
     font-size: 13px;
+  }
+  &__log {
+    word-break: break-all;
   }
 }
 </style>

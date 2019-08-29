@@ -7,6 +7,17 @@
   height: 100%;
 }
 
+// 动画过渡效果
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// 覆盖 element 样式
 .el-notification {
   word-break: break-all;
 }

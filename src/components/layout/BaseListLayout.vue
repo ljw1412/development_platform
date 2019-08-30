@@ -25,15 +25,18 @@ export default {}
   flex-direction: column;
 }
 .action {
+  position: relative;
   flex-shrink: 0;
   .el-input {
     width: 200px;
   }
 }
 .main {
+  position: relative;
   flex-grow: 1;
 }
 .footer {
+  position: relative;
   flex-shrink: 0;
 }
 </style>

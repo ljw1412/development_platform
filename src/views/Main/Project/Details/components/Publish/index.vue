@@ -134,7 +134,6 @@ export default {
     },
 
     onEditFlowClick(item) {
-      console.log(item)
       this.currentFlow = item
       this.isDisplayEdit = true
     },

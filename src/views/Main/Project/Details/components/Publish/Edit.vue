@@ -17,17 +17,7 @@
         </el-tooltip>
       </div>
       <div class="pubish-edit__body">
-        <template v-for="(node,index) of nodeList">
-          <div :key="index"
-            style="text-align:center;">
-            <el-tooltip effect="dark"
-              placement="top"
-              :content="node.name+':'+node.code">
-              <el-tag class="node"
-                size="large">{{node.name}}</el-tag>
-            </el-tooltip>
-          </div>
-        </template>
+        <node-editor :node-list="nodeList"></node-editor>
       </div>
       <div slot="footer"
         style="text-align:right;">
@@ -67,8 +57,13 @@
 
 <script>
 import FlowNode from './FlowNode.js'
+import NodeEditor from './NodeEditor'
 export default {
   name: 'ProjectPublishEdit',
+
+  components: {
+    NodeEditor
+  },
 
   props: {
     visible: { type: Boolean, default: false },
@@ -156,12 +151,5 @@ export default {
     overflow: auto;
     height: 100%;
   }
-}
-.node {
-  width: 100px;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 </style>

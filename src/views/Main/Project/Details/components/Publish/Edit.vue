@@ -18,7 +18,8 @@
       </div>
       <div class="pubish-edit__body">
         <template v-for="(node,index) of nodeList">
-          <div :key="index" style="text-align:center;">
+          <div :key="index"
+            style="text-align:center;">
             <el-tooltip effect="dark"
               placement="top"
               :content="node.name+':'+node.code">
@@ -52,7 +53,9 @@
         <el-form-item label="节点指令"
           prop="code"
           :rules="{ required: true, message: '节点指令不能为空'}">
-          <el-input v-model="node.code"></el-input>
+          <el-input v-model="node.code"
+            type="textarea"
+            :autosize="{ minRows: 5, maxRows: 10}"></el-input>
         </el-form-item>
       </el-form>
       <el-button slot="footer"
@@ -145,11 +148,11 @@ export default {
     }
   }
 
-  /deep/ .main{
+  /deep/ .main {
     height: 0;
   }
 
-  &__body{
+  &__body {
     overflow: auto;
     height: 100%;
   }
